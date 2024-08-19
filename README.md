@@ -27,4 +27,4 @@ int main(int argc, char **argv, char **envp)
 }
 ```
 This will be used to make a prompt, waiting for commands.\
-For multiple lines, we will put it in  an infinite loop.\
+For multiple lines, we will put it in  an infinite loop.
