@@ -53,7 +53,7 @@ int main(int argc, char **argv, char **envp)
 		}
 }
 ```
-Now, multiple inputs can be given and using up/down arrow, previous commands can be seen. Library header readline/history.h needs to be included for compiling.\
+Now, multiple inputs can be given and using up/down arrow, previous commands can be seen. Library header readline/history.h needs to be included for compiling.
 
 **3. Implement Exit**
 ``` c
