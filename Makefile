@@ -6,7 +6,7 @@
 #    By: rkaras <rkaras@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/08/19 14:03:56 by rkaras        ########   odam.nl          #
+#    Updated: 2024/08/19 16:39:19 by rkaras        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -lreadline
 
 SOURCE = main.c \
-
+			parsing/env_parser.c \
 
 OBJECTS = $(SOURCE:%.c=%.o)
 
