@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/14 18:02:58 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/19 14:40:27 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 # include <readline/history.h>
 # include <stdbool.h>
 
+typedef struct s_envls
+{
+	char			*keyword;
+	char			*info;
+	struct s_envls	*next;
+}					t_envls;
 
+typedef struct s_data
+{
+	char	*cmd_line;
+	char	**cmd_table;
+	char	**path;
+	char	**envp;
+	t_envls	*env;
+}			t_data;
 
 #endif
