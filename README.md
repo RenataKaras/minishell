@@ -25,3 +25,6 @@ int main(int argc, char **argv, char **envp)
 		free(input);
 	}
 }
+```
+This will be used to make a prompt, waiting for commands.\
+For multiple lines, we will put it in  an infinite loop.\
