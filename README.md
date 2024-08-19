@@ -55,31 +55,3 @@ int main(int argc, char **argv, char **envp)
 ```
 Now, multiple inputs can be given and using up/down arrow, previous commands can be seen. Library header readline/history.h needs to be included for compiling.
 
-**3. Implement Exit**
-``` c
-#include <readline/readline.h>
-#include <stdlib.h>
-#include <readline/history.h>
-#include "libft/libft.h"
-
-int main(int argc, char **argv, char **envp)
-{
-	char *input;
-	
-		while (1)
-		{
-			input = readline("minishell:");
-			if (input != NULL)
-			{
-				add_history(input);
-				if (ft_strncmp(input, "exit", 4) == 0)
-				{
-					free(input);
-					break ;
-				}
-				free(input);
-			}	
-		}
-}
-```
-
