@@ -27,4 +27,30 @@ int main(int argc, char **argv, char **envp)
 }
 ```
 This will be used to make a prompt, waiting for commands.\
-For multiple lines, we will put it in  an infinite loop.
+For multiple lines, it needs to be inside an infinite loop.
+**2. addhistory**
+```
+void add_history(const char *line)
+```
+``` c
+#include <readline/readline.h>
+#include <stdlib.h>
+#include <readline/history.h>
+
+
+int main(int argc, char **argv, char **envp)
+{
+	char *input;
+	
+		while (1)
+		{
+			input = readline("minishell:");
+			if (input != NULL)
+			{
+				add_history(input);
+				free(input);
+			}	
+		}
+}
+```
+Now, multiple inputs can be given and using up/down arrow, previous commands can be seen. Library header readline/history.h needs to be included for compiling
