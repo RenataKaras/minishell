@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/19 16:42:20 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/20 12:19:43 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,8 @@ typedef struct s_data
 
 //parsing
 t_envls	*copy_env(char **env);
+
+//error handling
+void	error_msg(char *msg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/19 15:57:31 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/19 16:39:56 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/20 12:20:48 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static t_envls	*new_node(char *env)
 
 	envls = malloc(sizeof(t_envls));
 	if (!envls)
-		return (NULL);//error message
+		return (error_msg("Issue with creating a node"), NULL);
 	i = 0;
 	while (env[i] != '=' && env[i])
 		i++;
 	envls->keyword = ft_calloc(sizeof(char), i + 2);
 	if (!envls->keyword)
-		return (free(envls), NULL);//error message & free
+		return (free(envls), NULL);
 	ft_strlcpy(envls->keyword, env, (i + 2));
 	temp = ft_strtrim(env, envls->keyword);
 	envls->info = ft_strdup(temp);
