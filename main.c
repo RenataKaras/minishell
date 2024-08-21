@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/20 12:22:33 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/21 14:20:38 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	maintain_prompt(t_data data)
 		data.cmd_line = readline("minishell> ");
 		add_history(data.cmd_line);
 		input_checker(data.cmd_line);
+		cmd_parser(&data);
 	}
 }
 
