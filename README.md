@@ -28,6 +28,7 @@ int main(int argc, char **argv, char **envp)
 ```
 This will be used to make a prompt, waiting for commands.\
 For multiple lines, it needs to be inside an infinite loop.
+
 **2. addhistory**
 ```
 void add_history(const char *line)
@@ -54,4 +55,7 @@ int main(int argc, char **argv, char **envp)
 }
 ```
 Now, multiple inputs can be given and using up/down arrow, previous commands can be seen. Library header readline/history.h needs to be included for compiling.
+
+3. Copy the envp so that we dont mess up with the actual envp
+4. Make custom env, unset and export function
 

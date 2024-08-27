@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_env.c                                           :+:    :+:            */
+/*   execute_builtin.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/19 18:37:20 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/08/21 17:18:22 by rshaheen      ########   odam.nl         */
+/*   Created: 2024/08/26 18:37:27 by rshaheen      #+#    #+#                 */
+/*   Updated: 2024/08/27 16:00:59 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_data *data, char **command, int fd)
+int	ft_exec_builtin(char **command)
 {
-	t_envls	*head;
-
-	if (command[2] != NULL)
-	{
-		write(2, "env: ", 5);
-		write(2, command[2], ft_strlen(command[2]));
-		write(2, ": no such file or directory\n", 29);
-		exit (127);
-	}
-	else
-	{
-		head = data->env;
-		while (head != NULL)
-		{
-			ft_putstr_fd(head->keyword, fd);
-			ft_putendl_fd(head->info, fd);
-			head = head->next;
-		}
-	}
+	if (ft_strncmp(command[0], "pwd", 3) == 0)//we dont have strcmp
+		return (ft_pwd());
+	if (ft_strncmp(command[0], "echo", 4) == 0)
+		return (ft_echo(command));
+	// if (ft_strncmp(command[0], "env", 3) == 0)
+	// 	return(ft_env());
+	return (1);
 }
+
