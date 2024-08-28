@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: rkaras <rkaras@student.codam.nl>             +#+                      #
+#    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/24 12:28:12 by rkaras        #+#    #+#                  #
-#    Updated: 2024/03/19 15:00:55 by rkaras        ########   odam.nl          #
+#    Updated: 2024/08/28 18:12:11 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS = ft_isalnum.c \
 			ft_itoa.c \
 			ft_split.c \
 			ft_strchr.c \
+			ft_strcmp.c \
 			ft_strdup.c \
 			ft_striteri.c \
 			ft_strjoin.c \

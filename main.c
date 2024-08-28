@@ -6,29 +6,33 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/27 18:07:06 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/08/28 18:08:33 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-void	ft_init_minishell(char **env)
+
+void	ft_init_minishell(char **envp)
 {
-	// Zero out the memory for the global `g_minishell` structure.
-    // `ft_memset` is used to set all bytes of `g_minishell` to 0, effectively initializing it.
 	ft_memset(&g_minishell, 0, sizeof(t_minishell));
-	ft_init_envlst();
-	g_minishell.env = env;
-	// Duplicate the file descriptor for standard input (0) and store it in `g_minishell.stdin`.
-	// This allows for saving the current standard input so it can be restored later if needed.
+	g_minishell.env = envp;
+	copy_envp();
 	g_minishell.stdin = dup(0);
-	g_minishell.stdout = dup(1);//same for output
+	g_minishell.stdout = dup(1);
 }
-int	main(int argc, char **argv, char **env)
+// Zero out the memory for the global `g_minishell` structure.
+// ft_memset sets all bytes of `g_minishell` to 0, effectively initializing it.
+// Duplicate the fd for stdin (0) and store in `g_minishell.stdin`.
+// it saves the current stdin so it can be restored later if needed.
+//same for stdout
+
+int	main(int argc, char **argv, char **envp)
 {
 	((void)argc, (void)argv);
-	ft_init_minishell(env);
+	ft_init_minishell(envp);
 
 	// if (argc > 1)
 	// 	ft_exec_builtin(argv + 1);//skip the program name and send commands
 	return (0);
 }
+
