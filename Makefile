@@ -6,7 +6,7 @@
 #    By: rkaras <rkaras@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/08/21 14:19:40 by rkaras        ########   odam.nl          #
+#    Updated: 2024/08/26 17:25:16 by rkaras        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ LDFLAGS = -lreadline
 
 SOURCE = main.c \
 			parsing/env_parser.c \
-			parsing/input_checker.c \
-			parsing/cmd_parser.c \
+			tokenizing/tokenize.c \
+
 
 OBJECTS = $(SOURCE:%.c=%.o)
 
