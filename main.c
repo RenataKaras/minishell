@@ -6,19 +6,19 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/26 17:26:55 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/28 16:56:18 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void print_env_list(t_envls *head)
+// void print_env_list(t_token *head)
 // {
-//     t_envls *current = head;
+//     t_token *current = head;
 
 //     while (current != NULL)
 //     {
-//         printf("Keyword: %s, Info: %s\n", current->keyword, current->info);
+//         printf("Type: %u, Value: %s\n", current->type, current->value);
 //         current = current->next;
 //     }
 // }
@@ -30,12 +30,15 @@ void	error_msg(char *msg)
 
 void	maintain_prompt(t_data data)
 {
+	t_token	*token_list;
+
 	while (1)
 	{
 		data.cmd_line = readline("minishell> ");
 		add_history(data.cmd_line);
 		// input_checker(data.cmd_line);
-		tokenize(data.cmd_line);
+		token_list = tokenize(data.cmd_line);
+		// print_env_list (token_list);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/26 17:18:36 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/26 18:28:45 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/28 16:54:26 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,53 @@
 int	handle_separator(char **line_ptr, t_token **token_list)
 {
 	if (!ft_strncmp(*line_ptr, "<<", 2))
-		append_separator(T_DLESS, line_ptr, token_list);
-		
+		return (add_separator(T_DLESS, line_ptr, token_list) && 1);
+	else if (!ft_strncmp(*line_ptr, ">>", 2))
+		return (add_separator(T_DGREAT, line_ptr, token_list) && 1);
+	else if (!ft_strncmp(*line_ptr, "<", 1))
+		return (add_separator(T_LESS, line_ptr, token_list) && 1);
+	else if (!ft_strncmp(*line_ptr, ">", 1))
+		return (add_separator(T_GREAT, line_ptr, token_list) && 1);
+	else if (!ft_strncmp(*line_ptr, "(", 1))
+		return (add_separator(T_O_PARENT, line_ptr, token_list) && 1);
+	else if (!ft_strncmp(*line_ptr, ")", 1))
+		return (add_separator(T_C_PARENT, line_ptr, token_list) && 1);
+	else if (!ft_strncmp(*line_ptr, "&&", 2))
+		return (add_separator(T_AND, line_ptr, token_list) && 1);
+	else if (!ft_strncmp(*line_ptr, "||", 2))
+		return (add_separator(T_OR, line_ptr, token_list) && 1);
+	else
+		return (add_separator(T_PIPE, line_ptr, token_list) && 1);
 }
 
 
 t_token	*tokenization(char *cmd_line)
 {
 	t_token	*token_list;
+	int		error_flag;
 
 	token_list = NULL;
+	error_flag = 0;
 	while (*cmd_line)
 	{
+		if (error_flag == 1)
+			return (free_token_list(&token_list), NULL);
 		if (is_space(*cmd_line))
 			skip_spaces(&cmd_line);
-		if (!ft_strncmp(cmd_line, "<", 1) || !ft_strncmp(cmd_line, ">", 1)
+		else if (!ft_strncmp(cmd_line, "<", 1) || !ft_strncmp(cmd_line, ">", 1)
 			|| !ft_strncmp(cmd_line, "|", 1) || !ft_strncmp(cmd_line, "&&", 2)
 			|| !ft_strncmp(cmd_line, "(", 1) || !ft_strncmp(cmd_line, ")", 1))
-			handle_separator(&cmd_line, &token_list);
+			error_flag = (!handle_separator(&cmd_line, &token_list) && 1);
+		else
+			error_flag = (!add_identifier(&cmd_line, &token_list) && 1);
 	}
 	return (token_list);
 }
 
-void	tokenize(char *cmd_line)
+t_token	*tokenize(char *cmd_line)
 {
 	t_token	*token_list;
 
 	token_list = tokenization(cmd_line);
+	return (token_list);
 }

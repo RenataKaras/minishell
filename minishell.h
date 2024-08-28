@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/26 18:23:42 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/28 16:49:49 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,30 @@ typedef struct s_data
 	t_envls	*env;
 }			t_data;
 
+// extern t_data g_data;
+
 //parsing
 t_envls	*copy_env(char **env);
 // bool	input_checker(char *cmd);
-void	tokenize(char *cmd_line);
+
+//tokenizing
+t_token	*tokenize(char *cmd_line);
 bool	is_space(char c);
-int		skip_spaces(char **line);
+void	skip_spaces(char **line);
+t_token	*tokenization(char *cmd_line);
+int		handle_separator(char **line_ptr, t_token **token_list);
+int		add_separator(t_token_type type, char **line_ptr, t_token **token_list);
+t_token	*new_token_node(char *value, t_token_type type);
+void	token_lst_add_back(t_token **token_list, t_token *new_token);
+int		add_identifier(char **line_ptr, t_token **token_list);
+bool	is_separator(char *s);
+bool	is_quote(char c);
+bool	skip_quotes(char *line, int *i);
+void	free_token_list(t_token **token_list);
+
+
+
+
 
 
 
