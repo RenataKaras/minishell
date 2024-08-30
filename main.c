@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/28 16:56:18 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/30 14:43:07 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	maintain_prompt(t_data data)
 		add_history(data.cmd_line);
 		// input_checker(data.cmd_line);
 		token_list = tokenize(data.cmd_line);
+		parse (token_list);
 		// print_env_list (token_list);
 	}
 }

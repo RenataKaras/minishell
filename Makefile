@@ -6,7 +6,7 @@
 #    By: rkaras <rkaras@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/08/28 15:29:50 by rkaras        ########   odam.nl          #
+#    Updated: 2024/08/30 16:34:26 by rkaras        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,13 @@ CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -lreadline
 
 SOURCE = main.c \
-			parsing/env_parser.c \
+			parsing/env_list.c \
 			tokenizing/tokenize.c \
 			tokenizing/tokenizing_utils.c \
 			tokenizing/token_list.c \
 			tokenizing/token_adder.c \
+			parsing/parser.c \
+			parsing/parser_utils.c \
 
 
 OBJECTS = $(SOURCE:%.c=%.o)

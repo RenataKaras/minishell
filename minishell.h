@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/28 16:49:49 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/08/30 18:50:35 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <stdbool.h>
 
+//tokenizing structs
 typedef enum e_token_type
 {
 	T_IDENTIFIER,
@@ -44,6 +45,44 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+//Abstract Syntax Tree structs
+typedef enum e_node_type
+{
+	N_PIPE,
+	N_AND,
+	N_OR,
+	N_CMD
+}	t_node_type;
+
+typedef enum e_io_type
+{
+	IO_IN,
+	IO_OUT,
+	IO_HEREDOC,
+	IO_APPEND
+}	t_io_type;
+
+typedef struct s_io_node
+{
+	t_io_type			type;
+	char				*value;
+	char				**expanded_value;
+	int					here_doc;
+	struct s_io_node	*prev;
+	struct s_io_node	*next;
+}	t_io_node;
+
+typedef struct s_node
+{
+	t_node_type		type;
+	t_io_node		*io_list;
+	char			*args;
+	char			**expanded_args;
+	struct s_node	*left;
+	struct s_node	*right;
+}	t_node;
+
+//environment linked list
 typedef struct s_envls
 {
 	char			*keyword;
@@ -64,6 +103,16 @@ typedef struct s_data
 
 //parsing
 t_envls	*copy_env(char **env);
+bool	curr_token_is_binop(t_token *token_list);
+bool	is_redirection(t_token_type type);
+t_node	*new_node(t_node_type type);
+void	get_next_token(t_token **token_list);
+t_node	*get_simple_cmd(t_token *token_list);
+void	parse(t_token *token_list);
+t_node	*expression(int min_prec, t_token *token_list);
+t_node	*term(t_token *token_list);
+void	join_args(char **args, t_token *token_list);
+
 // bool	input_checker(char *cmd);
 
 //tokenizing
