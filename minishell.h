@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/27 18:03:02 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/03 17:45:33 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,17 @@ extern t_minishell	g_minishell;
 
 //builtin
 
-int	ft_exec_builtin(char **command);
-int	ft_env(void);
-int	ft_pwd(void);
-int	ft_echo(char **command);
+int		ft_exec_builtin(char **command);
+int		ft_env(void);
+int		ft_pwd(void);
+int		ft_echo(char **command);
+
+//env
+void	make_env_list(void);
+void	update_or_create_node(char *key, char *value, bool create);
+
+//cleanup
+void	*free_or_add_list(void *ptr, bool clean);
 
 
 #endif

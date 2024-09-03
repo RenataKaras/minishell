@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/28 17:19:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/08/28 17:45:57 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/03 17:06:40 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ static void	free_pointer(void *ptr)
 
 void	*free_or_add_list(void *ptr, bool clean)
 {
-	static t_list	*garbage_list;
+	static t_list	*node_collection;
 
 	if (clean)
 	{
-		ft_lstclear(&garbage_list, free_pointer);
+		ft_lstclear(&node_collection, free_pointer);
 		return (NULL);
 	}
 	else
 	{
-		ft_lstadd_back(&garbage_list, ft_lstnew(ptr));
+		ft_lstadd_back(&node_collection, ft_lstnew(ptr));
 		return (ptr);
 	}
 }
-//if clean is true: Triggers the cleanup process
-//by clearing all items from garbage_list and freeing their memory.
-//clean is false: Adds the given pointer to garbage_list for future cleanup.
+//node_collection RETAINS it's state between function calls cause its STATIC. 
+//It accumulates nodes when clean is false and clears them when clean is true.
+//false: Adds the given pointer to node_collection and returns it future use.

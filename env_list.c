@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   copy_envp.c                                        :+:    :+:            */
+/*   env_list.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/28 16:22:22 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/08/28 18:15:14 by rshaheen      ########   odam.nl         */
+/*   Created: 2024/09/03 17:46:23 by rshaheen      #+#    #+#                 */
+/*   Updated: 2024/09/03 17:51:34 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*extract_key(char *str)
+extern t_minishell	g_minishell;
+
+char	*copy_key(char *str)
 {
 	size_t	i;
 
@@ -31,7 +33,7 @@ char	*extract_key(char *str)
 //if = is found, make substr without the =
 //if = is not found, return the string
 
-char	*extract_value(char *str)
+char	*copy_value(char *str)
 {
 	size_t	i;
 
@@ -52,24 +54,7 @@ char	*extract_value(char *str)
 //if = not found, return NULL
 //what happens if substring fails???????
 
-void	update_list(char *key, char *value, bool create)
-{
-	t_env	*envlst;
-
-	envlst = g_minishell.env_link_list;
-	while (envlst)
-	{
-		if (!ft_strcmp(key, envlst->key))
-		{
-			if (value)
-				envlst->value = 
-		}
-	}
-
-}
-
-
-void	copy_envp(void)
+void	make_env_list(void)
 {
 	int		i;
 	char	**original_env;
@@ -82,9 +67,12 @@ void	copy_envp(void)
 	i = 0;
 	while (original_env[i])
 	{
-		key = extract_key(original_env[i]);
-		value = extract_value(original_env[i]);
-		update_list(key, value, true);
+		key = copy_key(original_env[i]);
+		//printf("key:%s\n", key);
+		value = copy_value(original_env[i]);
+		//printf("value:%s\n", value);
+		update_or_create_node(key, value, true);
+		i++;
 	}
 }
 
