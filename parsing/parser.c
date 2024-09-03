@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 14:46:05 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/30 18:28:07 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/03 17:44:17 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_node	*term(t_token *token_list)
 {
 	if (curr_token_is_binop(token_list) || token_list->type == T_C_PARENT)
 		return (error_msg("Syntax error: operator before command"), NULL);
-	else if (token_list->type == T_O_PARENT)
-	{
-		get_next_token(&token_list);
-	}
+	// else if (token_list->type == T_O_PARENT)
+	// {
+	// 	get_next_token(&token_list);
+	// }
 	else
 		return (get_simple_cmd(token_list));
 }
@@ -27,11 +27,13 @@ t_node	*term(t_token *token_list)
 t_node	*expression(int min_prec, t_token *token_list)
 {
 	t_node			*left;
-	t_node			*right;
-	t_token_type	op;
-	int				next_prec;
+	// t_node			*right;
+	// t_token_type	op;
+	// int				next_prec;
+	(void)min_prec;
 
 	left = term(token_list);
+	return (left);
 }
 
 

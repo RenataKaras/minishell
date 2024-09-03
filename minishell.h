@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/30 18:50:35 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/03 17:45:44 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
-//Abstract Syntax Tree structs
+//*A*bstract *S*yntax *T*ree structs
 typedef enum e_node_type
 {
 	N_PIPE,
@@ -101,17 +101,37 @@ typedef struct s_data
 
 // extern t_data g_data;
 
-//parsing
-t_envls	*copy_env(char **env);
-bool	curr_token_is_binop(t_token *token_list);
-bool	is_redirection(t_token_type type);
-t_node	*new_node(t_node_type type);
-void	get_next_token(t_token **token_list);
-t_node	*get_simple_cmd(t_token *token_list);
-void	parse(t_token *token_list);
-t_node	*expression(int min_prec, t_token *token_list);
-t_node	*term(t_token *token_list);
-void	join_args(char **args, t_token *token_list);
+/*PARSING*/
+//parser_cleaner
+void		clear_io_list(t_io_node **lst);
+void		clear_cmd_node(t_node *node);
+void		free_char2(char **str);
+
+//parser_helpers
+bool		join_args(char **args, t_token **token_list);
+bool		get_io_list(t_io_node **io_list, t_token *token_list);
+t_node		*get_simple_cmd(t_token *token_list);
+
+//parser_lists
+t_node		*new_parse_node(t_node_type type);
+t_io_node	*new_io_node(t_token_type redir_type, char *value);
+void		append_io_node(t_io_node **lst, t_io_node *new);
+
+//parser_utils
+t_io_type	get_io_type(t_token_type redir_type);
+char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
+bool		curr_token_is_binop(t_token *token_list);
+void		get_next_token(t_token **token_list);
+bool		is_redirection(t_token_type type);
+
+//parser
+t_node		*term(t_token *token_list);
+t_node		*expression(int min_prec, t_token *token_list);
+void		parse(t_token *token_list);
+
+
+t_envls		*copy_env(char **env);
+
 
 // bool	input_checker(char *cmd);
 

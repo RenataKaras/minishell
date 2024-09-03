@@ -6,7 +6,7 @@
 #    By: rkaras <rkaras@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/08/30 16:34:26 by rkaras        ########   odam.nl          #
+#    Updated: 2024/09/03 17:55:09 by rkaras        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,9 @@ SOURCE = main.c \
 			tokenizing/token_adder.c \
 			parsing/parser.c \
 			parsing/parser_utils.c \
+			parsing/parser_cleaner.c \
+			parsing/parser_helpers.c \
+			parsing/parser_lists.c \
 
 
 OBJECTS = $(SOURCE:%.c=%.o)
