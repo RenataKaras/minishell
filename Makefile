@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/09/03 17:50:16 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/09/04 18:18:22 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SOURCE = main.c \
 		builtin/pwd.c \
 		builtin/echo.c \
 		builtin/env.c \
+		builtin/unset.c \
+		builtin/cd.c \
 		
 
 OBJECTS = $(SOURCE:%.c=%.o)

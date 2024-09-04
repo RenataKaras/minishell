@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/03 18:13:22 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/04 18:37:59 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_env	*create_new_node(char *key, char *value)
 	return (new);
 }
 
-void	update_or_create_node(char *key, char *value, bool create)
+void	set_val_make_node(char *key, char *value, bool make)
 {
 	t_env	*envlst;
 
@@ -60,14 +60,14 @@ void	update_or_create_node(char *key, char *value, bool create)
 		}
 		envlst = envlst->next;
 	}
-	if (create)
+	if (make)
 		append_env_node(create_new_node(key, value));
 }
 /*
- * On the first call of this function:
+ * On the very first call of this function from make_env_list:
  * `g_minishell.env_link_list` will be NULL cause it hasn't been initialized yet.
  * so, `envlst` will be NULL, and the function will not enter the while loop.
- * The function will create a new node and use append_env_node to initialize.
+ * The function will make a new node and use append_env_node to initialize.
  *
  * So
  * On subsequent calls,it will not be empty
@@ -77,12 +77,12 @@ void	update_or_create_node(char *key, char *value, bool create)
  * 1. Traverse the list to find a node with the matching key.
  *
  * 2. If the key exists:
- *    - If value is not NULL, update the existing node's value.
+ *    - If value is not NULL, update the existing node's value with it
  *    - If value is NULL, do nothing to the existing node's value.
  *
  * 3. If the key does not exist:
- *    - If create is true, create a new node with the key and value,
+ *    - If make is true, make a new node with the key and value,
  *      and add it to the end of the list.
- *    - If create is false, do nothing; no new node is created, and
+ *    - If make is false, do nothing; no new node is created, and
  *      the list remains unchanged.
  */

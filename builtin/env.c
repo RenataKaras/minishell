@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/27 15:54:14 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/03 18:17:39 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/04 16:58:44 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,8 @@ int	ft_env(void)
 			printf("%s=%s\n", list->key, list->value);
 		list = list->next;
 	}
-	return (EXIT_SUCCESS);
+	return (ENO_SUCCESS);
 }
-// Use ENO_SUCCESS is part of the custom enum e_err_no
-// it indicates function executed successfully.
-// This is used for consistent error handling throughout the codebase.
-
 
 //The ft_env function works with the list that is obtained from 
 // the g_minishell.env_link_list. 

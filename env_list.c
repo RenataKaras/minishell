@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:46:23 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/03 17:51:34 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/04 18:37:37 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	make_env_list(void)
 		//printf("key:%s\n", key);
 		value = copy_value(original_env[i]);
 		//printf("value:%s\n", value);
-		update_or_create_node(key, value, true);
+		set_val_make_node(key, value, true);
 		i++;
 	}
 }
