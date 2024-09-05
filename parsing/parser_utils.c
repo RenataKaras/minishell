@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 16:29:35 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/03 17:46:19 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/05 18:31:02 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ char	*ft_strjoin_with(char const *s1, char const *s2, char sep)
 	size_t	totals;
 	char	*newstring;
 
+	if (!s1 || !s2)
+		return (NULL);
+	if (!sep || !ft_strlen(s1) || !ft_strlen(s2))
+		return (ft_strjoin(s1, s2));
 	totals = ft_strlen(s1) + ft_strlen(s2) + 2;
 	newstring = (char *) malloc (totals * sizeof(char));
 	if (newstring == NULL)

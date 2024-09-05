@@ -6,13 +6,13 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 18:29:01 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/03 17:52:16 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/05 18:42:30 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	join_args(char **args, t_token **token_list)
+bool	join_args(char **args, t_token *token_list)
 {
 	char	*to_free;
 
@@ -20,14 +20,14 @@ bool	join_args(char **args, t_token **token_list)
 		*args = ft_strdup("");
 	if (!*args)
 		return (false);
-	while (token_list && (*token_list)->type == T_IDENTIFIER)
+	while (token_list && token_list->type == T_IDENTIFIER)
 	{
 		to_free = *args;
-		*args = ft_strjoin_with(*args, (*token_list)->value, ' ');
+		*args = ft_strjoin_with(*args, token_list->value, ' ');
 		if (!*args)
 			return (free(to_free), false);
-		free (to_free);
-		get_next_token(token_list);
+		free(to_free);
+		get_next_token(&token_list);
 	}
 	return (true);
 }
@@ -56,25 +56,28 @@ bool	get_io_list(t_io_node **io_list, t_token *token_list)
 
 t_node	*get_simple_cmd(t_token *token_list)
 {
+	// printf("Inside simple cmd\n");
 	t_node	*node;
 
 	node = new_parse_node(N_CMD);
 	if (!node)
 		return (error_msg("Memory allocation failed"), NULL);
 	while (token_list && (token_list->type == T_IDENTIFIER
-		|| is_redirection(token_list->type) == true))
+			|| is_redirection(token_list->type) == true))
 	{
+		// printf("inside while in simple cmd\n");
 		if (token_list->type == T_IDENTIFIER)
 		{
-			if (join_args(&(node->args), &token_list) == false)
+			if (join_args(&(node->args), token_list) == false)
 				return (clear_cmd_node(node),
 					error_msg("Memory allocation failed"), NULL);
 		}
-		else if (is_redirection(token_list->type))
+		else if (is_redirection(token_list->type) == true)
 		{
 			if (get_io_list(&(node->io_list), token_list) == false)
 				return (free(node->args), free(node), NULL);
 		}
+		get_next_token(&token_list);
 	}
 	return (node);
 }

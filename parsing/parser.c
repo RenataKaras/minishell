@@ -6,14 +6,144 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 14:46:05 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/03 17:44:17 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/05 18:57:11 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// void	print_io_list(t_io_node *io_list, int depth)
+// {
+// 	t_io_node	*curr_io = io_list;
+
+// 	while (curr_io)
+// 	{
+// 		// Print indentation for tree structure visualization
+// 		for (int i = 0; i < depth; i++)
+// 			printf("  ");  // Two spaces for each level of depth
+
+// 		// Print the type of IO redirection
+// 		printf("IO Type: ");
+// 		switch (curr_io->type)
+// 		{
+// 			case IO_IN:
+// 				printf("Input Redirection (<)\n");
+// 				break;
+// 			case IO_OUT:
+// 				printf("Output Redirection (>)\n");
+// 				break;
+// 			case IO_HEREDOC:
+// 				printf("Heredoc (<<)\n");
+// 				break;
+// 			case IO_APPEND:
+// 				printf("Append Output (>>)\n");
+// 				break;
+// 			default:
+// 				printf("Unknown IO Type\n");
+// 				break;
+// 		}
+
+// 		// Print the value (filename or heredoc delimiter)
+// 		if (curr_io->value)
+// 		{
+// 			for (int i = 0; i < depth; i++)
+// 				printf("  ");
+// 			printf("IO Value: %s\n", curr_io->value);
+// 		}
+
+// 		// Print expanded_value if available
+// 		if (curr_io->expanded_value)
+// 		{
+// 			for (int i = 0; curr_io->expanded_value[i]; i++)
+// 			{
+// 				for (int j = 0; j < depth; j++)
+// 					printf("  ");
+// 				printf("Expanded IO Value: %s\n", curr_io->expanded_value[i]);
+// 			}
+// 		}
+
+// 		curr_io = curr_io->next;
+// 	}
+// }
+
+// void	print_ast(t_node *node, int depth)
+// {
+// 	if (!node)
+// 		return;
+
+// 	// Print indentation for tree structure visualization
+// 	for (int i = 0; i < depth; i++)
+// 		printf("  ");  // Two spaces for each level of depth
+
+// 	// Print node type
+// 	printf("Node Type: ");
+// 	switch (node->type)
+// 	{
+// 		case N_PIPE:
+// 			printf("PIPE\n");
+// 			break;
+// 		case N_AND:
+// 			printf("AND\n");
+// 			break;
+// 		case N_OR:
+// 			printf("OR\n");
+// 			break;
+// 		case N_CMD:
+// 			printf("CMD\n");
+// 			break;
+// 		default:
+// 			printf("Unknown\n");
+// 			break;
+// 	}
+
+// 	// Print node's args
+// 	if (node->args)
+// 	{
+// 		for (int i = 0; i < depth; i++)
+// 			printf("  ");
+// 		printf("Args: %s\n", node->args);
+// 	}
+
+// 	// Print expanded_args if present
+// 	if (node->expanded_args)
+// 	{
+// 		for (int i = 0; node->expanded_args[i]; i++)
+// 		{
+// 			for (int j = 0; j < depth; j++)
+// 				printf("  ");
+// 			printf("Expanded Arg: %s\n", node->expanded_args[i]);
+// 		}
+// 	}
+
+// 	// Print IO redirections if present
+// 	if (node->io_list)
+// 	{
+// 		for (int i = 0; i < depth; i++)
+// 			printf("  ");
+// 		printf("IO Redirections:\n");
+// 		print_io_list(node->io_list, depth + 1);
+// 	}
+
+// 	// Recursively print left and right children
+// 	if (node->left)
+// 	{
+// 		for (int i = 0; i < depth; i++)
+// 			printf("  ");
+// 		printf("Left:\n");
+// 		print_ast(node->left, depth + 1);
+// 	}
+// 	if (node->right)
+// 	{
+// 		for (int i = 0; i < depth; i++)
+// 			printf("  ");
+// 		printf("Right:\n");
+// 		print_ast(node->right, depth + 1);
+// 	}
+// }
+
 t_node	*term(t_token *token_list)
 {
+	// printf("inside term\n");
 	if (curr_token_is_binop(token_list) || token_list->type == T_C_PARENT)
 		return (error_msg("Syntax error: operator before command"), NULL);
 	// else if (token_list->type == T_O_PARENT)
@@ -21,7 +151,10 @@ t_node	*term(t_token *token_list)
 	// 	get_next_token(&token_list);
 	// }
 	else
+	{
+		// printf("inside else\n");
 		return (get_simple_cmd(token_list));
+	}
 }
 
 t_node	*expression(int min_prec, t_token *token_list)
@@ -31,16 +164,17 @@ t_node	*expression(int min_prec, t_token *token_list)
 	// t_token_type	op;
 	// int				next_prec;
 	(void)min_prec;
-
+	if (!token_list)
+		return (NULL);
 	left = term(token_list);
 	return (left);
 }
 
-
-
 void	parse(t_token *token_list)
 {
+	// printf("inside parse\n");	
 	t_node	*ast;
 
 	ast = expression(0, token_list);
+	// print_ast(ast, 0);
 }

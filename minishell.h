@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/03 17:45:44 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/05 18:41:38 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void		clear_cmd_node(t_node *node);
 void		free_char2(char **str);
 
 //parser_helpers
-bool		join_args(char **args, t_token **token_list);
+bool		join_args(char **args, t_token *token_list);
 bool		get_io_list(t_io_node **io_list, t_token *token_list);
 t_node		*get_simple_cmd(t_token *token_list);
 
@@ -129,34 +129,27 @@ t_node		*term(t_token *token_list);
 t_node		*expression(int min_prec, t_token *token_list);
 void		parse(t_token *token_list);
 
-
 t_envls		*copy_env(char **env);
-
 
 // bool	input_checker(char *cmd);
 
 //tokenizing
-t_token	*tokenize(char *cmd_line);
-bool	is_space(char c);
-void	skip_spaces(char **line);
-t_token	*tokenization(char *cmd_line);
-int		handle_separator(char **line_ptr, t_token **token_list);
-int		add_separator(t_token_type type, char **line_ptr, t_token **token_list);
-t_token	*new_token_node(char *value, t_token_type type);
-void	token_lst_add_back(t_token **token_list, t_token *new_token);
-int		add_identifier(char **line_ptr, t_token **token_list);
-bool	is_separator(char *s);
-bool	is_quote(char c);
-bool	skip_quotes(char *line, int *i);
-void	free_token_list(t_token **token_list);
-
-
-
-
-
-
+t_token		*tokenize(char *cmd_line);
+bool		is_space(char c);
+void		skip_spaces(char **line);
+t_token		*tokenization(char *cmd_line);
+int			handle_separator(char **line_ptr, t_token **token_list);
+int			add_separator(t_token_type type, char **line_ptr,
+				t_token **token_list);
+t_token		*new_token_node(char *value, t_token_type type);
+void		token_lst_add_back(t_token **token_list, t_token *new_token);
+int			add_identifier(char **line_ptr, t_token **token_list);
+bool		is_separator(char *s);
+bool		is_quote(char c);
+bool		skip_quotes(char *line, int *i);
+void		free_token_list(t_token **token_list);
 
 //error handling
-void	error_msg(char *msg);
+void		error_msg(char *msg);
 
 #endif

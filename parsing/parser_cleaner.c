@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 15:06:49 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/03 15:21:13 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/05 17:42:28 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	clear_io_list(t_io_node **lst)
 	t_io_node	*next;
 
 	current = *lst;
+	if (!current)
+		return ;
 	while (current)
 	{
 		free(current->value);
@@ -50,5 +52,5 @@ void	clear_cmd_node(t_node *node)
 		return ;
 	clear_io_list(&(node->io_list));
 	free(node->args);
-	free_char2(node ->expanded_args);
+	free_char2(node->expanded_args);
 }

@@ -6,22 +6,22 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/30 14:43:07 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/05 17:17:21 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void print_env_list(t_token *head)
-// {
-//     t_token *current = head;
+void print_env_list(t_token *head)
+{
+    t_token *current = head;
 
-//     while (current != NULL)
-//     {
-//         printf("Type: %u, Value: %s\n", current->type, current->value);
-//         current = current->next;
-//     }
-// }
+    while (current != NULL)
+    {
+        printf("Type: %u, Value: %s\n", current->type, current->value);
+        current = current->next;
+    }
+}
 
 void	error_msg(char *msg)
 {
@@ -38,7 +38,7 @@ void	maintain_prompt(t_data data)
 		add_history(data.cmd_line);
 		// input_checker(data.cmd_line);
 		token_list = tokenize(data.cmd_line);
-		parse (token_list);
+		parse(token_list);
 		// print_env_list (token_list);
 	}
 }
