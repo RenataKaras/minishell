@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 15:06:49 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/05 17:42:28 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/06 16:12:01 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,29 @@ void	free_char2(char **str)
 		i++;
 	}
 	free(str);
+}
+
+void	recursively_clear_ast(t_node *node)
+{
+	if (!node)
+		return ;
+	if (node->type == N_CMD)
+		clear_cmd_node(node);
+	else
+	{
+		if (node->left)
+			recursively_clear_ast(node->left);
+		if (node->right)
+			recursively_clear_ast(node->right);
+	}
+	free(node);
+}
+
+void	clear_ast(t_node **ast, t_token *token_list)
+{
+	recursively_clear_ast(*ast);
+	*ast = NULL;
+	free_token_list(&token_list);
 }
 
 void	clear_io_list(t_io_node **lst)

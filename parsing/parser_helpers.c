@@ -6,13 +6,13 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 18:29:01 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/05 18:42:30 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/06 15:37:13 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	join_args(char **args, t_token *token_list)
+bool	join_args(char **args, t_token **token_list)
 {
 	char	*to_free;
 
@@ -20,14 +20,14 @@ bool	join_args(char **args, t_token *token_list)
 		*args = ft_strdup("");
 	if (!*args)
 		return (false);
-	while (token_list && token_list->type == T_IDENTIFIER)
+	while (*token_list && (*token_list)->type == T_IDENTIFIER)
 	{
 		to_free = *args;
-		*args = ft_strjoin_with(*args, token_list->value, ' ');
+		*args = ft_strjoin_with(*args, (*token_list)->value, ' ');
 		if (!*args)
 			return (free(to_free), false);
 		free(to_free);
-		get_next_token(&token_list);
+		get_next_token(token_list);
 	}
 	return (true);
 }
@@ -68,7 +68,7 @@ t_node	*get_simple_cmd(t_token *token_list)
 		// printf("inside while in simple cmd\n");
 		if (token_list->type == T_IDENTIFIER)
 		{
-			if (join_args(&(node->args), token_list) == false)
+			if (join_args(&(node->args), &token_list) == false)
 				return (clear_cmd_node(node),
 					error_msg("Memory allocation failed"), NULL);
 		}
@@ -76,8 +76,8 @@ t_node	*get_simple_cmd(t_token *token_list)
 		{
 			if (get_io_list(&(node->io_list), token_list) == false)
 				return (free(node->args), free(node), NULL);
+			get_next_token(&token_list);
 		}
-		get_next_token(&token_list);
 	}
 	return (node);
 }

@@ -6,11 +6,32 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 15:48:00 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/03 17:39:48 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/06 15:36:50 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_node_type	get_node_type(t_token_type type)
+{
+	if (type == T_AND)
+		return (N_AND);
+	if (type == T_OR)
+		return (N_OR);
+	return (N_PIPE);
+}
+
+t_io_type	get_io_type(t_token_type redir_type)
+{
+	if (redir_type == T_LESS)
+		return (IO_IN);
+	else if (redir_type == T_GREAT)
+		return (IO_OUT);
+	else if (redir_type == T_DLESS)
+		return (IO_HEREDOC);
+	else
+		return (IO_APPEND);
+}
 
 t_node	*new_parse_node(t_node_type type)
 {

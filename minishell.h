@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/05 18:41:38 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/06 15:37:55 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void		clear_cmd_node(t_node *node);
 void		free_char2(char **str);
 
 //parser_helpers
-bool		join_args(char **args, t_token *token_list);
+bool		join_args(char **args, t_token **token_list);
 bool		get_io_list(t_io_node **io_list, t_token *token_list);
 t_node		*get_simple_cmd(t_token *token_list);
 
@@ -116,13 +116,15 @@ t_node		*get_simple_cmd(t_token *token_list);
 t_node		*new_parse_node(t_node_type type);
 t_io_node	*new_io_node(t_token_type redir_type, char *value);
 void		append_io_node(t_io_node **lst, t_io_node *new);
+t_node_type	get_node_type(t_token_type type);
+t_io_type	get_io_type(t_token_type redir_type);
 
 //parser_utils
-t_io_type	get_io_type(t_token_type redir_type);
-char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
 bool		curr_token_is_binop(t_token *token_list);
 void		get_next_token(t_token **token_list);
 bool		is_redirection(t_token_type type);
+int			token_prec(t_token_type type);
+char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
 
 //parser
 t_node		*term(t_token *token_list);
