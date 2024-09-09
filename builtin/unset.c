@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 14:34:46 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/04 17:28:54 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/09 15:34:20 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
  * 3. If no alphanumeric nor an underscore found, return 0 (false).
  * 4. If all chars conform to the rules, return 1 (true) indicating a valid key.
 */
-int	check_key(char *str)
+int	check_key_format(char *str)
 {
 	int	i;
 
@@ -79,7 +79,7 @@ int	ft_unset(char **args)
 	error = false;
 	while (args[i])
 	{
-		if (!check_key(args[i]))
+		if (!check_key_format(args[i]))
 		{
 			ft_putstr_fd("minishell: unset: `", 2);
 			ft_putstr_fd(args[i], 2);

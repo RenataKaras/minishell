@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/04 18:37:37 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/09 15:57:02 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,14 @@ int		ft_pwd(void);
 int		ft_echo(char **command);
 int		ft_unset(char **args);
 int		ft_cd(char *path);
+int		ft_export(char **command);
+int		check_key_format(char *str);
 
 //env
 void	make_env_list(void);
 char	*copy_key(char *str);
-void	set_val_make_node(char *key, char *value, bool create);
+char	*copy_value(char *str);
+void	update_val_make_node(char *key, char *value, bool create);
 
 //cleanup
 void	*free_or_add_list(void *ptr, bool clean);

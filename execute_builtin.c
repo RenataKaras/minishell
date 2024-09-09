@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/26 18:37:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/04 18:01:39 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/09 14:34:53 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	ft_exec_builtin(char **command)
 		return (ft_unset(command));
 	if (ft_strcmp(command[0], "cd") == 0)
 		return (ft_cd(command[1]));
+	if (ft_strcmp(command[0], "export") == 0)
+		return (ft_export(command));
 	return (ENO_GENERAL);
 }
 

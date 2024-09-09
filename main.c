@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/04 17:44:13 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/09 16:27:37 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_minishell	g_minishell;
 
-static void	ft_init_minishell(char **envp)
+static void	init_minishell(char **envp)
 {
 	ft_memset(&g_minishell, 0, sizeof(t_minishell));
 	g_minishell.env = envp;
@@ -31,21 +31,26 @@ static void	ft_init_minishell(char **envp)
 //to `g_minishell.original_term`.
 // This allows restoring terminal settings later if they are modified.
 
-
-void print_env_list(t_env *list)
+static void	start_execution(void)
 {
-    while (list)
-    {
-        printf("Key: %s, Value: %s\n", list->key, list->value);
-        list = list->next;
-    }
-    printf("End of list.\n");
+	
 }
+
+// void print_env_list(t_env *list)
+// {
+//     while (list)
+//     {
+//         printf("Key: %s, Value: %s\n", list->key, list->value);
+//         list = list->next;
+//     }
+//     printf("End of list.\n");
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
 	((void)argc, (void)argv);
-	ft_init_minishell(envp);
+	init_minishell(envp);
+	start_execution();
 
 	if (argc > 1)
 		ft_exec_builtin(argv + 1);//skip the program name and send commands

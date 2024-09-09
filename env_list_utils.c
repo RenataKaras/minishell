@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   env_list_utils.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/04 18:37:59 by rshaheen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   env_list_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rshaheen <rshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/03 17:47:05 by rshaheen          #+#    #+#             */
+/*   Updated: 2024/09/09 16:09:20 by rshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // set the new node as the head
 // If it is already initialized, traverse to the end of the list
 // Then Append the new node to the end of the list
-void	append_env_node(t_env *new)
+void	append_new_node(t_env *new)
 {
 	t_env	*current;
 
@@ -45,7 +45,7 @@ t_env	*create_new_node(char *key, char *value)
 	return (new);
 }
 
-void	set_val_make_node(char *key, char *value, bool make)
+void	update_val_make_node(char *key, char *value, bool make)
 {
 	t_env	*envlst;
 
@@ -61,13 +61,13 @@ void	set_val_make_node(char *key, char *value, bool make)
 		envlst = envlst->next;
 	}
 	if (make)
-		append_env_node(create_new_node(key, value));
+		append_new_node(create_new_node(key, value));
 }
 /*
  * On the very first call of this function from make_env_list:
  * `g_minishell.env_link_list` will be NULL cause it hasn't been initialized yet.
  * so, `envlst` will be NULL, and the function will not enter the while loop.
- * The function will make a new node and use append_env_node to initialize.
+ * The function will make a new node and use append_new_node to initialize.
  *
  * So
  * On subsequent calls,it will not be empty
