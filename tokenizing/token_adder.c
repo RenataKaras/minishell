@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/28 15:28:21 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/28 15:28:50 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/12 16:18:34 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	add_separator(t_token_type type, char **line_ptr,
 		return (0);
 	token_lst_add_back(token_list, token);
 	(*line_ptr)++;
-	if (type == T_DLESS || type == T_DGREAT || type == T_OR || type == T_AND)
+	if (type == T_DLESS || type == T_DGREAT || type == T_AND)
 		(*line_ptr)++;
 	return (1);
 }

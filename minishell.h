@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/06 15:37:55 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/12 17:14:04 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ typedef enum e_token_type
 	T_DLESS,
 	T_DGREAT,
 	T_PIPE,
-	T_O_PARENT,
-	T_C_PARENT,
 	T_AND,
-	T_OR,
-	T_NL,
 }	t_token_type;
 
 typedef struct s_token
@@ -50,7 +46,6 @@ typedef enum e_node_type
 {
 	N_PIPE,
 	N_AND,
-	N_OR,
 	N_CMD
 }	t_node_type;
 
@@ -101,11 +96,15 @@ typedef struct s_data
 
 // extern t_data g_data;
 
+void		print_env_list(t_token *head);
+
 /*PARSING*/
 //parser_cleaner
 void		clear_io_list(t_io_node **lst);
 void		clear_cmd_node(t_node *node);
-void		free_char2(char **str);
+void		clear_ast(t_node **ast, t_token *token_list);
+void		recursively_clear_ast(t_node *node);
+void		clear_ast_nodes(t_node **left, t_node **right, t_token *token_list);
 
 //parser_helpers
 bool		join_args(char **args, t_token **token_list);
@@ -125,11 +124,12 @@ void		get_next_token(t_token **token_list);
 bool		is_redirection(t_token_type type);
 int			token_prec(t_token_type type);
 char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
+void		free_char2(char **str);
 
 //parser
 t_node		*term(t_token *token_list);
 t_node		*expression(int min_prec, t_token *token_list);
-void		parse(t_token *token_list);
+t_node		*parse(t_token *token_list);
 
 t_envls		*copy_env(char **env);
 

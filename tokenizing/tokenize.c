@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/26 17:18:36 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/28 16:54:26 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/12 13:23:38 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,8 @@ int	handle_separator(char **line_ptr, t_token **token_list)
 		return (add_separator(T_LESS, line_ptr, token_list) && 1);
 	else if (!ft_strncmp(*line_ptr, ">", 1))
 		return (add_separator(T_GREAT, line_ptr, token_list) && 1);
-	else if (!ft_strncmp(*line_ptr, "(", 1))
-		return (add_separator(T_O_PARENT, line_ptr, token_list) && 1);
-	else if (!ft_strncmp(*line_ptr, ")", 1))
-		return (add_separator(T_C_PARENT, line_ptr, token_list) && 1);
 	else if (!ft_strncmp(*line_ptr, "&&", 2))
 		return (add_separator(T_AND, line_ptr, token_list) && 1);
-	else if (!ft_strncmp(*line_ptr, "||", 2))
-		return (add_separator(T_OR, line_ptr, token_list) && 1);
 	else
 		return (add_separator(T_PIPE, line_ptr, token_list) && 1);
 }
@@ -49,8 +43,7 @@ t_token	*tokenization(char *cmd_line)
 		if (is_space(*cmd_line))
 			skip_spaces(&cmd_line);
 		else if (!ft_strncmp(cmd_line, "<", 1) || !ft_strncmp(cmd_line, ">", 1)
-			|| !ft_strncmp(cmd_line, "|", 1) || !ft_strncmp(cmd_line, "&&", 2)
-			|| !ft_strncmp(cmd_line, "(", 1) || !ft_strncmp(cmd_line, ")", 1))
+			|| !ft_strncmp(cmd_line, "|", 1) || !ft_strncmp(cmd_line, "&&", 2))
 			error_flag = (!handle_separator(&cmd_line, &token_list) && 1);
 		else
 			error_flag = (!add_identifier(&cmd_line, &token_list) && 1);

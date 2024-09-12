@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/26 17:39:08 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/28 16:48:43 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/12 13:07:58 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	is_quote(char c)
 bool	is_separator(char *s)
 {
 	if (!ft_strncmp(s, "&&", 2) || *s == ' ' || *s == '\t'
-		|| *s == '<' || *s == '>' || *s == '|' || *s == '(' || *s == ')')
+		|| *s == '<' || *s == '>' || *s == '|')
 		return (true);
 	return (false);
 }

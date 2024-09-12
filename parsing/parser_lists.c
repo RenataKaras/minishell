@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 15:48:00 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/06 15:36:50 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/12 13:21:58 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ t_node_type	get_node_type(t_token_type type)
 {
 	if (type == T_AND)
 		return (N_AND);
-	if (type == T_OR)
-		return (N_OR);
 	return (N_PIPE);
 }
 

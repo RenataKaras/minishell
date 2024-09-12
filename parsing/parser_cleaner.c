@@ -6,25 +6,16 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 15:06:49 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/06 16:12:01 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/12 17:09:35 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_char2(char **str)
+void	clear_ast_nodes(t_node **left, t_node **right, t_token *token_list)
 {
-	size_t	i;
-
-	if (!str)
-		return ;
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
+	clear_ast(left, token_list);
+	clear_ast(right, token_list);
 }
 
 void	recursively_clear_ast(t_node *node)

@@ -6,11 +6,30 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 18:29:01 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/06 15:37:13 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/12 16:38:06 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*ft_strjoin_with(char const *s1, char const *s2, char sep)
+{
+	size_t	totals;
+	char	*newstring;
+
+	if (!s1 || !s2)
+		return (NULL);
+	if (!sep || !ft_strlen(s1) || !ft_strlen(s2))
+		return (ft_strjoin(s1, s2));
+	totals = ft_strlen(s1) + ft_strlen(s2) + 2;
+	newstring = (char *) malloc (totals * sizeof(char));
+	if (newstring == NULL)
+		return (NULL);
+	ft_strlcpy(newstring, s1, ft_strlen(s1) + 1);
+	newstring[ft_strlen(s1)] = sep;
+	ft_strlcpy(newstring + ft_strlen(s1) + 1, s2, ft_strlen(s2) + 1);
+	return (newstring);
+}
 
 bool	join_args(char **args, t_token **token_list)
 {
@@ -56,7 +75,6 @@ bool	get_io_list(t_io_node **io_list, t_token *token_list)
 
 t_node	*get_simple_cmd(t_token *token_list)
 {
-	// printf("Inside simple cmd\n");
 	t_node	*node;
 
 	node = new_parse_node(N_CMD);
@@ -65,7 +83,6 @@ t_node	*get_simple_cmd(t_token *token_list)
 	while (token_list && (token_list->type == T_IDENTIFIER
 			|| is_redirection(token_list->type) == true))
 	{
-		// printf("inside while in simple cmd\n");
 		if (token_list->type == T_IDENTIFIER)
 		{
 			if (join_args(&(node->args), &token_list) == false)
