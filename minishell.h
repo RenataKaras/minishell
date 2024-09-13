@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/12 17:14:04 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/13 17:25:15 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,21 @@ typedef struct s_envls
 	struct s_envls	*next;
 }					t_envls;
 
+//general struct
 typedef struct s_data
 {
 	char	*cmd_line;
-	char	**cmd_table;
-	char	**path;
+	t_token	*token_list;
+	t_node	*ast;
 	char	**envp;
 	t_envls	*env;
 }			t_data;
 
-// extern t_data g_data;
 
 void		print_env_list(t_token *head);
 
 /*PARSING*/
+
 //parser_cleaner
 void		clear_io_list(t_io_node **lst);
 void		clear_cmd_node(t_node *node);
@@ -128,12 +129,10 @@ void		free_char2(char **str);
 
 //parser
 t_node		*term(t_token *token_list);
-t_node		*expression(int min_prec, t_token *token_list);
+t_node		*expression(int min_prec, t_token **token_list);
 t_node		*parse(t_token *token_list);
 
 t_envls		*copy_env(char **env);
-
-// bool	input_checker(char *cmd);
 
 //tokenizing
 t_token		*tokenize(char *cmd_line);

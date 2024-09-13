@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 14:46:05 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/12 17:17:56 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/13 17:55:08 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,31 @@ t_node	*handle_term_and_token(t_token **token_list)
 	return (left);
 }
 
-t_node	*expression(int min_prec, t_token *token_list)
+t_node	*expression(int min_prec, t_token **token_list)
 {
 	t_node			*left;
 	t_node			*right;
 	t_token_type	op;
 	int				next_prec;
 
-	left = handle_term_and_token(&token_list);
+	left = handle_term_and_token(token_list);
 	if (!left)
 		return (NULL);
-	while (curr_token_is_binop(token_list)
-		&& token_prec(token_list->type) >= min_prec)
+	while (curr_token_is_binop(*token_list)
+		&& token_prec((*token_list)->type) >= min_prec)
 	{
-		op = token_list->type;
-		get_next_token(&token_list);
+		op = (*token_list)->type;
+		get_next_token(token_list);
 		if (!token_list)
-			return (error_msg ("Syntax error"), NULL);
+			return (error_msg ("Syntax error: no command after operator"),
+				NULL);
 		next_prec = token_prec(op) + 1;
 		right = expression(next_prec, token_list);
 		if (!right)
 			return (left);
 		left = combine(op, left, right);
 		if (!left)
-			return (clear_ast_nodes(&left, &right, token_list), NULL);
+			return (clear_ast_nodes(&left, &right, *token_list), NULL);
 	}
 	return (left);
 }
@@ -80,6 +81,8 @@ t_node	*parse(t_token *token_list)
 
 	if (!token_list)
 		return (NULL);
-	ast = expression(0, token_list);
+	ast = expression(0, &token_list);
+	if (token_list)
+		return (error_msg("Syntax error"), NULL);
 	return (ast);
 }
