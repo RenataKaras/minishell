@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/16 15:51:41 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 16:11:47 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ typedef struct s_node
 	char			**expanded_args;
 	struct s_node	*left;
 	struct s_node	*right;
-}	t_node;typedef enum e_err_no
+}	t_node ;
+
+typedef enum e_err_no
 {
 	ENO_SUCCESS = 0,
 	ENO_GENERAL = 1,
@@ -104,14 +106,13 @@ typedef struct s_envls
 typedef struct s_data
 {
 	char	*cmd_line;
-	char	**cmd_table;
-	char	**path;
-	char	**envp;
+	t_token	*token_list;
+	t_node	*ast;
 	t_envls	*env;
-	char			**envp;
-	int				stdin;
-	int				stdout;
-	struct termios	original_terminal;
+	char	**envp;
+	int		stdin;
+	int		stdout;
+	struct 	termios	original_terminal;
 }	t_data;
 
 //builtin
