@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   data.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/09 15:57:02 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 14:50:18 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,42 +40,39 @@ typedef enum e_err_no
 	ENO_EXEC_255 = 255
 }	t_err_no;
 
-typedef struct s_env
+typedef struct s_envls
 {
 	char			*key;
 	char			*value;
-	struct s_env	*next;
-}	t_env;
+	struct s_envls	*next;
+}	t_envls;
 
-typedef struct s_minishell
+typedef struct s_data
 {
-	char			**env;
+	char			**envp;
 	int				stdin;
 	int				stdout;
-	t_env			*env_link_list;
-	struct termios	original_term;
+	t_envls			*env_link_list;
+	struct termios	original_terminal;
 
-}	t_minishell;
-
-extern t_minishell	g_minishell;
-
+}	t_data;
 
 //builtin
 
-int		ft_exec_builtin(char **command);
-int		ft_env(void);
+int		ft_exec_builtin(char **command, t_data *data);
+int		ft_env(t_data *data);
 int		ft_pwd(void);
 int		ft_echo(char **command);
-int		ft_unset(char **args);
-int		ft_cd(char *path);
-int		ft_export(char **command);
+int		ft_unset(char **args, t_data *data);
+int		ft_cd(char *dir_name, t_data *data);
+int		ft_export(char **command, t_data *data);
 int		check_key_format(char *str);
 
-//env
-void	make_env_list(void);
+//envp
+void	make_env_list(t_data *data);
 char	*copy_key(char *str);
 char	*copy_value(char *str);
-void	update_val_make_node(char *key, char *value, bool create);
+void	update_val(t_data *min, char *key, char *value, bool make);
 
 //cleanup
 void	*free_or_add_list(void *ptr, bool clean);
