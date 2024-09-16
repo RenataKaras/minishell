@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   data.h                                        :+:    :+:            */
+/*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/16 14:50:18 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 15:17:30 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef enum e_err_no
 	ENO_CANT_EXEC = 126,
 	ENO_NOT_FOUND = 127,
 	ENO_EXEC_255 = 255
-}	t_err_no;
+} t_err_no;
 
 typedef struct s_envls
 {
@@ -77,5 +77,30 @@ void	update_val(t_data *min, char *key, char *value, bool make);
 //cleanup
 void	*free_or_add_list(void *ptr, bool clean);
 
+
+typedef struct s_envls
+{
+	char			*keyword;
+	char			*info;
+	struct s_envls	*next;
+} t_envls;
+
+typedef struct s_data
+{
+	char	*cmd_line;
+	char	**cmd_table;
+	char	**path;
+	char	**envp;
+	t_envls	*env;
+}			t_data;
+
+//parsing
+t_envls	*copy_env(char **env);
+bool	input_checker(char *cmd);
+void	cmd_parser(t_data *data);
+
+
+//error handling
+void	error_msg(char *msg);
 
 #endif

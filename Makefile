@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/09/09 14:35:14 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/09/16 15:17:46 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,10 @@ SOURCE = main.c \
 		builtin/cd.c \
 		builtin/export.c \
 		
+
+		parsing/env_parser.c \
+		parsing/input_checker.c \
+		parsing/cmd_parser.c \
 
 OBJECTS = $(SOURCE:%.c=%.o)
 
@@ -51,4 +55,6 @@ fclean:	clean
 
 re: fclean all
 
+
 .PHONY: all clean fclean re
+

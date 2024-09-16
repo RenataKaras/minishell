@@ -3,10 +3,17 @@
 /*                                                        ::::::::            */
 /*   libft.h                                            :+:    :+:            */
 /*                                                     +:+                    */
+<<<<<<< HEAD
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/24 11:17:40 by rkaras        #+#    #+#                 */
 /*   Updated: 2024/08/28 18:13:30 by rshaheen      ########   odam.nl         */
+=======
+/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/24 11:17:40 by rkaras        #+#    #+#                 */
+/*   Updated: 2024/03/20 16:52:56 by rkaras        ########   odam.nl         */
+>>>>>>> Renata
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +74,8 @@ size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *s);
 size_t		ft_strcmp(const char *s1, const char *s2);
+
+
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
