@@ -3,17 +3,10 @@
 /*                                                        ::::::::            */
 /*   libft.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-<<<<<<< HEAD
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/24 11:17:40 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/08/28 18:13:30 by rshaheen      ########   odam.nl         */
-=======
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/24 11:17:40 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/03/20 16:52:56 by rkaras        ########   odam.nl         */
->>>>>>> Renata
+/*   Updated: 2024/09/16 15:24:03 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env.c                                              :+:    :+:            */
+/*   envp.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/27 15:54:14 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/04 16:58:44 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 14:50:18 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_env(void)
+int	ft_env(t_data *minishell)
 {
-	t_env	*list;
+	t_envls	*list;
 
-	list = g_minishell.env_link_list;
+	list = minishell->env;
 	while (list)
 	{
 		if (list->value != NULL)
@@ -27,7 +27,7 @@ int	ft_env(void)
 }
 
 //The ft_env function works with the list that is obtained from 
-// the g_minishell.env_link_list. 
+// the g_minishell.env. 
 //This is part of the global g_minishell struct, 
 //which contains the environment variables for minishell.
 

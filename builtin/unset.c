@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 14:34:46 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/09 15:34:20 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 15:22:14 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ int	check_key_format(char *str)
 	return (1);
 }
 
-static void	unset_helper(char *key)
+static void	unset_helper(char *key, t_data *minishell)
 {
-	t_env	*current;
-	t_env	*prev;
+	t_envls	*current;
+	t_envls	*prev;
 
 	prev = NULL;
-	current = g_minishell.env_link_list;
+	current = minishell->env;
 	while (current)
 	{
 		if (!ft_strcmp(key, current->key))
@@ -58,7 +58,7 @@ static void	unset_helper(char *key)
 			if (prev)
 				prev->next = current->next;
 			else
-				g_minishell.env_link_list = current->next;
+				minishell->env = current->next;
 			free (current);
 			return ;
 		}
@@ -67,8 +67,7 @@ static void	unset_helper(char *key)
 	}
 }
 
-
-int	ft_unset(char **args)
+int	ft_unset(char **args, t_data *minishell)
 {
 	int		i;
 	bool	error;
@@ -87,7 +86,7 @@ int	ft_unset(char **args)
 			error = true;
 		}
 		else
-			unset_helper(free_or_add_list(copy_key(args[i]), false));
+			unset_helper(free_or_add_list(copy_key(args[i]), false), minishell);
 		i++;
 	}
 	return (error);

@@ -6,20 +6,17 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:46:23 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/09 15:54:48 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 14:52:35 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_minishell;
 
 char	*copy_key(char *str)
 {
 	size_t	i;
 
 	i = 0;
-
 	while (str[i])
 	{
 		if (str[i] == '=')
@@ -54,14 +51,14 @@ char	*copy_value(char *str)
 //if = not found, return NULL
 //what happens if substring fails???????
 
-void	make_env_list(void)
+void	make_env_list(t_data *minishell)
 {
 	int		i;
 	char	**original_env;
 	char	*key;
 	char	*value;
 
-	original_env = g_minishell.env;
+	original_env = minishell->envp;
 	if (!original_env)
 		return ;
 	i = 0;
@@ -71,8 +68,7 @@ void	make_env_list(void)
 		//printf("key:%s\n", key);
 		value = copy_value(original_env[i]);
 		//printf("value:%s\n", value);
-		update_val_make_node(key, value, true);
+		update_val(minishell, key, value, true);
 		i++;
 	}
 }
-

@@ -6,17 +6,17 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 17:58:03 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/09 15:54:48 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 15:22:14 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_env_value(char *key)
+char	*get_env_value(char *key, t_data *minishell)
 {
-	t_env	*envlst;
+	t_envls	*envlst;
 
-	envlst = g_minishell.env_link_list;
+	envlst = minishell->env;
 	while (envlst)
 	{
 		if (!ft_strcmp(key, envlst->key))
@@ -36,16 +36,16 @@ char	*get_env_value(char *key)
 * changes the PWD to HOME
 */
 
-static int	ft_cd_home(void)
+static int	ft_cd_home(t_data *minishell)
 {
 	char	*home;
 
-	update_val_make_node("OLDPWD", get_env_value("PWD"), false);
-	home = get_env_value("HOME");
+	update_val(minishell, "OLDPWD", get_env_value("PWD", minishell), false);
+	home = get_env_value("HOME", minishell);
 	if (!home)
 		return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
 	if (chdir(home) == ENO_SUCCESS)
-		return (update_val_make_node("PWD", home, false), 0);
+		return (update_val(minishell, "PWD", home, false), 0);
 	return (1);
 }
 
@@ -57,23 +57,23 @@ static int	cd_err_msg(char *dir_name)
 	return (1);
 }
 
-static int	change_pwd(void)
+static int	change_pwd(t_data *minishell)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (1);
-	return (update_val_make_node("PWD", cwd, false), 0);
+	return (update_val(minishell, "PWD", cwd, false), 0);
 }
 
-int	ft_cd(char *dir_name)
+int	ft_cd(char *dir_name, t_data *minishell)
 {
 	if (!dir_name)
-		return (ft_cd_home());
+		return (ft_cd_home(minishell));
 	if (chdir(dir_name) != ENO_SUCCESS)
 		return (cd_err_msg(dir_name));
-	update_val_make_node("OLDPWD", get_env_value("PWD"), false);
-	return (change_pwd());
+	update_val(minishell, "OLDPWD", get_env_value("PWD", minishell), false);
+	return (change_pwd(minishell));
 }
 

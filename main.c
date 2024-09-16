@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/16 15:12:00 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 15:32:54 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,26 @@ void	error_msg(char *msg)
 	ft_putendl_fd(msg, 2);
 }
 
-void	maintain_prompt(t_data data)
+void	*maintain_prompt(t_data data)
 {
 	while (1)
 	{
 		data.cmd_line = readline("minishell> ");
-		add_history(data.cmd_line);
-		input_checker(data.cmd_line);
-		cmd_parser(&data);
+		if (!data.cmd_line)
+			return (error_msg("exit\n"), NULL);
+		if (data.cmd_line[0])
+			add_history(data.cmd_line);
+		// input_checker(data.cmd_line);
+		data.token_list = tokenize(data.cmd_line);
+		if (!data.token_list)
+			continue ;
+		data.ast = parse(data.token_list);
+		// print_env_list (token_list);
+		// print_ast(data.ast, 0);
+		//execution
 	}
 }
+
 
 int	main(int argc, char **argv, char **envp)
 {

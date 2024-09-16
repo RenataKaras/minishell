@@ -6,14 +6,14 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 13:59:24 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/09 16:00:34 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 15:22:14 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /*
-* export command without any arguments in Bash, lists all the env variables 
+* export command without any arguments in Bash, lists all the envp variables 
 * marked for export. Each variable is printed in the format 
 * declare -x key="value" if it has a value, 
 * or declare -x key if it does not. the key "_" is usually 
@@ -28,10 +28,11 @@
 */
 static void	print_export_list(void)
 {
-	t_env	*list;
+	t_envls	*list;
 	size_t	i;
+	t_data minishell;
 
-	list = g_minishell.env_link_list;
+	list = minishell.env;
 	while (list)
 	{
 		if (list->value != NULL && (ft_strcmp(list->key, "_") != 0))
@@ -61,11 +62,11 @@ static int	export_err_msg(char *identifier)
 	return (1);
 }
 
-bool	is_key_in_env_list(char *key)
+bool	is_key_in_env_list(char *key, t_data *minishell)
 {
-	t_env	*env_list;
+	t_envls	*env_list;
 
-	env_list = g_minishell.env_link_list;
+	env_list = minishell->env;
 	while (env_list)
 	{
 		if (ft_strcmp(key, env_list->key) == 0)
@@ -75,7 +76,7 @@ bool	is_key_in_env_list(char *key)
 	return (false);
 }
 
-int	ft_export(char **command)
+int	ft_export(char **command, t_data *minishell)
 {
 	int		i;
 	int		exit_status;
@@ -92,10 +93,10 @@ int	ft_export(char **command)
 		else
 		{
 			key = copy_key(command[i]);
-			if (is_key_in_env_list(key) == true)
-				update_val_make_node(key, copy_value(command[i]), false);
+			if (is_key_in_env_list(key, minishell) == true)
+				update_val(minishell, key, copy_value(command[i]), false);
 			else
-				update_val_make_node(key, copy_value(command[i]), true);
+				update_val(minishell, key, copy_value(command[i]), true);
 		}
 		i++;
 	}
