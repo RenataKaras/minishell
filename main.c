@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/16 15:32:54 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 15:39:30 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,6 @@ static void	init_minishell(t_data *data, char **envp)
 //         list = list->next;
 //     }
 //     printf("End of list.\n");
-// }
-
-
-// void print_env_list(t_envls *head)
-// {
-//     t_envls *current = head;
-
-//     while (current != NULL)
-//     {
-//         printf("Keyword: %s, Info: %s\n", current->keyword, current->info);
-//         current = current->next;
-//     }
 // }
 
 void	error_msg(char *msg)

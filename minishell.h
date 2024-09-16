@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/16 15:23:30 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/16 15:51:41 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,61 @@
  * handling throughout the program by using descriptive names instead of
  * raw numbers.
  */
-typedef enum e_err_no
+//tokenizing structs
+typedef enum e_token_type
+{
+	T_IDENTIFIER,
+	T_LESS,
+	T_GREAT,
+	T_DLESS,
+	T_DGREAT,
+	T_PIPE,
+	T_AND,
+}	t_token_type;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
+
+//*A*bstract *S*yntax *T*ree structs
+typedef enum e_node_type
+{
+	N_PIPE,
+	N_AND,
+	N_CMD
+}	t_node_type;
+
+typedef enum e_io_type
+{
+	IO_IN,
+	IO_OUT,
+	IO_HEREDOC,
+	IO_APPEND
+}	t_io_type;
+
+typedef struct s_io_node
+{
+	t_io_type			type;
+	char				*value;
+	char				**expanded_value;
+	int					here_doc;
+	struct s_io_node	*prev;
+	struct s_io_node	*next;
+}	t_io_node;
+
+typedef struct s_node
+{
+	t_node_type		type;
+	t_io_node		*io_list;
+	char			*args;
+	char			**expanded_args;
+	struct s_node	*left;
+	struct s_node	*right;
+}	t_node;typedef enum e_err_no
 {
 	ENO_SUCCESS = 0,
 	ENO_GENERAL = 1,
@@ -80,10 +134,62 @@ void	update_val(t_data *min, char *key, char *value, bool make);
 //cleanup
 void	*free_or_add_list(void *ptr, bool clean);
 
-//parsing
-t_envls	*copy_env(char **env);
-bool	input_checker(char *cmd);
-void	cmd_parser(t_data *data);
+void		print_env_list(t_token *head);
+
+/*PARSING*/
+
+//parser_cleaner
+void		clear_io_list(t_io_node **lst);
+void		clear_cmd_node(t_node *node);
+void		clear_ast(t_node **ast, t_token *token_list);
+void		recursively_clear_ast(t_node *node);
+void		clear_ast_nodes(t_node **left, t_node **right, t_token *token_list);
+
+//parser_helpers
+bool		join_args(char **args, t_token **token_list);
+bool		get_io_list(t_io_node **io_list, t_token *token_list);
+t_node		*get_simple_cmd(t_token *token_list);
+
+//parser_lists
+t_node		*new_parse_node(t_node_type type);
+t_io_node	*new_io_node(t_token_type redir_type, char *value);
+void		append_io_node(t_io_node **lst, t_io_node *new);
+t_node_type	get_node_type(t_token_type type);
+t_io_type	get_io_type(t_token_type redir_type);
+
+//parser_utils
+bool		curr_token_is_binop(t_token *token_list);
+void		get_next_token(t_token **token_list);
+bool		is_redirection(t_token_type type);
+int			token_prec(t_token_type type);
+char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
+void		free_char2(char **str);
+
+//parser
+t_node		*term(t_token *token_list);
+t_node		*expression(int min_prec, t_token **token_list);
+t_node		*parse(t_token *token_list);
+
+t_envls		*copy_env(char **env);
+
+//tokenizing
+t_token		*tokenize(char *cmd_line);
+bool		is_space(char c);
+void		skip_spaces(char **line);
+t_token		*tokenization(char *cmd_line);
+int			handle_separator(char **line_ptr, t_token **token_list);
+int			add_separator(t_token_type type, char **line_ptr,
+				t_token **token_list);
+t_token		*new_token_node(char *value, t_token_type type);
+void		token_lst_add_back(t_token **token_list, t_token *new_token);
+int			add_identifier(char **line_ptr, t_token **token_list);
+bool		is_separator(char *s);
+bool		is_quote(char c);
+bool		skip_quotes(char *line, int *i);
+void		free_token_list(t_token **token_list);
+
+//error handling
+void		error_msg(char *msg);
 
 
 //error handling

@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/09/16 15:17:46 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/09/16 15:55:17 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,16 @@ SOURCE = main.c \
 		builtin/export.c \
 		
 
-		parsing/env_parser.c \
-		parsing/input_checker.c \
-		parsing/cmd_parser.c \
+			parsing/env_list.c \
+			tokenizing/tokenize.c \
+			tokenizing/tokenizing_utils.c \
+			tokenizing/token_list.c \
+			tokenizing/token_adder.c \
+			parsing/parser.c \
+			parsing/parser_utils.c \
+			parsing/parser_cleaner.c \
+			parsing/parser_helpers.c \
+			parsing/parser_lists.c \
 
 OBJECTS = $(SOURCE:%.c=%.o)
 
