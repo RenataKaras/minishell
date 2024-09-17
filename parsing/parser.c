@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 14:46:05 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/13 17:55:08 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/17 18:41:05 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_node	*handle_term_and_token(t_token **token_list)
 	left = term(*token_list);
 	if (!left)
 		return (NULL);
+	get_next_token(token_list);
 	while (*token_list && (*token_list)->type == T_IDENTIFIER)
 		get_next_token(token_list);
 	return (left);
@@ -82,7 +83,5 @@ t_node	*parse(t_token *token_list)
 	if (!token_list)
 		return (NULL);
 	ast = expression(0, &token_list);
-	if (token_list)
-		return (error_msg("Syntax error"), NULL);
 	return (ast);
 }

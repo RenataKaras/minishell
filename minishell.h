@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/13 17:25:15 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/17 18:57:06 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,54 +101,65 @@ void		print_env_list(t_token *head);
 /*PARSING*/
 
 //parser_cleaner
+void		clear_ast(t_node **ast, t_token *token_list);
+void		clear_ast_nodes(t_node **left, t_node **right, t_token *token_list);
 void		clear_io_list(t_io_node **lst);
 void		clear_cmd_node(t_node *node);
-void		clear_ast(t_node **ast, t_token *token_list);
 void		recursively_clear_ast(t_node *node);
-void		clear_ast_nodes(t_node **left, t_node **right, t_token *token_list);
 
 //parser_helpers
-bool		join_args(char **args, t_token **token_list);
+char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
 bool		get_io_list(t_io_node **io_list, t_token *token_list);
 t_node		*get_simple_cmd(t_token *token_list);
+bool		join_args(char **args, t_token **token_list);
 
 //parser_lists
-t_node		*new_parse_node(t_node_type type);
-t_io_node	*new_io_node(t_token_type redir_type, char *value);
 void		append_io_node(t_io_node **lst, t_io_node *new);
 t_node_type	get_node_type(t_token_type type);
 t_io_type	get_io_type(t_token_type redir_type);
+t_io_node	*new_io_node(t_token_type redir_type, char *value);
+t_node		*new_parse_node(t_node_type type);
 
 //parser_utils
 bool		curr_token_is_binop(t_token *token_list);
+void		free_char2(char **str);
 void		get_next_token(t_token **token_list);
 bool		is_redirection(t_token_type type);
 int			token_prec(t_token_type type);
-char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
-void		free_char2(char **str);
 
 //parser
-t_node		*term(t_token *token_list);
+t_node		*combine(t_token_type op, t_node *left, t_node *right);
 t_node		*expression(int min_prec, t_token **token_list);
+t_node		*handle_term_and_token(t_token **token_list);
 t_node		*parse(t_token *token_list);
+t_node		*term(t_token *token_list);
+
 
 t_envls		*copy_env(char **env);
 
-//tokenizing
-t_token		*tokenize(char *cmd_line);
-bool		is_space(char c);
-void		skip_spaces(char **line);
-t_token		*tokenization(char *cmd_line);
-int			handle_separator(char **line_ptr, t_token **token_list);
+/*TOKENIZING*/
+
+//token_adder
+int			add_identifier(char **line_ptr, t_token **token_list);
 int			add_separator(t_token_type type, char **line_ptr,
 				t_token **token_list);
+
+//token_list
+void		free_token_list(t_token **token_list);
 t_token		*new_token_node(char *value, t_token_type type);
 void		token_lst_add_back(t_token **token_list, t_token *new_token);
-int			add_identifier(char **line_ptr, t_token **token_list);
+
+//tokenize
+int			handle_separator(char **line_ptr, t_token **token_list);
+t_token		*tokenization(char *cmd_line);
+t_token		*tokenize(char *cmd_line);
+
+//tokenizing utils
 bool		is_separator(char *s);
+bool		is_space(char c);
 bool		is_quote(char c);
+void		skip_spaces(char **line);
 bool		skip_quotes(char *line, int *i);
-void		free_token_list(t_token **token_list);
 
 //error handling
 void		error_msg(char *msg);
