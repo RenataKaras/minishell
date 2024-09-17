@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/24 12:28:12 by rkaras        #+#    #+#                  #
-#    Updated: 2024/09/16 15:14:21 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/09/17 18:03:31 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,16 +62,15 @@ SRCS = ft_isalnum.c \
 			ft_putchar_printf.c \
 			ft_putnbr_printf.c \
 			ft_putstr_printf.c \
-
-BSRC = ft_lstadd_back_bonus.c \
-		ft_lstadd_front_bonus.c \
-		ft_lstclear_bonus.c \
-		ft_lstdelone_bonus.c \
-		ft_lstiter_bonus.c \
-		ft_lstlast_bonus.c \
-		ft_lstmap_bonus.c \
-		ft_lstnew_bonus.c \
-		ft_lstsize_bonus.c \
+			ft_lstadd_back_bonus.c \
+			ft_lstadd_front_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstmap_bonus.c \
+			ft_lstnew_bonus.c \
+			ft_lstsize_bonus.c \
 
 OBJS = $(SRCS:.c=.o)
 
