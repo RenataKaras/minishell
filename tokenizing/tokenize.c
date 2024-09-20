@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   tokenize.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/26 17:18:36 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/12 13:23:38 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/20 17:25:41 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_separator(char **line_ptr, t_token **token_list)
 		return (add_separator(T_PIPE, line_ptr, token_list) && 1);
 }
 
-
+//do we need && here?
 t_token	*tokenization(char *cmd_line)
 {
 	t_token	*token_list;

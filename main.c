@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/20 16:22:11 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/20 17:29:32 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,27 +175,6 @@ void	error_msg(char *msg)
 	ft_putendl_fd(msg, 2);
 }
 
-//do we need the whole struct here or just a pointer to the struct???
-
-void	*maintain_prompt(t_data data)
-{
-	while (1)
-	{
-		data.cmd_line = readline("minishell> ");
-		if (!data.cmd_line)
-			return (error_msg("exit\n"), NULL);
-		if (data.cmd_line[0])
-			add_history(data.cmd_line);
-		// input_checker(data.cmd_line);
-		data.token_list = tokenize(data.cmd_line);
-		if (!data.token_list)
-			continue ;
-		data.ast = parse(data.token_list);
-		// print_env_list (token_list);
-		// print_ast(data.ast, 0);
-		//execution
-	}
-}
 //The signal function is a standard C func, 
 //It is defined in the header file <signal.h>
 //Prototype: void (*signal(int sig, void (*handler)(int)))(int);
@@ -211,8 +190,32 @@ void	*maintain_prompt(t_data data)
 static void	start_execution(t_data *data)
 {
 	signal(SIGQUIT, sigquit_handler);
-	
+	init_tree(data);
 }
+//***CHANGED DATA TO A PONTER BECAUSE START_EX NEEDS A POINTER TO IT**/
+//otherwise start_executin gets a pointer to the copy rather tha
+//and start_execution also needs to be called from inside the loop
+
+void	*maintain_prompt(t_data *data)
+{
+	while (1)
+	{
+		data->cmd_line = readline("minishell> ");
+		if (!data->cmd_line)
+			return (error_msg("exit\n"), NULL);
+		if (data->cmd_line[0])
+			add_history(data->cmd_line);
+		// input_checker(data.cmd_line);
+		data->token_list = tokenize(data->cmd_line);
+		if (!data->token_list)
+			continue ;
+		data->ast = parse(data->token_list);
+		// print_env_list (token_list);
+		// print_ast(data.ast, 0);
+		start_execution(data);
+	}
+}
+
 
 
 int	main(int argc, char **argv, char **envp)
@@ -221,17 +224,16 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	init_minishell(&data, envp);
 
 	if (argc != 1 || argv[1])
 		return (error_msg("Wrong number of arguments"), EXIT_FAILURE);
+	init_minishell(&data, envp);
+	maintain_prompt(&data);
 	//data.envp = envp;
 	//data.env = copy_env(data.envp);
 	//if (!data.env)
 		//return (EXIT_FAILURE);
 	// print_env_list(data.env);
-	maintain_prompt(data);
-	start_execution(&data);
 	//ft_exec_builtin(argv + 1, &data);// it was temporaty, skip the program name and send commands
 	// print_env_list(data.env);
 	
