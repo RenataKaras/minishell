@@ -3,24 +3,49 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2024/09/24 15:48:39 by rkaras        ########   odam.nl         */
+=======
+/*   Updated: 2024/09/20 17:29:32 by rshaheen      ########   odam.nl         */
+>>>>>>> origin/sara_new
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void print_env_list(t_token *head)
-// {
-//     t_token *current = head;
+static void	init_minishell(t_data *data, char **envp)
+{
+	ft_memset(data, 0, sizeof(t_data));
+	data->envp = envp;
+	make_env_list(data);
+	data->stdin = dup(0);
+	data->stdout = dup(1);
+	tcgetattr(STDIN_FILENO, &data->original_terminal);
+}
+// Zero out the memory for the minishell structure.
+// ft_memset sets all bytes of `minishell` to 0, effectively initializing it.
+// Duplicate the fd for stdin (0) and store in `minishell.stdin`.
+// it saves the current stdin so it can be restored later if needed.
+// TCGETATTR: Retrieve and save the current terminal attributes for stdin 
+//to `minishell.original_terminal`.
+// This allows restoring terminal settings later if they are modified.
 
-//     while (current != NULL)
+
+// static void	start_execution(void)
+// {
+// }
+
+// void print_env_list(t_envls *list)
+// {
+//     while (list)
 //     {
 //         printf("Type: %u, Value: %s\n", current->type, current->value);
 //         current = current->next;
 //     }
+//     printf("End of list.\n");
 // }
 
 // void	print_io_list(t_io_node *io_list, int depth)
@@ -151,36 +176,80 @@ void	error_msg(char *msg)
 	ft_putendl_fd(msg, 2);
 }
 
-void	*maintain_prompt(t_data data)
+//The signal function is a standard C func, 
+//It is defined in the header file <signal.h>
+//Prototype: void (*signal(int sig, void (*handler)(int)))(int);
+//int sig: signal number, such as SIGQUIT, SIGINT, or other predefined signal
+//from signal.h.
+//void (*handler)(int): a pointer to a function 
+//that takes an integer (the signal number) as an argument and returns void.
+//SIGQUIT is sent when the user presses Ctrl+\. 
+//It causes the program to quit and may create a core dump (for debugging).
+//passing a pointer to struct in oppose to the whole struct
+// to avoid copying the whole thing
+
+static void	start_execution(t_data *data)
+{
+	signal(SIGQUIT, sigquit_handler);
+	init_tree(data);
+}
+//***CHANGED DATA TO A PONTER BECAUSE START_EX NEEDS A POINTER TO IT**/
+//otherwise start_executin gets a pointer to the copy rather tha
+//and start_execution also needs to be called from inside the loop
+
+void	*maintain_prompt(t_data *data)
 {
 	while (1)
 	{
-		data.cmd_line = readline("minishell> ");
-		if (!data.cmd_line)
+		data->cmd_line = readline("minishell> ");
+		if (!data->cmd_line)
 			return (error_msg("exit\n"), NULL);
-		if (data.cmd_line[0])
-			add_history(data.cmd_line);
+		if (data->cmd_line[0])
+			add_history(data->cmd_line);
 		// input_checker(data.cmd_line);
-		data.token_list = tokenize(data.cmd_line);
-		if (!data.token_list)
+		data->token_list = tokenize(data->cmd_line);
+		if (!data->token_list)
 			continue ;
+<<<<<<< HEAD
 		data.ast = parse(data.token_list);
 		// print_env_list (data.token_list);
+=======
+		data->ast = parse(data->token_list);
+		// print_env_list (token_list);
+>>>>>>> origin/sara_new
 		// print_ast(data.ast, 0);
-		//execution
+		start_execution(data);
 	}
 }
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	(void)argc;
+	(void)argv;
+
 	if (argc != 1 || argv[1])
 		return (error_msg("Wrong number of arguments"), EXIT_FAILURE);
+<<<<<<< HEAD
 	data.envp = envp;
 	data.env = copy_env(data.envp);
 	if (!data.env)
 		return (EXIT_FAILURE);
 	maintain_prompt(data);
+=======
+	init_minishell(&data, envp);
+	maintain_prompt(&data);
+	//data.envp = envp;
+	//data.env = copy_env(data.envp);
+	//if (!data.env)
+		//return (EXIT_FAILURE);
+	// print_env_list(data.env);
+	//ft_exec_builtin(argv + 1, &data);// it was temporaty, skip the program name and send commands
+	// print_env_list(data.env);
+	
+>>>>>>> origin/sara_new
 	return (0);
 }

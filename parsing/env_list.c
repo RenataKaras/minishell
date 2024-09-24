@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_list.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/19 15:57:31 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/13 16:54:14 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/20 16:26:38 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

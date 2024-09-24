@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/24 15:51:01 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/24 16:04:57 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,17 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <termios.h>
 
+/*
+ * Enumeration, or enum, is a user-defined data type in C/other languages 
+ * that consists of a set of named integer constants. 
+ * It allows you to assign names to a series of related integer values, 
+ * making the code more readable and maintainable.
+ * Here, The enum is used to standardize error
+ * handling throughout the program by using descriptive names instead of
+ * raw numbers.
+ */
 //tokenizing structs
 typedef enum e_token_type
 {
@@ -41,6 +51,7 @@ typedef struct s_token
 }	t_token;
 
 //*A*bstract *S*yntax *T*ree structs
+//Do we need &&
 typedef enum e_node_type
 {
 	N_PIPE,
@@ -73,15 +84,24 @@ typedef struct s_node
 	char			**expanded_args;
 	struct s_node	*left;
 	struct s_node	*right;
-}	t_node;
+}	t_node ;
 
-//environment linked list
+typedef enum e_err_no
+{
+	ENO_SUCCESS = 0,
+	ENO_GENERAL = 1,
+	ENO_CANT_EXEC = 126,
+	ENO_NOT_FOUND = 127,
+	ENO_EXEC_255 = 255
+}	t_err_no ;
+
 typedef struct s_envls
 {
-	char			*keyword;
-	char			*info;
+	char			*key;
+	char			*value;
 	struct s_envls	*next;
 }					t_envls;
+
 
 //general struct
 typedef struct s_data
@@ -89,9 +109,37 @@ typedef struct s_data
 	char	*cmd_line;
 	t_token	*token_list;
 	t_node	*ast;
-	char	**envp;
 	t_envls	*env;
-}			t_data;
+	char	**envp;
+	int		stdin;
+	int		stdout;
+	bool	heredoc_siginit;
+	struct 	termios	original_terminal;
+}	t_data;
+
+
+//builtin
+
+int		ft_exec_builtin(char **command, t_data *data);
+int		ft_env(t_data *data);
+int		ft_pwd(void);
+int		ft_echo(char **command);
+int		ft_unset(char **args, t_data *data);
+int		ft_cd(char *dir_name, t_data *data);
+int		ft_export(char **command, t_data *data);
+int		check_key_format(char *str);
+
+//envp
+void	make_env_list(t_data *data);
+char	*copy_key(char *str);
+char	*copy_value(char *str);
+void	update_val(t_data *min, char *key, char *value, bool make);
+
+//cleanup
+void	*free_or_add_list(void *ptr, bool clean);
+
+void		print_env_list(t_token *head);
+
 
 
 void		print_env_list(t_token *head);
@@ -158,5 +206,8 @@ bool		skip_quotes(char *line, int *i);
 
 //error handling
 void		error_msg(char *msg);
+
+//signal handling
+void	sigquit_handler(int num);
 
 #endif
