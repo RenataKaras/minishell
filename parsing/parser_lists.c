@@ -6,18 +6,11 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 15:48:00 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/12 13:21:58 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/18 16:34:58 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_node_type	get_node_type(t_token_type type)
-{
-	if (type == T_AND)
-		return (N_AND);
-	return (N_PIPE);
-}
 
 t_io_type	get_io_type(t_token_type redir_type)
 {

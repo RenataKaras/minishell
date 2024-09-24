@@ -6,7 +6,11 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
+<<<<<<< HEAD
+/*   Updated: 2024/09/24 15:48:39 by rkaras        ########   odam.nl         */
+=======
 /*   Updated: 2024/09/20 17:29:32 by rshaheen      ########   odam.nl         */
+>>>>>>> origin/sara_new
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +118,6 @@ static void	init_minishell(t_data *data, char **envp)
 // 		case N_PIPE:
 // 			printf("PIPE\n");
 // 			break;
-// 		case N_AND:
-// 			printf("AND\n");
-// 			break;
 // 		case N_CMD:
 // 			printf("CMD\n");
 // 			break;
@@ -209,8 +210,13 @@ void	*maintain_prompt(t_data *data)
 		data->token_list = tokenize(data->cmd_line);
 		if (!data->token_list)
 			continue ;
+<<<<<<< HEAD
+		data.ast = parse(data.token_list);
+		// print_env_list (data.token_list);
+=======
 		data->ast = parse(data->token_list);
 		// print_env_list (token_list);
+>>>>>>> origin/sara_new
 		// print_ast(data.ast, 0);
 		start_execution(data);
 	}
@@ -227,6 +233,13 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || argv[1])
 		return (error_msg("Wrong number of arguments"), EXIT_FAILURE);
+<<<<<<< HEAD
+	data.envp = envp;
+	data.env = copy_env(data.envp);
+	if (!data.env)
+		return (EXIT_FAILURE);
+	maintain_prompt(data);
+=======
 	init_minishell(&data, envp);
 	maintain_prompt(&data);
 	//data.envp = envp;
@@ -237,5 +250,6 @@ int	main(int argc, char **argv, char **envp)
 	//ft_exec_builtin(argv + 1, &data);// it was temporaty, skip the program name and send commands
 	// print_env_list(data.env);
 	
+>>>>>>> origin/sara_new
 	return (0);
 }
