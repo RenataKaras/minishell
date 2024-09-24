@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/20 17:36:39 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/24 16:11:31 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,5 +203,8 @@ void		error_msg(char *msg);
 
 //signal handling
 void	sigquit_handler(int num);
+
+//execution
+void	init_tree(t_node *node, t_data *data);
 
 #endif

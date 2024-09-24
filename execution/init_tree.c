@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/20 18:03:09 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/24 16:15:40 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@
 //the design conventionally puts it there for consistency with other operators.
 //so if heredoc_siginit is not initialized, we do it
 
-void	init_tree(t_data *data)
+// static void	init_leaf(t_data *data)
+// {
+	
+// }
+void	init_tree(t_node *node, t_data *data)
 {
-	if (!data->ast)
+	if (!node)
 		return ;
-	if (data->ast->type == N_PIPE
-			|| data->ast->type == N_AND)//do we need it???remove
+	if (data->ast->type == N_PIPE)
 	{
 		init_tree(data ->ast -> left);
 		if (!data->heredoc_siginit)
 			init_tree(data-> ast -> right);
 	}
 	else
-		init_leaf(data->ast);
+		init_leaf(data);
 }
