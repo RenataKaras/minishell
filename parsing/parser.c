@@ -6,17 +6,17 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 14:46:05 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/17 18:41:05 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/18 18:53:03 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*combine(t_token_type op, t_node *left, t_node *right)
+t_node	*combine(t_node *left, t_node *right)
 {
 	t_node	*node;
 
-	node = new_parse_node(get_node_type(op));
+	node = new_parse_node(N_PIPE);
 	if (!node)
 		return (error_msg("Memory allocation error"), NULL);
 	node->left = left;
@@ -26,7 +26,7 @@ t_node	*combine(t_token_type op, t_node *left, t_node *right)
 
 t_node	*term(t_token *token_list)
 {
-	if (curr_token_is_binop(token_list))
+	if (token_list->type == T_PIPE)
 		return (error_msg("Syntax error: operator before command"), NULL);
 	else
 		return (get_simple_cmd(token_list));
@@ -51,25 +51,22 @@ t_node	*expression(int min_prec, t_token **token_list)
 {
 	t_node			*left;
 	t_node			*right;
-	t_token_type	op;
 	int				next_prec;
 
 	left = handle_term_and_token(token_list);
 	if (!left)
 		return (NULL);
-	while (curr_token_is_binop(*token_list)
-		&& token_prec((*token_list)->type) >= min_prec)
+	while (*token_list && (*token_list)->type == T_PIPE && 0 >= min_prec)
 	{
-		op = (*token_list)->type;
 		get_next_token(token_list);
 		if (!token_list)
-			return (error_msg ("Syntax error: no command after operator"),
+			return (error_msg ("Syntax error: no command after '|'"),
 				NULL);
-		next_prec = token_prec(op) + 1;
+		next_prec = 0 + 1;
 		right = expression(next_prec, token_list);
 		if (!right)
 			return (left);
-		left = combine(op, left, right);
+		left = combine(left, right);
 		if (!left)
 			return (clear_ast_nodes(&left, &right, *token_list), NULL);
 	}
