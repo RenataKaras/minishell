@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/18 16:36:11 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/24 15:51:01 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef enum e_token_type
 	T_DLESS,
 	T_DGREAT,
 	T_PIPE,
-	T_AND,
 }	t_token_type;
 
 typedef struct s_token
@@ -45,7 +44,6 @@ typedef struct s_token
 typedef enum e_node_type
 {
 	N_PIPE,
-	N_AND,
 	N_CMD
 }	t_node_type;
 
@@ -103,8 +101,8 @@ void		print_env_list(t_token *head);
 //parser_cleaner
 void		clear_ast(t_node **ast, t_token *token_list);
 void		clear_ast_nodes(t_node **left, t_node **right, t_token *token_list);
-void		clear_io_list(t_io_node **lst);
 void		clear_cmd_node(t_node *node);
+void		clear_io_list(t_io_node **lst);
 void		recursively_clear_ast(t_node *node);
 
 //parser_helpers
