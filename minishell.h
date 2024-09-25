@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/24 16:04:57 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/25 15:48:51 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_node
 	char			**expanded_args;
 	struct s_node	*left;
 	struct s_node	*right;
-}	t_node ;
+}	t_node;
 
 typedef enum e_err_no
 {
@@ -93,7 +93,7 @@ typedef enum e_err_no
 	ENO_CANT_EXEC = 126,
 	ENO_NOT_FOUND = 127,
 	ENO_EXEC_255 = 255
-}	t_err_no ;
+}	t_err_no;
 
 typedef struct s_envls
 {
@@ -102,47 +102,62 @@ typedef struct s_envls
 	struct s_envls	*next;
 }					t_envls;
 
-
 //general struct
 typedef struct s_data
 {
-	char	*cmd_line;
-	t_token	*token_list;
-	t_node	*ast;
-	t_envls	*env;
-	char	**envp;
-	int		stdin;
-	int		stdout;
-	bool	heredoc_siginit;
-	struct 	termios	original_terminal;
+	char			*cmd_line;
+	t_token			*token_list;
+	t_node			*ast;
+	t_envls			*env;
+	char			**envp;
+	int				stdin;
+	int				stdout;
+	bool			heredoc_siginit;
+	struct termios	original_terminal;
+	int				exit_status;
 }	t_data;
 
-
 //builtin
-
-int		ft_exec_builtin(char **command, t_data *data);
-int		ft_env(t_data *data);
-int		ft_pwd(void);
-int		ft_echo(char **command);
-int		ft_unset(char **args, t_data *data);
-int		ft_cd(char *dir_name, t_data *data);
-int		ft_export(char **command, t_data *data);
-int		check_key_format(char *str);
+int			ft_exec_builtin(char **command, t_data *data);
+int			ft_env(t_data *data);
+int			ft_pwd(void);
+int			ft_echo(char **command);
+int			ft_unset(char **args, t_data *data);
+int			ft_cd(char *dir_name, t_data *data);
+int			ft_export(char **command, t_data *data);
+int			check_key_format(char *str);
 
 //envp
-void	make_env_list(t_data *data);
-char	*copy_key(char *str);
-char	*copy_value(char *str);
-void	update_val(t_data *min, char *key, char *value, bool make);
+void		make_env_list(t_data *data);
+char		*copy_key(char *str);
+char		*copy_value(char *str);
+void		update_val(t_data *min, char *key, char *value, bool make);
+char		*get_envlst_val(char *key, t_envls *env);
+
 
 //cleanup
-void	*free_or_add_list(void *ptr, bool clean);
+void		*free_or_add_list(void *ptr, bool clean);
 
 void		print_env_list(t_token *head);
 
 
 
 void		print_env_list(t_token *head);
+
+/*EXPANDER*/
+
+//expander
+char		**expand(t_data *data);
+char		*cmd_pre_expander(t_data *data);
+char		*handle_dollar(t_data *data, int *i);
+
+//expand utils
+char		*handle_squotes(char *str, int *i);
+char		*handle_dquote_str(char *str, int *i);
+char		*handle_dquotes(t_data *data, int *i);
+char		*strjoin_free(char const *s1, char const *s2);
+bool		is_valid_var_char(char c);
+
 
 /*PARSING*/
 
@@ -208,6 +223,6 @@ bool		skip_quotes(char *line, int *i);
 void		error_msg(char *msg);
 
 //signal handling
-void	sigquit_handler(int num);
+void		sigquit_handler(int num);
 
 #endif

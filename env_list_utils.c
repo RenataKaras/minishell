@@ -6,11 +6,22 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/16 15:22:14 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/25 15:46:45 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_envlst_val(char *key, t_envls *env)
+{
+	while (env)
+	{
+		if (!ft_strcmp(key, env->key))
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
+}
 
 // If g_minishell.env has not been initialized
 // set the new node as the head

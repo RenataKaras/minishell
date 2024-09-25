@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/09/20 16:50:08 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/09/25 16:18:49 by rkaras        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ SOURCE = main.c \
 		parsing/parser_cleaner.c \
 		parsing/parser_helpers.c \
 		parsing/parser_lists.c \
+		expander/expand_utils.c \
+		expander/expand.c \
+		expander/expand_helpers.c \
 
 
 
