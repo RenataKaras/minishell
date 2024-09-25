@@ -6,11 +6,13 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/24 16:40:17 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/25 18:28:41 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile sig_atomic_t signal_number = 0;
 
 static void	init_minishell(t_data *data, char **envp)
 {
@@ -172,31 +174,47 @@ void	error_msg(char *msg)
 	ft_putendl_fd(msg, 2);
 }
 
-//The signal function is a standard C func, 
-//It is defined in the header file <signal.h>
+//signal is a standard C function defined in <signal.h>
 //Prototype: void (*signal(int sig, void (*handler)(int)))(int);
-//int sig: signal number, such as SIGQUIT, SIGINT, or other predefined signal
-//from signal.h.
-//void (*handler)(int): a pointer to a function 
-//that takes an integer (the signal number) as an argument and returns void.
-//SIGQUIT is sent when the user presses Ctrl+\. 
-//It causes the program to quit and may create a core dump (for debugging).
+// when specified signal is received, like SIGINT (Ctrl+C) or SIGQUIT (Ctrl+\)
+//signal reacts immediately and calls the corresponding handler function
+//NO MATTER where in praogram you are in
+//int sig: signal number, such as SIGQUIT, SIGINT
+//void (*handler)(int): a pointer to a function
+//prototype of handler: void handler(int signum)
+//it only receives the signal number
+//signal() is not a global variable but it sets up signal handling globally 
+
+//Explanation why use the signal function instead of a if statement:
+
+//Signals like SIGINT (Ctrl+C) or SIGQUIT (Ctrl+) can be sent to your program 
+//by the OS at any time, even while the program is in the middle of executing 
+//something else. It cannot be predicted exactly when they will arrive, so an 
+//if statement won't catch them unless a constant check (which is impractical)
+//signal function reacts immediately
+
+
+
 //passing a pointer to struct in oppose to the whole struct
 // to avoid copying the whole thing
 
-static void	start_execution(t_data *data)
-{
-	signal(SIGQUIT, sigquit_handler);
-	init_tree(data);
-}
+
+// static void	start_execution(t_data *data)
+// {
+// 	signal(SIGQUIT, sigquit_handler);
+// 	init_tree(data);
+// }
 //***CHANGED DATA TO A PONTER BECAUSE START_EX NEEDS A POINTER TO IT**/
 //otherwise start_executin gets a pointer to the copy rather tha
 //and start_execution also needs to be called from inside the loop
+//passing a pointer to struct in oppose to the whole struct
+// to avoid copying the whole thing
 
 void	*maintain_prompt(t_data *data)
 {
 	while (1)
 	{
+		init_signals(data);
 		data->cmd_line = readline("minishell> ");
 		if (!data->cmd_line)
 			return (error_msg("exit\n"), NULL);
@@ -209,7 +227,7 @@ void	*maintain_prompt(t_data *data)
 		data->ast = parse(data->token_list);
 		// print_env_list (token_list);
 		// print_ast(data.ast, 0);
-		start_execution(data);
+		//start_execution(data);
 	}
 }
 
@@ -231,7 +249,6 @@ int	main(int argc, char **argv, char **envp)
 	//data.env = copy_env(data.envp);
 	//if (!data.env)
 		//return (EXIT_FAILURE);
-	// print_env_list(data.env);
 	//ft_exec_builtin(argv + 1, &data);// it was temporaty, skip the program name and send commands
 	// print_env_list(data.env);
 	return (0);
