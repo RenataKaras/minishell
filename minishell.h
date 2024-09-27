@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/27 17:01:40 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/27 17:56:05 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # include <readline/history.h>
 # include <stdbool.h>
 # include <termios.h>
+# include <fcntl.h>
+# include <sys/ttydefaults.h>
+
+// Global variable to hold the signal number
+extern volatile sig_atomic_t signal_number;
 
 /*
  * Enumeration, or enum, is a user-defined data type in C/other languages 
@@ -39,7 +44,7 @@ typedef enum e_token_type
 	T_GREAT,
 	T_DLESS,
 	T_DGREAT,
-	T_PIPE,
+	T_PIPE
 }	t_token_type;
 
 typedef struct s_token
@@ -113,6 +118,7 @@ typedef struct s_data
 	int				stdin;
 	int				stdout;
 	bool			heredoc_siginit;
+	bool	siginit_child;
 	struct termios	original_terminal;
 	int				exit_status;
 }	t_data;
@@ -229,6 +235,10 @@ bool		skip_quotes(char *line, int *i);
 void		error_msg(char *msg);
 
 //signal handling
+void	init_signals(t_data *data);
 void		sigquit_handler(int num);
+
+//execution
+void	init_tree(t_data *data);
 
 #endif

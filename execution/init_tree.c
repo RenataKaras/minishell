@@ -6,11 +6,53 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/27 17:31:46 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/27 17:57:50 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	heredoc_int_handler(int signum)
+{
+	(void)signum;
+	clean_minishell();
+	exit(SIGINT);
+}
+
+void	ft_heredoc(t_io_node *io, int pipefd[2])
+{
+	char	*line;
+	char	*quotes;
+
+	signal(SIGINT, heredoc_int_handler);
+}
+//expansion refers to the process of interpreting and replacing certain chars
+//with their corresponding values.
+//when heredoc is found, we start ignoring SIGQUIT by SIG_IGN coz
+//bash does not react to SIGQUIT inside heredoc
+//signal(SIGQUIT, SIG_IGN) might not be necessary, test later
+
+static void	init_leaf(t_data *data)
+{
+	t_io_node	*io;
+	int			pipefd[2];
+	int			pid;
+
+	if (data->ast->args)
+		data->ast->expanded_args = ft_expand(data->ast->args);
+	io = data->ast->io_list;
+	while (io)
+	{
+		if (io->type == IO_HEREDOC)
+		{
+			pipe(pipefd);
+			data->heredoc_siginit = true;
+			pid = (signal(SIGQUIT, SIG_IGN), fork());
+			if (!pid)
+				ft_heredoc(io, pipefd);
+		}
+	}
+}
 
 //Pipes (|) are processed left-to-right (send output from left to right).
 //Heredoc (<<) typically applies to the right-hand command,
@@ -30,12 +72,12 @@ void	init_tree(t_data *data)
 {
 	if (!data->ast)
 		return ;
-	if (data->ast->type == N_PIPE)//do we need it???remove
+	if (data->ast->type == N_PIPE)
 	{
 		init_tree(data ->ast -> left);
 		if (!data->heredoc_siginit)
 			init_tree(data-> ast -> right);
 	}
 	else
-		init_leaf(data->ast);
+		init_leaf(data);
 }
