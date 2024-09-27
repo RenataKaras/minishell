@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/25 19:15:43 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/27 17:59:22 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <sys/ttydefaults.h>
 
 // Global variable to hold the signal number
-extern volatile sig_atomic_t signal_number;
+int  g_signal_number;
 
 /*
  * Enumeration, or enum, is a user-defined data type in C/other languages 
@@ -111,16 +111,16 @@ typedef struct s_envls
 //general struct
 typedef struct s_data
 {
-	char	*cmd_line;
-	t_token	*token_list;
-	t_node	*ast;
-	t_envls	*env;
-	char	**envp;
-	int		stdin;
-	int		stdout;
-	bool	heredoc_siginit;
-	bool	siginit_child;
-	struct 	termios	original_terminal;
+	char			*cmd_line;
+	t_token			*token_list;
+	t_node			*ast;
+	t_envls			*env;
+	char			**envp;
+	int				stdin;
+	int				stdout;
+	bool			heredoc_siginit;
+	bool			sigint_child;
+	struct termios	original_terminal;
 }	t_data;
 
 
@@ -214,8 +214,9 @@ bool		skip_quotes(char *line, int *i);
 void		error_msg(char *msg);
 
 //signal handling
-void	init_signals(t_data *data);
+void	init_signals();
 void	sigquit_handler(int num);
+void	process_sigint(t_data *data);
 
 //execution
 void	init_tree(t_data *data);

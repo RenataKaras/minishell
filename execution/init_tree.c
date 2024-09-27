@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/25 17:13:36 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/27 18:14:36 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	heredoc_int_handler(int signum)
 {
 	(void)signum;
-	clean_minishell();
-	exit(SIGINT);
+	clean_minishell();//need to put it outside handler and send data
+	exit(SIGINT);//also this cause otherwise program exits before exiting
 }
 
 void	ft_heredoc(t_io_node *io, int pipefd[2])
@@ -24,7 +24,9 @@ void	ft_heredoc(t_io_node *io, int pipefd[2])
 	char	*line;
 	char	*quotes;
 
-	signal(SIGINT, heredoc_int_handler);
+	//signal(SIGINT, heredoc_int_handler);
+	quotes = io->value;
+	while (*)
 }
 //expansion refers to the process of interpreting and replacing certain chars
 //with their corresponding values.
