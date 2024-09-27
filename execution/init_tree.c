@@ -6,16 +6,50 @@
 /*   By: rshaheen <rshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:14:01 by rshaheen          #+#    #+#             */
-/*   Updated: 2024/09/27 21:05:40 by rshaheen         ###   ########.fr       */
+/*   Updated: 2024/09/27 22:02:08 by rshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// waitpid waits for a specific child process to change state (exit/ stop)
+// prototype:
+// pid_t waitpid(pid_t pid, int *status, int options);
+
+// Parameters:
+// pid: 
+//   - The process ID of the child process to wait for. 
+//   - Use -1 to wait for any child process.
+//	here we are sendind a pointer though
+// 
+// status: 
+//   - Pointer to an integer where the exit status of the child will be stored.
+// 
+// options: 
+//   - Options for how to wait, usually set to 0 for default behavior.
+// wait for child process to end, then make sigint false
+//close write end of pipe
+// Check if the child process exited normally and was terminated by SIGINT
+//WIFEXITED checks if exited & WEXITSTATUS checks status
+
+static bool	child_exit_normal(int pipefd[2], int *childpid, t_data *data)
+{
+	waitpid(*childpid, childpid, 0);
+	signal(SIGQUIT, sigquit_handler);
+	data->sigint_child = false;
+	close (pipefd[1]);
+	if (WIFEXITED(*childpid) && WEXITSTATUS(*childpid) == SIGINT)
+		return (true);
+	return (false);
+}
+
 //expansion refers to the process of interpreting and replacing certain chars
 //with their corresponding values.
 //when heredoc is found, we start ignoring SIGQUIT by SIG_IGN coz
 //bash does not react to SIGQUIT inside heredoc
+//execute_heredoc is only executed inside the child process(child_pid == 0)
+//If the fork() fails (which would give a negative value to child_pid), 
+//the execute_heredoc function will not be called,
 //signal(SIGQUIT, SIG_IGN) might not be necessary, test later
 
 static void	init_leaf(t_data *data)
@@ -34,9 +68,15 @@ static void	init_leaf(t_data *data)
 			pipe(pipefd);
 			data->heredoc_siginit = true;
 			child_pid = (signal(SIGQUIT, SIG_IGN), fork());
-			if (!child_pid)
+			if (child_pid == 0)
 				execute_heredoc(io, pipefd, data);
+			if (child_exit_normal(pipefd, &child_pid, data))
+				return ;
+			io->here_doc = pipefd[0];//why
 		}
+		else
+			io->expanded_value = ft_expand();
+		io = io->next;
 	}
 }
 
