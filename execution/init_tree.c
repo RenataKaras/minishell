@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/20 18:03:09 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/27 17:31:46 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	init_tree(t_data *data)
 {
 	if (!data->ast)
 		return ;
-	if (data->ast->type == N_PIPE
-			|| data->ast->type == N_AND)//do we need it???remove
+	if (data->ast->type == N_PIPE)//do we need it???remove
 	{
 		init_tree(data ->ast -> left);
 		if (!data->heredoc_siginit)

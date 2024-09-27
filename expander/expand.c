@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/24 17:44:31 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/25 16:35:02 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/27 17:00:48 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,8 @@ char	**expand(t_data *data)
 	if (!str)
 		return (NULL);
 	expanded = expander_split(str);
-	
+	free(str);
+	if (!expanded)
+		return (NULL);
+	return (expanded);
 }

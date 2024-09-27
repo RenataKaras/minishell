@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/25 15:48:51 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/09/27 17:01:40 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,13 +151,19 @@ char		**expand(t_data *data);
 char		*cmd_pre_expander(t_data *data);
 char		*handle_dollar(t_data *data, int *i);
 
+//expand_helpers
+char		*strjoin_free(char const *s1, char const *s2);
+char		*clean_empty_strs(char *str);
+
+//expand_split
+char		**expander_split(char *str);
+
 //expand utils
 char		*handle_squotes(char *str, int *i);
 char		*handle_dquote_str(char *str, int *i);
 char		*handle_dquotes(t_data *data, int *i);
-char		*strjoin_free(char const *s1, char const *s2);
 bool		is_valid_var_char(char c);
-
+char		*handle_normal_str(char *str, int *i);
 
 /*PARSING*/
 
