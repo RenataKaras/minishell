@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   free.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/08/28 17:19:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/04 17:19:08 by rshaheen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rshaheen <rshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/28 17:19:27 by rshaheen          #+#    #+#             */
+/*   Updated: 2024/09/27 21:03:18 by rshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	clear_envlst(t_data *data)
+{
+	t_envls	*envlst;
+	t_envls	*envlst_tofree;
+
+	envlst = data->env;
+	while (envlst)
+	{
+		envlst_tofree = envlst;
+		envlst = envlst->next;
+		free(envlst_tofree);
+	}
+	data->env = NULL;
+}
+
 
 static void	free_pointer(void *ptr)
 {
@@ -36,3 +52,12 @@ void	*free_or_add_list(void *ptr, bool clean)
 //node_collection RETAINS it's state between function calls cause its STATIC. 
 //It accumulates nodes when clean is false and clears them when clean is true.
 //false: Adds the given pointer to node_collection and returns it future use.
+
+void	clean_minishell(t_data *data)
+{
+	free_or_add_list(NULL, true);
+	clear_ast(&data->ast, data->token_list);
+	clear_envlst(data);
+	rl_clear_history();
+	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
+}

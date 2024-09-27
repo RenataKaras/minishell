@@ -1,33 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init_tree.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/27 18:14:36 by rshaheen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init_tree.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rshaheen <rshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/20 17:14:01 by rshaheen          #+#    #+#             */
+/*   Updated: 2024/09/27 21:05:40 by rshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	heredoc_int_handler(int signum)
-{
-	(void)signum;
-	clean_minishell();//need to put it outside handler and send data
-	exit(SIGINT);//also this cause otherwise program exits before exiting
-}
-
-void	ft_heredoc(t_io_node *io, int pipefd[2])
-{
-	char	*line;
-	char	*quotes;
-
-	//signal(SIGINT, heredoc_int_handler);
-	quotes = io->value;
-	while (*)
-}
 //expansion refers to the process of interpreting and replacing certain chars
 //with their corresponding values.
 //when heredoc is found, we start ignoring SIGQUIT by SIG_IGN coz
@@ -38,7 +22,7 @@ static void	init_leaf(t_data *data)
 {
 	t_io_node	*io;
 	int			pipefd[2];
-	int			pid;
+	int			child_pid;
 
 	if (data->ast->args)
 		data->ast->expanded_args = ft_expand(data->ast->args);
@@ -49,9 +33,9 @@ static void	init_leaf(t_data *data)
 		{
 			pipe(pipefd);
 			data->heredoc_siginit = true;
-			pid = (signal(SIGQUIT, SIG_IGN), fork());
-			if (!pid)
-				ft_heredoc(io, pipefd);
+			child_pid = (signal(SIGQUIT, SIG_IGN), fork());
+			if (!child_pid)
+				execute_heredoc(io, pipefd, data);
 		}
 	}
 }
@@ -64,11 +48,12 @@ static void	init_leaf(t_data *data)
 //and cmd2 is on the right (because it receives data from cmd1)
 //When there's heredoc, it affects the right side (i.e., cmd2).
 //So the tree processes the right-hand side when the heredoc isn't initialized
+//meaning data->heredoc_sigint is false-meaning not ready to process heredoc
 //to ensure that cmd2 properly receives input from the heredoc 
-//INSTEAD OF from cmd1's pipe.
+//INSTEAD OF from cmd1's pipe, we set it to right
 //while it’s not mandatory to place the command affected by heredoc on the right
 //the design conventionally puts it there for consistency with other operators.
-//so if heredoc_siginit is not initialized, we do it
+
 
 void	init_tree(t_data *data)
 {
