@@ -241,12 +241,12 @@ void		error_msg(char *msg);
 
 //signal handling
 
-void	init_signals();
+void	init_signals(t_data *data);
 void	sigquit_handler(int num);
 void	process_sigint(t_data *data);
 
 //execution
 void	init_tree(t_data *data);
 void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
-
+int		execute_node(t_data *data, bool piped);
 #endif

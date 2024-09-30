@@ -55,9 +55,9 @@ void	process_sigint(t_data *data)
 
 void	init_signals(t_data *data)
 {
-	struct termios	term;
+	//struct termios	term;
 
-	term = data->original_terminal;
+	//term = data->original_terminal;
 	data->sigint_child = false;
 	data->heredoc_siginit = false;
 	signal(SIGINT, sigint_handler);

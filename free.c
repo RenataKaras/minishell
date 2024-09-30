@@ -58,6 +58,6 @@ void	clean_minishell(t_data *data)
 	free_or_add_list(NULL, true);
 	clear_ast(&data->ast, data->token_list);
 	clear_envlst(data);
-	rl_clear_history();
+	clear_history();//make it rl_clear_history
 	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
 }
