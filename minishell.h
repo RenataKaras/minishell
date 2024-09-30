@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/30 12:37:26 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/30 13:44:03 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ typedef struct s_token
 
 //*A*bstract *S*yntax *T*ree structs
 //Do we need &&
+
+typedef enum e_ast_direction
+{
+	AST_LEFT,
+	AST_RIGHT
+}	t_ast_direction;
+
 typedef enum e_node_type
 {
 	N_PIPE,
@@ -144,11 +151,8 @@ char		*get_envlst_val(char *key, t_envls *env);
 
 //cleanup
 void		*free_or_add_list(void *ptr, bool clean);
-
+void		clean_minishell(t_data *data);
 void		print_env_list(t_token *head);
-
-
-
 void		print_env_list(t_token *head);
 
 /*EXPANDER*/

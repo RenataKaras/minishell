@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/30 12:28:56 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/30 14:01:03 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,14 @@
 //passing a pointer to struct in oppose to the whole struct
 // to avoid copying the whole thing
 
+//start_execution
+//Set signal handler for SIGQUIT and Initialize the abstract syntax tree (AST)
+//If heredoc initialization is signaled:Clear AST and token list
+//Reset heredoc signal flag
+//TCSANOW:terminal control set attributes NOW(without delay)reset terminal
+//Execute the command node and store exit status
+//Clear AST and token list after execution
+
 //volatile sig_atomic_t g_signal_number;
 
 void	error_msg(char *msg)
@@ -206,6 +214,8 @@ static void	start_execution(t_data *data)
 		data->heredoc_siginit = false;
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
+	data->exit_status = execute_node(data, false);
+	clear_ast(&data->ast, data->token_list);
 }
 
 void	*maintain_prompt(t_data *data)
