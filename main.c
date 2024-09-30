@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/27 17:32:53 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/09/30 12:28:56 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,11 +196,17 @@ static void	init_minishell(t_data *data, char **envp)
 	tcgetattr(STDIN_FILENO, &data->original_terminal);
 }
 
-// static void	start_execution(t_data *data)
-// {
-// 	signal(SIGQUIT, sigquit_handler);
-// 	init_tree(data);
-// }
+static void	start_execution(t_data *data)
+{
+	signal(SIGQUIT, sigquit_handler);
+	init_tree(data);
+	if (data->heredoc_siginit)
+	{
+		clear_ast(&data->ast, data->token_list);
+		data->heredoc_siginit = false;
+	}
+	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
+}
 
 void	*maintain_prompt(t_data *data)
 {
@@ -218,7 +224,7 @@ void	*maintain_prompt(t_data *data)
 		data->ast = parse(data->token_list);
 		// print_env_list (token_list);
 		// print_ast(data.ast, 0);
-		//start_execution(data);
+		start_execution(data);
 	}
 }
 
