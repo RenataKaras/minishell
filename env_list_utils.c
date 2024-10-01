@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/25 15:46:45 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/01 17:49:04 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	update_val(t_data *min, char *key, char *value, bool make)
 }
 /*
  * On the very first call of this function from make_env_list:
- * `g_minishell.env` will be NULL cause it hasn't been initialized yet.
+ * `g_minishell.env` will be NULL source it hasn't been initialized yet.
  * so, `envlst` will be NULL, and the function will not enter the while loop.
  * The function will make a new node and use append_new_node to initialize.
  *

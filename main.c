@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/01 15:47:49 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/01 16:04:37 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ void	*maintain_prompt(t_data *data)
 {
 	while (1)
 	{
-		init_signals();//fix it later
+		init_signals(data);//fix it later
 		data->cmd_line = readline("minishell> ");
 		if (!data->cmd_line)
 			return (error_msg("exit\n"), NULL);

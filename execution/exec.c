@@ -6,13 +6,13 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/01 15:58:58 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/01 16:16:34 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	exec_child(t_data *data, int pipefd[2], t_ast_direction dir)
+static void	exec_pipe_child(t_data *data, int pipefd[2], t_ast_direction dir)
 {
 	int	status;
 
@@ -32,18 +32,18 @@ static void	exec_child(t_data *data, int pipefd[2], t_ast_direction dir)
 	(clean_minishell(data), exit(status));
 }
 
-static int	exec_pipeline(t_data *data)
+static int	exec_pipe(t_data *data)
 {
 	int	status;
 	int	pipefd[2];
-	int	pid_l;
-	int	pid_r;
+	int	pid_left;
+	int	pid_right;
 
 	data->sigint_child = true;
 	pipe(pipefd);
-	pid_l = fork();
-	if (pid_l == 0)
-		exec_child(data, pipefd, AST_LEFT);
+	pid_left = fork();
+	if (pid_left == 0)
+		exec_pipe_child(data, pipefd, AST_LEFT);
 }
 
 int	execute_node(t_data *data, bool piped)
@@ -53,9 +53,8 @@ int	execute_node(t_data *data, bool piped)
 	if (!data->ast)
 		return (1);
 	if (data->ast->type == N_PIPE)
-		return (exec_pipeline(data));
+		return (exec_pipe(data));
 	else
-		return (exec_simple_cmd(tree, piped));
+		return (exec_simple_cmd(data, piped));
 	return (ENO_GENERAL);
 }
-

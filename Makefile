@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/10/01 15:29:02 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/10/01 19:33:35 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,10 @@ SOURCE = main.c \
 		execution/init_tree.c \
 		execution/exec.c \
 		execution/exec_heredoc.c \
+		execution/display_error.c \
+		execution/exec_smpl_cmd.c \
+		execution/exec_redirec.c \
+		execution/check_permission.c \
 
 
 

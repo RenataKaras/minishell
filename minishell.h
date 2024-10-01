@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/01 16:02:23 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/01 19:32:23 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,24 @@ typedef enum e_err_no
 	ENO_NOT_FOUND = 127,
 	ENO_EXEC_255 = 255
 }	t_err_no;
+
+typedef enum e_err_msg
+{
+	ERRMSG_CMD_NOT_FOUND,
+	ERRMSG_NO_SUCH_FILE,
+	ERRMSG_AMBIGUOUS,
+	ERRMSG_PERM_DENIED,
+	ERRMSG_TOO_MANY_ARGS,
+	ERRMSG_NUMERIC_REQUI
+}	t_err_msg;
+
+typedef struct s_err
+{
+	t_err_no	num;
+	t_err_msg	msg;
+	char		*source;
+}	t_err;
+
 
 typedef struct s_envls
 {
@@ -249,6 +267,12 @@ void		process_sigint(t_data *data);
 //execution
 void		init_tree(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
+int			exec_redirection(t_node *node);
 int			execute_node(t_data *data, bool piped);
+int			display_error(t_err error);
+t_err		check_write_perm(char *file);
+t_err		check_read_perm(char *file);
+t_err		check_exec_perm(char *file, bool cmd);
+
 
 #endif
