@@ -6,11 +6,11 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/30 12:34:38 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/01 15:50:55 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // waitpid waits for a specific child process to change state (exit/ stop)
 // prototype:
@@ -59,7 +59,7 @@ static void	init_leaf(t_data *data)
 	int			child_pid;
 
 	if (data->ast->args)
-		data->ast->expanded_args = ft_expand(data->ast->args);
+		data->ast->expanded_args = expand(data);
 	io = data->ast->io_list;
 	while (io)
 	{
@@ -75,7 +75,7 @@ static void	init_leaf(t_data *data)
 			io->here_doc = pipefd[0];//why
 		}
 		else
-			io->expanded_value = ft_expand();
+			io->expanded_value = expand(data);
 		io = io->next;
 	}
 }
@@ -95,15 +95,15 @@ static void	init_leaf(t_data *data)
 //the design conventionally puts it there for consistency with other operators.
 
 
-void	init_tree(t_data *data)
+void	init_tree(t_node *node, t_data *data)
 {
-	if (!data->ast)
+	if (!node)
 		return ;
-	if (data->ast->type == N_PIPE)
+	if (node->type == N_PIPE)
 	{
-		init_tree(data ->ast -> left);
+		init_tree(node -> left, data);
 		if (!data->heredoc_siginit)
-			init_tree(data-> ast -> right);
+			init_tree(node -> right, data);
 	}
 	else
 		init_leaf(data);

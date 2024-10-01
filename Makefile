@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/09/25 16:18:49 by rkaras        ########   odam.nl          #
+#    Updated: 2024/10/01 15:29:02 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,9 @@ SOURCE = main.c \
 		expander/expand_utils.c \
 		expander/expand.c \
 		expander/expand_helpers.c \
+		execution/init_tree.c \
+		execution/exec.c \
+		execution/exec_heredoc.c \
 
 
 

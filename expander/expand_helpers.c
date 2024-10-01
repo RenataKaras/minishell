@@ -3,16 +3,16 @@
 /*                                                        ::::::::            */
 /*   expand_helpers.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/25 14:25:18 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/25 16:33:19 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/01 15:21:20 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*strjoin_free(char const *s1, char const *s2)
+char	*strjoin_free(char *s1, char *s2)
 {
 	size_t	totals;
 	char	*newstring;

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/17 18:35:52 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/27 18:01:33 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/01 15:25:27 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	sigint_handler(int num)
     	rl_on_new_line();              // Move to a new line (where the prompt goes).
     	rl_redisplay(); 				//redisplay prompt
 		(void) num;
-		g_signal_number = SIGINT;
+		//g_signal_number = SIGINT;
 }
 //we will need to use it once we get children
 //maybe keep the if block only putting the if when calling

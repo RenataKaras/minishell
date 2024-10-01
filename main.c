@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/30 14:01:03 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/01 15:47:49 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ static void	init_minishell(t_data *data, char **envp)
 static void	start_execution(t_data *data)
 {
 	signal(SIGQUIT, sigquit_handler);
-	init_tree(data);
+	init_tree(data->ast, data);
 	if (data->heredoc_siginit)
 	{
 		clear_ast(&data->ast, data->token_list);

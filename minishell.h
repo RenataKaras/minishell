@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/30 13:44:03 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/01 15:46:23 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 # include <termios.h>
 # include <fcntl.h>
 # include <sys/ttydefaults.h>
+# include <sys/wait.h>
 
 // Global variable to hold the signal number
-int  g_signal_number;
+//int  g_signal_number;
 
 /*
  * Enumeration, or enum, is a user-defined data type in C/other languages 
@@ -163,7 +164,7 @@ char		*cmd_pre_expander(t_data *data);
 char		*handle_dollar(t_data *data, int *i);
 
 //expand_helpers
-char		*strjoin_free(char const *s1, char const *s2);
+char		*strjoin_free(char *s1, char *s2);
 char		*clean_empty_strs(char *str);
 
 //expand_split
@@ -241,12 +242,13 @@ void		error_msg(char *msg);
 
 //signal handling
 
-void	init_signals();
-void	sigquit_handler(int num);
-void	process_sigint(t_data *data);
+void		init_signals();
+void		sigquit_handler(int num);
+void		process_sigint(t_data *data);
 
 //execution
-void	init_tree(t_data *data);
-void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
+void		init_tree(t_node *node, t_data *data);
+void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
+int			execute_node(t_data *data, bool piped);
 
 #endif
