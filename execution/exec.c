@@ -11,6 +11,7 @@
 
 #include "../minishell.h"
 
+static void	exec_pipe_child(t_data *data, int pipefd[2], t_ast_direction dir)
 {
 	int	status;
 
@@ -67,7 +68,7 @@ static int	exec_pipe(t_data *data)
 			return (ENO_GENERAL);
 		}
 		if (pid_right == 0)
-			exec_child(data, pipefd, AST_RIGHT);
+			exec_pipe_child(data, pipefd, AST_RIGHT);
 		else
 		{
 			(close(pipefd[0]), close(pipefd[1]));

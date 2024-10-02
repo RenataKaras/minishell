@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   free.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/08/28 17:19:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/01 16:00:32 by rshaheen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rshaheen <rshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/28 17:19:27 by rshaheen          #+#    #+#             */
+/*   Updated: 2024/09/27 21:03:18 by rshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,3 @@ void	clean_minishell(t_data *data)
 	clear_envlst(data);
 	rl_clear_history();//make it rl_clear_history
 	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
-}
