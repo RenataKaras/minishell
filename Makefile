@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/10/01 19:33:35 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/10/03 13:50:04 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SOURCE = main.c \
 		free.c \
 		make_env_list.c \
 		env_list_utils.c \
-		execute_builtin.c \
 		builtin/pwd.c \
 		builtin/echo.c \
 		builtin/env.c \
@@ -39,6 +38,7 @@ SOURCE = main.c \
 		expander/expand_utils.c \
 		expander/expand.c \
 		expander/expand_helpers.c \
+		expander/expander_split.c \
 		execution/init_tree.c \
 		execution/exec.c \
 		execution/exec_heredoc.c \
@@ -46,6 +46,8 @@ SOURCE = main.c \
 		execution/exec_smpl_cmd.c \
 		execution/exec_redirec.c \
 		execution/check_permission.c \
+		execution/execute_builtin.c \
+		execution/heredoc_expander.c \
 
 
 

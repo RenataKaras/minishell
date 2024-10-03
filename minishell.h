@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/03 13:12:37 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:41:51 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,7 @@ t_err		check_read_perm(char *file);
 t_err		check_exec_perm(char *file, bool cmd);
 int			exec_builtin(char **command, t_data *data);
 int			get_exit_status(int status);
-
+int			exec_simple_cmd(t_data *data, bool piped);
+void		heredoc_expander(char *str, int fd, t_data *data);
 
 #endif

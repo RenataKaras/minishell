@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 13:07:17 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:46:31 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_path	get_path(char *cmd, t_data *data)
 	if (*cmd == '\0')
 		return ((t_path){
 			(t_err){ENO_NOT_FOUND, ERRMSG_CMD_NOT_FOUND, cmd}, NULL});
-	if (ft_strnstr(cmd, "/", ft_strnlen(cmd)))
+	if (ft_strnstr(cmd, "/", ft_strlen(cmd)))
 		return ((t_path){check_exec_perm(cmd, false), cmd});
 	value = get_envlst_val("PATH", data->env);
 	if (value)
@@ -103,7 +103,7 @@ int	exec_simple_cmd(t_data *data, bool piped)
 		tmp_status = exec_redirection(data->ast);
 		if (tmp_status != ENO_SUCCESS)
 			return (reset_stds(data, piped), ENO_GENERAL);
-		tmp_status = ft_exec_builtin(data->ast->expanded_args, data);
+		tmp_status = exec_builtin(data->ast->expanded_args, data);
 		return (reset_stds(data, piped), tmp_status);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 11:14:41 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:21:32 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,12 @@ static int	exec_pipe(t_data *data)
 			data->sigint_child = false;
 			return(get_exit_status(status));
 		}
-		return (ENO_GENERAL);
 	}
+	return (ENO_GENERAL);
 }
 
 int	execute_node(t_data *data, bool piped)
 {
-	int	status;
 
 	if (!data->ast)
 		return (1);

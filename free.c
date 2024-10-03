@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/28 17:19:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 12:39:27 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:14:17 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_array(char **array, int i)
 {
-	size_t	i;
 
 	if (!array)
 		return ;

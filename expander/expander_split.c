@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   expander_split.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/25 16:37:13 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/27 17:01:20 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/03 13:51:23 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static char	**filler(char *str, char **strs)
 	int	i;
 	int	j;
 
+	i = 0;
+	j = 0;
 	while (str[i] && strs[j])
 	{
 		if (str[i] != ' ')

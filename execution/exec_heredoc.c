@@ -6,18 +6,18 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/27 20:42:58 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:45:15 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	heredoc_int_handler(int signum)
-{
-	(void)signum;
-	clean_minishell();//need to put it outside handler and send data
-	exit(SIGINT);//also this cause otherwise program exits before exiting
-}
+// static void	heredoc_sigint_handler(int signum)
+// {
+// 	(void)signum;
+// 	clean_minishell(data);//need to put it outside handler and send data
+// 	exit(SIGINT);//also this cause otherwise program exits before exiting
+// }
 
 //'"' represents the double quote character.
 //'\'' represents the single quote character.
@@ -55,12 +55,14 @@ bool	is_delimeter(char *delimeter, char *str)
 //if the input line matches value i.e. delimeter, we found delimeter, stop input
 //if not found print the line to read or write end of pipe
 
+//test if delm_str work instead of value
+
 void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 {
 	char	*line;
 	char	*delm_str;
 
-	//signal(SIGINT, heredoc_int_handler);
+	//signal(SIGINT, heredoc_sigint_handler);
 	delm_str = io->value;
 	while (*delm_str && *delm_str != '"' && *delm_str != '\'')
 		delm_str++;
@@ -69,14 +71,14 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (is_delimeter(io->value, line));//test if delm_str work instead of value
+		if (is_delimeter(io->value, line))
 			break ;
-		if (!*delm_str)//deal with it later
-			ft_heredoc_expander(line, pipefd[1]);
+		if (!*delm_str)
+			heredoc_expander(line, pipefd[1], data);
 		else
 		{
 			ft_putstr_fd(line, pipefd[1]);
-			ft_putchar_fd("\n", pipefd[1]);
+			ft_putchar_fd('\n', pipefd[1]);
 		}
 		clean_minishell(data);
 		exit(0);
