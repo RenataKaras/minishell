@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/03 16:12:02 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 18:17:11 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ void		process_sigint(t_data *data);
 
 //execution
 
-void		init_tree(t_node *node, t_data *data);
+void		set_exec_precedence(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
 int			exec_redirection(t_node *node);
 int			execute_node(t_data *data, bool piped);

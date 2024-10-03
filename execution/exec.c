@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 13:21:32 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 16:40:44 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,14 @@ static int	exec_pipe(t_data *data)
 	int	pid_right;
 
 	data->sigint_child = true;
-	if (pipe(pipefd) == -1)
-	{
-		perror("pipe");
-		return (ENO_GENERAL);
-	}
+	pipe(pipefd);
 	pid_left = fork();
-	if (pid_left < 0)
-	{
-		perror("fork");
-		return (ENO_GENERAL);
-	}
 	if (!pid_left)
 		exec_pipe_child(data, pipefd, AST_LEFT);
 	else
 	{
 		pid_right = fork();
-		if (pid_right < 0)
-		{
-			perror("fork");
-			return (ENO_GENERAL);
-		}
-		if (pid_right == 0)
+		if (!pid_right)
 			exec_pipe_child(data, pipefd, AST_RIGHT);
 		else
 		{

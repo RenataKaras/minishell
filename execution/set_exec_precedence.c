@@ -90,15 +90,26 @@ static void	setup_io_and_heredoc(t_data *data)
 
 //The left subtree represents the command before the pipe
 //the right subtree represents the command after the pipe.
-//if we detect pipe we call the function recursively with left node of AST
-//because first we want the command BEFORE the pipe (leftmost) to be processed
-//if data->heredoc_siginit is false, means no heredoc
-//it recursively calls set_exec_precedence on the right subtree (node->right).
-//This continues recursively until one of the base cases is met:
-//Either the node is NULL (no more nodes to process), or
-//The node is not a pipe (i.e., it's a command), and setup_io_and_heredoc(data) is called.
 
-//pipe and heredoc...where do we handle it????
+//if we detect pipe we call the function recursively with left node of AST
+//by recursion, we keep moving left until we reach the leftmost node
+//we call the setup_io_and_heredoc on it cause recursion will break 
+//when it finds no more pipe
+//we want the command BEFORE the pipe (leftmost) to be processed first
+//because BASH does it
+
+//when we have NO more left nodes to process, we check--
+//if data->heredoc_siginit is false, means no heredoc is active
+//we recursively call the function on the right subtree (node->right).
+//until we reach the right most node
+//then call setup_io_and_heredoc on it
+
+// Precedence is established by processing the left command first,
+// then the right command only if no heredoc is detected.
+
+//if a heredoc is encountered in the left subtree, 
+//the right command will not execute until the heredoc is processed by setup_io
+
 
 void	set_exec_precedence(t_node *node, t_data *data)
 {
