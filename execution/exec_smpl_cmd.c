@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 12:58:37 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:07:17 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_path	get_path(char *cmd, t_data *data)
 	value = get_envlst_val("PATH", data->env);
 	if (value)
 		return (get_env_path(value, cmd));
+	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, cmd}, NULL});
 }
 
 static int	exec_child(t_node *node, t_data *data)
