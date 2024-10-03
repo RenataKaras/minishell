@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/03 13:41:51 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 15:55:32 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int			ft_unset(char **args, t_data *data);
 int			ft_cd(char *dir_name, t_data *data);
 int			ft_export(char **command, t_data *data);
 int			check_key_format(char *str);
+void		ft_exit(char **args, t_data *data);
 
 //envp
 
@@ -276,7 +277,7 @@ void		init_tree(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
 int			exec_redirection(t_node *node);
 int			execute_node(t_data *data, bool piped);
-int			display_error(t_err error);
+int			msg_err(t_err error);
 t_err		check_write_perm(char *file);
 t_err		check_read_perm(char *file);
 t_err		check_exec_perm(char *file, bool cmd);

@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/10/03 13:50:04 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/10/03 14:54:06 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SOURCE = main.c \
 		builtin/unset.c \
 		builtin/cd.c \
 		builtin/export.c \
+		builtin/exit.c \
 		signals.c \
 		tokenizing/tokenize.c \
 		tokenizing/tokenizing_utils.c \

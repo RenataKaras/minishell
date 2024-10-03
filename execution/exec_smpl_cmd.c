@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 13:46:31 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 15:55:32 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	exec_child(t_node *node, t_data *data)
 		path_status = get_path((node->expanded_args)[0], data);
 		if (path_status.error.num != ENO_SUCCESS)
 		{
-			tmp_status = display_error(path_status.error);
+			tmp_status = msg_err(path_status.error);
 			(clean_minishell(data), exit(tmp_status));
 		}
 		if (execve(path_status.path, node->expanded_args, data->envp) == -1)

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/26 18:37:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 13:15:45 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 14:40:54 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	exec_builtin(char **command, t_data *minishell)
 {
-	puts("here");
 	if (ft_strncmp(command[0], "pwd", 3) == 0)
 		return (ft_pwd());
 	if (ft_strncmp(command[0], "echo", 4) == 0)

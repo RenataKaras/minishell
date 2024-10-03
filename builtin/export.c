@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 13:59:24 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/16 15:22:14 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 14:50:52 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	print_export_list(void)
 {
 	t_envls	*list;
 	size_t	i;
-	t_data minishell;
+	t_data	minishell;
 
 	list = minishell.env;
 	while (list)
@@ -58,7 +58,7 @@ static int	export_err_msg(char *identifier)
 {
 	ft_putstr_fd("minishell: export `", 2);
 	ft_putstr_fd(identifier, 2);
-	ft_putstr_fd("':not a valid identifier", 2);
+	ft_putstr_fd("':not a valid identifier\n", 2);
 	return (1);
 }
 

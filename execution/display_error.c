@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   exec_error.c                                       :+:    :+:            */
+/*   display_error.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 17:12:37 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/01 17:53:07 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 15:55:32 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	display_error(t_err error)
+int	msg_err(t_err error)
 {
 	if (error.msg == ERRMSG_CMD_NOT_FOUND)
 		return (ft_putstr_fd("minishelll: ", 2), ft_putstr_fd(error.source, 2),
