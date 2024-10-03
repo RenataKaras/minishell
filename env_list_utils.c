@@ -6,14 +6,15 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 12:41:33 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:12:13 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //need to protect all strdups and split
-static t_path	get_env_path(char *path, char *cmd)
+
+t_path	get_env_path(char *path, char *cmd)
 {
 	size_t	i;
 	t_err	error;

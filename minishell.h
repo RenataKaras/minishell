@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/03 12:57:46 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:12:37 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,12 +167,12 @@ int			check_key_format(char *str);
 
 //envp
 
-void			make_env_list(t_data *data);
-char			*copy_key(char *str);
-char			*copy_value(char *str);
-void			update_val(t_data *min, char *key, char *value, bool make);
-char			*get_envlst_val(char *key, t_envls *env);
-static t_path	get_env_path(char *path, char *cmd);
+void		make_env_list(t_data *data);
+char		*copy_key(char *str);
+char		*copy_value(char *str);
+void		update_val(t_data *min, char *key, char *value, bool make);
+char		*get_envlst_val(char *key, t_envls *env);
+t_path		get_env_path(char *path, char *cmd);
 
 //cleanup
 void		*free_or_add_list(void *ptr, bool clean);
