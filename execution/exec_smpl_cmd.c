@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/01 20:14:48 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 12:58:37 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,59 @@ bool	is_builtin(char *arg)
 		return (true);
 	return (false);
 }
+
+t_path	get_path(char *cmd, t_data *data)
+{
+	char	*value;
+
+	if (*cmd == '\0')
+		return ((t_path){
+			(t_err){ENO_NOT_FOUND, ERRMSG_CMD_NOT_FOUND, cmd}, NULL});
+	if (ft_strnstr(cmd, "/", ft_strnlen(cmd)))
+		return ((t_path){check_exec_perm(cmd, false), cmd});
+	value = get_envlst_val("PATH", data->env);
+	if (value)
+		return (get_env_path(value, cmd));
+}
+
 static int	exec_child(t_node *node, t_data *data)
 {
-	
-}
+	t_path	path_status;
+	int		tmp_status;
+	int		fork_pid;
+
+	data->sigint_child = true;
+	fork_pid = fork();
+	if (!fork_pid)
+	{
+		tmp_status = exec_redirection(node);
+		if (tmp_status != ENO_SUCCESS)
+			(clean_minishell(data), exit(ENO_GENERAL));
+		path_status = get_path((node->expanded_args)[0], data);
+		if (path_status.error.num != ENO_SUCCESS)
+		{
+			tmp_status = display_error(path_status.error);
+			(clean_minishell(data), exit(tmp_status));
+		}
+		if (execve(path_status.path, node->expanded_args, data->envp) == -1)
+			(clean_minishell(data), exit(1));
+	}
+	waitpid(fork_pid, &tmp_status, 0);
+	data->sigint_child = false;
+	return (get_exit_status(tmp_status));
+ }
+
+
+//first we execute rediections and reset std cause redirections change 
+//stdin/stdout to files/pipes. reset to the original for future commands
+//if it is a builtin we check and exec redirection for commands like
+//echo "Hello" > file.txt and check the exit status of redirection
+//if no rederection happened, (!= ENO_SUCCESS)
+//we reset std even if no redirection happens or it fails
+//If redirection was successful, the builtin is executed with redirection
+//If redirection fails, ENO_GENERAL is returned right away, 
+//and the builtin is not executed.
+//if not a builtin, we execute_child??
 
 int	exec_simple_cmd(t_data *data, bool piped)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   check_redirec.c                                    :+:    :+:            */
+/*   exec_redirec.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:22:40 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/01 19:31:59 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 11:19:02 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	exec_redirection(t_node *node)
 			&& set_input_redir(tmp_io, &tmp_status) != ENO_SUCCESS)
 			return (tmp_status);
 		else if (tmp_io->type == IO_APPEND
-			&& ft_append(tmp_io, &tmp_status) != ENO_SUCCESS)
+			&& set_append_redir(tmp_io, &tmp_status) != ENO_SUCCESS)
 			return (tmp_status);
 		else if (tmp_io->type == IO_HEREDOC)
 			(dup2(tmp_io->here_doc, STDIN_FILENO), close(tmp_io->here_doc));

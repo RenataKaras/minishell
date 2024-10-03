@@ -6,6 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
+/*   Updated: 2024/10/03 11:14:41 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +90,7 @@ int	execute_node(t_data *data, bool piped)
 	if (data->ast->type == N_PIPE)
 		return (exec_pipe(data));
 	else
+		exec_simple_cmd(data, piped);
 	return (ENO_GENERAL);
 }
 

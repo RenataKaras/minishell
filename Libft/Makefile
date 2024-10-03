@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/24 12:28:12 by rkaras        #+#    #+#                  #
-#    Updated: 2024/09/17 18:03:31 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/10/03 12:23:02 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS = ft_isalnum.c \
 			ft_strdup.c \
 			ft_striteri.c \
 			ft_strjoin.c \
+			ft_strjoin_f.c \
 			ft_strlcat.c \
 			ft_strlcpy.c \
 			ft_strlen.c \

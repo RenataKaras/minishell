@@ -6,11 +6,35 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/01 17:49:04 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 12:41:33 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//need to protect all strdups and split
+static t_path	get_env_path(char *path, char *cmd)
+{
+	size_t	i;
+	t_err	error;
+	char	*cmd_path;
+	char	**splitted_path;
+
+	splitted_path = ft_split(path, ':');
+	i = 0;
+	while (splitted_path[i])
+	{
+		cmd_path = free_or_add_list(ft_strjoin_with_f(
+					ft_strdup(splitted_path[i]), ft_strdup(cmd), '/'), false);
+		error = check_exec_perm(cmd_path, true);
+		if (error.num == ENO_SUCCESS)
+			return ((t_path){(t_err){ENO_SUCCESS, 42, cmd_path}, cmd_path});
+		i++;
+	}
+	free_array(splitted_path, i);
+	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_CMD_NOT_FOUND, cmd}, NULL});
+}
+
 
 char	*get_envlst_val(char *key, t_envls *env)
 {
@@ -74,6 +98,7 @@ void	update_val(t_data *min, char *key, char *value, bool make)
 	if (make)
 		append_new_node(create_new_node(key, value), min);
 }
+
 /*
  * On the very first call of this function from make_env_list:
  * `g_minishell.env` will be NULL source it hasn't been initialized yet.

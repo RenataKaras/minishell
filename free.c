@@ -6,11 +6,25 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/28 17:19:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 11:11:07 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 12:39:27 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_array(char **array, int i)
+{
+	size_t	i;
+
+	if (!array)
+		return ;
+	while (i > 0)
+	{
+		i--;
+		free(array[i]);
+	}
+	free(array);
+}
 
 static void	clear_envlst(t_data *data)
 {

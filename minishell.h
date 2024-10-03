@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/01 19:32:23 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 12:57:46 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,11 @@ typedef struct s_err
 	char		*source;
 }	t_err;
 
+typedef struct s_path
+{
+	t_err	error;
+	char	*path;
+}	t_path;
 
 typedef struct s_envls
 {
@@ -151,7 +156,7 @@ typedef struct s_data
 }	t_data;
 
 //builtin
-int			ft_exec_builtin(char **command, t_data *data);
+
 int			ft_env(t_data *data);
 int			ft_pwd(void);
 int			ft_echo(char **command);
@@ -161,18 +166,19 @@ int			ft_export(char **command, t_data *data);
 int			check_key_format(char *str);
 
 //envp
-void		make_env_list(t_data *data);
-char		*copy_key(char *str);
-char		*copy_value(char *str);
-void		update_val(t_data *min, char *key, char *value, bool make);
-char		*get_envlst_val(char *key, t_envls *env);
 
+void			make_env_list(t_data *data);
+char			*copy_key(char *str);
+char			*copy_value(char *str);
+void			update_val(t_data *min, char *key, char *value, bool make);
+char			*get_envlst_val(char *key, t_envls *env);
+static t_path	get_env_path(char *path, char *cmd);
 
 //cleanup
 void		*free_or_add_list(void *ptr, bool clean);
 void		clean_minishell(t_data *data);
 void		print_env_list(t_token *head);
-void		print_env_list(t_token *head);
+void		free_array(char **array, int i);
 
 /*EXPANDER*/
 
@@ -265,6 +271,7 @@ void		sigquit_handler(int num);
 void		process_sigint(t_data *data);
 
 //execution
+
 void		init_tree(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
 int			exec_redirection(t_node *node);
@@ -273,6 +280,8 @@ int			display_error(t_err error);
 t_err		check_write_perm(char *file);
 t_err		check_read_perm(char *file);
 t_err		check_exec_perm(char *file, bool cmd);
+int			exec_builtin(char **command, t_data *data);
+int			get_exit_status(int status);
 
 
 #endif

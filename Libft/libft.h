@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/24 11:17:40 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/16 15:24:03 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 12:22:11 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin_with_f(char *s1, char *s2, char c);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *s);

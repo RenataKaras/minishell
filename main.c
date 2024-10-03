@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/01 16:04:37 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:01:34 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,7 @@ int	main(int argc, char **argv, char **envp)
 
 	init_minishell(&data, envp);
 	maintain_prompt(&data);
+	free_or_add_list(NULL, true);
 	//data.envp = envp;
 	//data.env = copy_env(data.envp);
 	//if (!data.env)

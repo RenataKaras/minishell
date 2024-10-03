@@ -6,13 +6,13 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/26 18:37:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/25 15:46:32 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 11:51:04 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exec_builtin(char **command, t_data *minishell)
+int	exec_builtin(char **command, t_data *minishell)
 {
 	puts("here");
 	if (ft_strncmp(command[0], "pwd", 3) == 0)
