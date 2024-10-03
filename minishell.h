@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/03 15:55:32 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/03 16:12:02 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,9 +234,6 @@ t_node		*expression(int min_prec, t_token **token_list);
 t_node		*handle_term_and_token(t_token **token_list);
 t_node		*parse(t_token *token_list);
 t_node		*term(t_token *token_list);
-
-
-t_envls		*copy_env(char **env);
 
 /*TOKENIZING*/
 
