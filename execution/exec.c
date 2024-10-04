@@ -6,11 +6,14 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/04 09:45:55 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/04 11:08:09 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//recursively keep calling execute node
+//which results in checking for multiple pipes
 
 static void	exec_pipe_child(
 	t_data *data, int pipefd[2], t_ast_direction dir, t_node *tree)
@@ -32,6 +35,17 @@ static void	exec_pipe_child(
 	status = execute_node(tree, true, data);
 	(clean_minishell(data), exit(status));
 }
+//WIFSIGNALED checks whether a child process terminated due to a signal
+//by analyzing the exit status returned by wait or waitpid
+//returns a non-zero value (true) if child process was terminated by a signal.
+//WTERMSIG(status) returns the signal number that caused the child process to
+//terminate if it was terminated by a signal
+//Exit Status=128+Signal Number
+//The value 128 is a constant used in the exit status encoding for processes
+//that terminate due to signals. It allows for a clear distinction between 
+//normal termination (exit codes 0-255) and 
+//termination by signals (exit codes 128 + signal_number).
+//WEXITSTATUS(status) extract the actual exit status (0 - 255)
 
 int	get_exit_status(int status)
 {
@@ -39,6 +53,10 @@ int	get_exit_status(int status)
 		return (128 + WTERMSIG(status));
 	return (WEXITSTATUS(status));
 }
+//if (!pid_left) means if we're inside the left child (successful fork)
+//else (means we are not inside left child)
+//The else here ensures that the right fork happens "from" the parent
+//and NOT from inside left child
 
 static int	exec_pipe(t_data *data, t_node *tree)
 {
