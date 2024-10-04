@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/03 18:17:11 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/04 09:40:06 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ static void	start_execution(t_data *data)
 		data->heredoc_siginit = false;
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
-	data->exit_status = execute_node(data, false);
+	data->exit_status = execute_node(data->ast, false, data);
 	clear_ast(&data->ast, data->token_list);
 }
 

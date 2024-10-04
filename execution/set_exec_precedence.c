@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/04 09:02:38 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/04 09:28:54 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ static void	setup_io_and_heredoc(t_data *data)
 	//we recursively call the function on the right subtree (node->right).
 	//until we reach the right most node
 	//then call setup_io_and_heredoc on it
+
+//if there is no pipe:
+//we still setup io and if heredoc found, execute it
 
 // Precedence is established by processing the left command first,
 // then the right command only if no heredoc is detected.
