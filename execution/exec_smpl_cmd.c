@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 15:55:32 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/04 11:22:31 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static int	exec_child(t_node *node, t_data *data)
  }
 
 
+//if no expanded args, it means redirection?
 //first we execute rediections and reset std cause redirections change 
 //stdin/stdout to files/pipes. reset to the original for future commands
 //if it is a builtin we check and exec redirection for commands like
@@ -88,6 +89,7 @@ static int	exec_child(t_node *node, t_data *data)
 //If redirection fails, ENO_GENERAL is returned right away, 
 //and the builtin is not executed.
 //if not a builtin, we execute_child??
+
 
 int	exec_simple_cmd(t_data *data, bool piped)
 {
