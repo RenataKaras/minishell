@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 13:45:15 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/04 09:07:07 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	is_delimeter(char *delimeter, char *str)
 		return (false);
 }
 
-//execute_heredoc implements heredoc funtionality
+
 //line will hold the inputs of heredoc
 //delm_str is a pointer to the delimeter str
 //skip single and double quote chars within the delimeter
