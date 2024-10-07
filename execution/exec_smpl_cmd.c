@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/04 11:22:31 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/07 17:33:42 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ t_path	get_path(char *cmd, t_data *data)
 		return (get_env_path(value, cmd));
 	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, cmd}, NULL});
 }
+//int execve(const char *pathname, char *const argv[], char *const envp[]);
+//pathname: The path to the executable file you want to run.
+//argv: An array of argument strings passed to the new program. 
+//The first element should be the name of the program.
+//envp: An array of environment variables for the new program.
+//Return Value
+//On success, execve does not return; the new program starts executing.
+//On failure, it returns -1 and sets errno to indicate the error.
 
 static int	exec_child(t_node *node, t_data *data)
 {
@@ -75,7 +83,8 @@ static int	exec_child(t_node *node, t_data *data)
 	waitpid(fork_pid, &tmp_status, 0);
 	data->sigint_child = false;
 	return (get_exit_status(tmp_status));
- }
+}
+
 
 
 //if no expanded args, it means redirection?
