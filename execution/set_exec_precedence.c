@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/08 19:58:03 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 21:15:41 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,8 @@ static void	setup_io_and_heredoc(t_data *data, t_node *node)
 	int			pipefd[2];
 	int			child_pid;
 
-	puts("in set up");
-	//printf("data->ast->args:%s\n", data->ast->args);
-	printf("node->args: %s\n", node->args);
 	if (node->args)
 		node->expanded_args = expand(data, node->args);
-	printf("node->expanded_args[0]: %s\n", node->expanded_args[0]);
 	io = node->io_list;
 	while (io)
 	{
@@ -85,11 +81,7 @@ static void	setup_io_and_heredoc(t_data *data, t_node *node)
 			io->here_doc = pipefd[0];
 		}
 		else
-		{
-			io->expanded_value = expand(data, node->args);
-			puts("other redirection");
-			printf(" printed value: %s", io->expanded_value[0]);
-		}
+			io->expanded_value = expand(data, io->value);
 		io = io->next;
 	}
 }

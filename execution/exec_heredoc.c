@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/04 09:07:07 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 21:14:48 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,18 @@ bool	is_delimeter(char *delimeter, char *str)
 }
 
 
-//line will hold the inputs of heredoc
+//input will hold the inputs of heredoc
 //delm_str is a pointer to the delimeter str
 //skip single and double quote chars within the delimeter
 //in an infinite loop, use readline to wait for input
-//if the input line matches value i.e. delimeter, we found delimeter, stop input
-//if not found print the line to read or write end of pipe
+//if the input input matches value i.e. delimeter, we found delimeter, stop input
+//if not found print the input to read or write end of pipe
 
 //test if delm_str work instead of value
 
 void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 {
-	char	*line;
+	char	*input;
 	char	*delm_str;
 
 	//signal(SIGINT, heredoc_sigint_handler);
@@ -68,16 +68,16 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 		delm_str++;
 	while (1)
 	{
-		line = readline("> ");
-		if (!line)
+		input = readline("> ");
+		if (!input)
 			break ;
-		if (is_delimeter(io->value, line))
+		if (is_delimeter(io->value, input))
 			break ;
 		if (!*delm_str)
-			heredoc_expander(line, pipefd[1], data);
+			heredoc_expander(input, pipefd[1], data);
 		else
 		{
-			ft_putstr_fd(line, pipefd[1]);
+			ft_putstr_fd(input, pipefd[1]);
 			ft_putchar_fd('\n', pipefd[1]);
 		}
 		clean_minishell(data);
