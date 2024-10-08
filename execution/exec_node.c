@@ -6,14 +6,14 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/08 17:43:51 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 20:00:34 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//recursively keep calling execute node
-//which results in checking for multiple pipes
+//recursively keep calling execute_node
+//until it turns into a simple command
 //for left side we will write to pipe
 //so we close the reading end pipefd[0]
 //redirect stdout to write end
@@ -23,7 +23,7 @@
 //redirect stdin to reading end
 //then close it
 
-static void	exec_pipe_child(
+static void	set_pipe_redir(
 	t_data *data, int pipefd[2], t_ast_direction dir, t_node *tree)
 {
 	int	status;
@@ -66,7 +66,7 @@ int	get_exit_status(int status)
 //The else here ensures that the right fork happens "from" the parent
 //and NOT from inside left child
 
-static int	exec_pipe(t_data *data, t_node *tree)
+static int	fork_for_pipe(t_data *data, t_node *tree)
 {
 	int	status;
 	int	pipefd[2];
@@ -77,12 +77,12 @@ static int	exec_pipe(t_data *data, t_node *tree)
 	pipe(pipefd);
 	pid_left = fork();
 	if (!pid_left)
-		exec_pipe_child(data, pipefd, AST_LEFT, tree->left);
+		set_pipe_redir(data, pipefd, AST_LEFT, tree->left);
 	else
 	{
 		pid_right = fork();
 		if (!pid_right)
-			exec_pipe_child(data, pipefd, AST_RIGHT, tree->right);
+			set_pipe_redir(data, pipefd, AST_RIGHT, tree->right);
 		else
 		{
 			(close(pipefd[0]), close(pipefd[1]),
@@ -100,9 +100,26 @@ int	execute_node(t_node *tree, bool piped, t_data *data)
 	if (!tree)
 		return (1);
 	if (tree->type == N_PIPE)
-		return (exec_pipe(data, tree));
+		return (fork_for_pipe(data, tree));
 	else
 		return (exec_simple_cmd(data, piped, tree));
 	return (ENO_GENERAL);
 }
 
+//Execution Flow for Pipe commands:
+//Pipe Detected: execute_node() → fork_for_pipe()
+//Fork Two Child Processes:
+//Left child handles the left command.
+//Right child handles the right command.
+//Set up Pipe Redirection:
+//Left child: Redirects STDOUT to the pipe.
+//Right child: Redirects STDIN from the pipe.
+//For Command Execution:
+//Each child calls execute_node(), which eventually leads to 
+//exec_simple_cmd() and execve() for the command on its side.
+//Each command in the pipeline is executed in its respective child process.
+//pipe commands get executed in the child processes created in fork_for_pipe(), 
+//and execve() is called from within each child process after 
+//redirections are set up,just like non-pipe commands. 
+//The difference is that the pipe setup happens first, 
+//before reaching the execve() call

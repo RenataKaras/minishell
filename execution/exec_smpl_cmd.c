@@ -6,11 +6,15 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/08 17:46:45 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 19:06:02 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// piped = true, dont reset stdin and stdout cause pipes manage redirection
+// If piped is false, reset stdin and stdout to their original fd
+// This is needed after redirection for subsequent commands
 
 void	reset_stds(t_data *data, bool piped)
 {

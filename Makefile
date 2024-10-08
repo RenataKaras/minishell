@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/10/03 18:18:52 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/10/08 20:01:19 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SOURCE = main.c \
 		expander/expand_helpers.c \
 		expander/expander_split.c \
 		execution/set_exec_precedence.c \
-		execution/exec.c \
+		execution/exec_node.c \
 		execution/exec_heredoc.c \
 		execution/display_error.c \
 		execution/exec_smpl_cmd.c \

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/08 17:29:58 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 19:58:03 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void	set_exec_precedence(t_node *node, t_data *data)
 		return ;
 	if (node->type == N_PIPE)
 	{
-		puts("we're in precedence");
 		set_exec_precedence(node -> left, data);
 		if (!data->heredoc_siginit)
 			set_exec_precedence(node -> right, data);
