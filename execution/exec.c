@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/08 12:48:28 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 17:43:51 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //then close the write end
 //else we will read from the pipe
 //so close the writing end
-//redirect stdin to reang end
+//redirect stdin to reading end
 //then close it
 
 static void	exec_pipe_child(
@@ -85,8 +85,8 @@ static int	exec_pipe(t_data *data, t_node *tree)
 			exec_pipe_child(data, pipefd, AST_RIGHT, tree->right);
 		else
 		{
-			puts("else here");
-			(close(pipefd[0]), close(pipefd[1]), waitpid(pid_left, &status, 0), waitpid(pid_right, &status, 0));
+			(close(pipefd[0]), close(pipefd[1]),
+				waitpid(pid_left, &status, 0), waitpid(pid_right, &status, 0));
 			data->sigint_child = false;
 			return (get_exit_status(status));
 		}
@@ -102,7 +102,7 @@ int	execute_node(t_node *tree, bool piped, t_data *data)
 	if (tree->type == N_PIPE)
 		return (exec_pipe(data, tree));
 	else
-		return (exec_simple_cmd(data, piped));
+		return (exec_simple_cmd(data, piped, tree));
 	return (ENO_GENERAL);
 }
 

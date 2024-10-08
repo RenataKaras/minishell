@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/07 17:33:42 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 17:46:45 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,25 +100,23 @@ static int	exec_child(t_node *node, t_data *data)
 //if not a builtin, we execute_child??
 
 
-int	exec_simple_cmd(t_data *data, bool piped)
+int	exec_simple_cmd(t_data *data, bool piped, t_node *node)
 {
 	int	tmp_status;
 
-	if (!data->ast->expanded_args)
+	if (!node->expanded_args)
 	{
-		tmp_status = exec_redirection(data->ast);
+		tmp_status = exec_redirection(node);
 		return (reset_stds(data, piped), (tmp_status && ENO_GENERAL));
 	}
-	else if (is_builtin((data->ast->expanded_args)[0]))
+	else if (is_builtin((node->expanded_args)[0]))
 	{
-		tmp_status = exec_redirection(data->ast);
+		tmp_status = exec_redirection(node);
 		if (tmp_status != ENO_SUCCESS)
 			return (reset_stds(data, piped), ENO_GENERAL);
-		tmp_status = exec_builtin(data->ast->expanded_args, data);
+		tmp_status = exec_builtin(node->expanded_args, data);
 		return (reset_stds(data, piped), tmp_status);
 	}
 	else
-		return (exec_child(data->ast, data));
+		return (exec_child(node, data));
 }
-
-

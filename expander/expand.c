@@ -3,23 +3,21 @@
 /*                                                        ::::::::            */
 /*   expand.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/24 17:44:31 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/27 17:00:48 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/08 17:14:55 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*handle_dollar(t_data *data, int *i)
+char	*handle_dollar(t_data *data, int *i, char *str)
 {
 	int		start;
-	char	*str;
 	char	*var;
 	char	*env_val;
 
-	str = data->ast->args;
 	(*i)++;
 	if (ft_isdigit(str[*i]) || str[*i] == '@')
 		return ((*i)++, ft_strdup(""));
@@ -40,13 +38,11 @@ char	*handle_dollar(t_data *data, int *i)
 	return (free(var), ft_strdup(env_val));
 }
 
-char	*cmd_pre_expander(t_data *data)
+char	*cmd_pre_expander(t_data *data, char *str)
 {
 	char	*result;
 	int		i;
-	char	*str;
 
-	str = data->ast->args;
 	result = ft_strdup("");
 	i = 0;
 	while (str[i])
@@ -54,21 +50,20 @@ char	*cmd_pre_expander(t_data *data)
 		if (str[i] == '\'')
 			result = strjoin_free(result, handle_squotes(str, &i));
 		else if (str[i] == '"')
-			result = strjoin_free(result, handle_dquotes(data, &i));
+			result = strjoin_free(result, handle_dquotes(data, &i, str));
 		else if (str[i] == '$')
-			result = strjoin_free(result, handle_dollar(data, &i));
+			result = strjoin_free(result, handle_dollar(data, &i, str));
 		else
 			result = strjoin_free(result, handle_normal_str(str, &i));
 	}
 	return (result);
 }
 
-char	**expand(t_data *data)
+char	**expand(t_data *data, char *str)
 {
 	char	**expanded;
-	char	*str;
 
-	str = cmd_pre_expander(data);
+	str = cmd_pre_expander(data, str);
 	if (!str)
 		return (NULL);
 	str = clean_empty_strs(str);

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/04 09:40:33 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 17:47:25 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,9 +184,8 @@ void		free_array(char **array, int i);
 /*EXPANDER*/
 
 //expander
-char		**expand(t_data *data);
-char		*cmd_pre_expander(t_data *data);
-char		*handle_dollar(t_data *data, int *i);
+char		**expand(t_data *data, char *str);
+char		*handle_dollar(t_data *data, int *i, char *str);
 
 //expand_helpers
 char		*strjoin_free(char *s1, char *s2);
@@ -198,7 +197,7 @@ char		**expander_split(char *str);
 //expand utils
 char		*handle_squotes(char *str, int *i);
 char		*handle_dquote_str(char *str, int *i);
-char		*handle_dquotes(t_data *data, int *i);
+char		*handle_dquotes(t_data *data, int *i, char *str);
 bool		is_valid_var_char(char c);
 char		*handle_normal_str(char *str, int *i);
 
@@ -280,7 +279,7 @@ t_err		check_read_perm(char *file);
 t_err		check_exec_perm(char *file, bool cmd);
 int			exec_builtin(char **command, t_data *data);
 int			get_exit_status(int status);
-int			exec_simple_cmd(t_data *data, bool piped);
+int			exec_simple_cmd(t_data *data, bool piped, t_node *node);
 void		heredoc_expander(char *str, int fd, t_data *data);
 
 #endif

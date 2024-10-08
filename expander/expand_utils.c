@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   expand_utils.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
+/*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/24 17:55:17 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/25 16:08:11 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/08 17:06:10 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,16 @@ char	*handle_dquote_str(char *str, int *i)
 	return (ft_substr(str, start, *i - start));
 }
 
-char	*handle_dquotes(t_data *data, int *i)
+char	*handle_dquotes(t_data *data, int *i, char *str)
 {
 	char	*result;
-	char	*str;
 
-	str = data->ast->args;
 	result = ft_strdup("\"");
 	(*i)++;
 	while (str[*i] != '"')
 	{
 		if (str[*i] == '$')
-			result = strjoin_free(result, handle_dollar(data, i));
+			result = strjoin_free(result, handle_dollar(data, i, str));
 		else
 			result = strjoin_free(result, handle_dquote_str(str, i));
 	}

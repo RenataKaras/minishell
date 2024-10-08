@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/08 14:52:23 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 17:29:58 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,19 @@ static bool	child_exit_normal(int pipefd[2], int *childpid, t_data *data)
 //the execute_heredoc function will not be called,
 //Non-heredoc I/O are expanded and stored
 
-static void	setup_io_and_heredoc(t_data *data)
+static void	setup_io_and_heredoc(t_data *data, t_node *node)
 {
 	t_io_node	*io;
 	int			pipefd[2];
 	int			child_pid;
 
-	if (data->ast->args)
-		data->ast->expanded_args = expand(data);
-	
-	io = data->ast->io_list;
+	puts("in set up");
+	//printf("data->ast->args:%s\n", data->ast->args);
+	printf("node->args: %s\n", node->args);
+	if (node->args)
+		node->expanded_args = expand(data, node->args);
+	printf("node->expanded_args[0]: %s\n", node->expanded_args[0]);
+	io = node->io_list;
 	while (io)
 	{
 		if (io->type == IO_HEREDOC)
@@ -83,7 +86,7 @@ static void	setup_io_and_heredoc(t_data *data)
 		}
 		else
 		{
-			io->expanded_value = expand(data);
+			io->expanded_value = expand(data, node->args);
 			puts("other redirection");
 			printf(" printed value: %s", io->expanded_value[0]);
 		}
@@ -92,10 +95,6 @@ static void	setup_io_and_heredoc(t_data *data)
 }
 
 //The left subtree represents the command before the pipe
-//the right subtree represents the command after the pipe.
-
-//goal:
-//The leftmost node represents the earliest command in the pipeline
 //it must be processed first to establish the correct I/O flow.
 
 //if we detect pipe:
@@ -135,6 +134,6 @@ void	set_exec_precedence(t_node *node, t_data *data)
 			set_exec_precedence(node -> right, data);
 	}
 	else
-		setup_io_and_heredoc(data);
+		setup_io_and_heredoc(data, node);
 }
 
