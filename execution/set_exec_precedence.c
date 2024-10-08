@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/04 09:28:54 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 14:52:23 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	child_exit_normal(int pipefd[2], int *childpid, t_data *data)
 //bash does not react to SIGQUIT inside heredoc
 //signal(SIGQUIT, SIG_IGN) might not be necessary, test later
 
-//if args exist, they are expanded
+//if args(no pipe?) exist, they are expanded()
 //if heredoc detected, a child process is forked to handle the heredoc input, 
 //which is written to a pipe.
 //The read end of the pipe (pipefd[0])is stored in io->here_doc, 
@@ -66,6 +66,7 @@ static void	setup_io_and_heredoc(t_data *data)
 
 	if (data->ast->args)
 		data->ast->expanded_args = expand(data);
+	
 	io = data->ast->io_list;
 	while (io)
 	{
@@ -81,7 +82,11 @@ static void	setup_io_and_heredoc(t_data *data)
 			io->here_doc = pipefd[0];
 		}
 		else
+		{
 			io->expanded_value = expand(data);
+			puts("other redirection");
+			printf(" printed value: %s", io->expanded_value[0]);
+		}
 		io = io->next;
 	}
 }
@@ -124,6 +129,7 @@ void	set_exec_precedence(t_node *node, t_data *data)
 		return ;
 	if (node->type == N_PIPE)
 	{
+		puts("we're in precedence");
 		set_exec_precedence(node -> left, data);
 		if (!data->heredoc_siginit)
 			set_exec_precedence(node -> right, data);

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/04 11:08:09 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 12:48:28 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 //recursively keep calling execute node
 //which results in checking for multiple pipes
+//for left side we will write to pipe
+//so we close the reading end pipefd[0]
+//redirect stdout to write end
+//then close the write end
+//else we will read from the pipe
+//so close the writing end
+//redirect stdin to reang end
+//then close it
 
 static void	exec_pipe_child(
 	t_data *data, int pipefd[2], t_ast_direction dir, t_node *tree)
@@ -77,8 +85,8 @@ static int	exec_pipe(t_data *data, t_node *tree)
 			exec_pipe_child(data, pipefd, AST_RIGHT, tree->right);
 		else
 		{
-			(close(pipefd[0]), close(pipefd[1]));
-			(waitpid(pid_left, &status, 0), waitpid(pid_right, &status, 0));
+			puts("else here");
+			(close(pipefd[0]), close(pipefd[1]), waitpid(pid_left, &status, 0), waitpid(pid_right, &status, 0));
 			data->sigint_child = false;
 			return (get_exit_status(status));
 		}

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/04 09:40:06 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 14:51:39 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@
 // 			printf("Unknown\n");
 // 			break;
 // 	}
+// }
 
 // 	// Print node's args
 // 	if (node->args)
@@ -233,7 +234,7 @@ void	*maintain_prompt(t_data *data)
 			continue ;
 		data->ast = parse(data->token_list);
 		// print_env_list (token_list);
-		// print_ast(data.ast, 0);
+		//print_ast(data->ast, 0);
 		start_execution(data);
 	}
 }
@@ -251,10 +252,5 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(&data, envp);
 	maintain_prompt(&data);
 	free_or_add_list(NULL, true);
-	//data.envp = envp;
-	//data.env = copy_env(data.envp);
-	//if (!data.env)
-		//return (EXIT_FAILURE);
-	// print_env_list(data.env);
 	return (clean_minishell(&data), data.exit_status);
 }
