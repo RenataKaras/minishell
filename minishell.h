@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/08 20:00:13 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/09 18:06:54 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,9 @@ char		*handle_dquote_str(char *str, int *i);
 char		*handle_dquotes(t_data *data, int *i, char *str);
 bool		is_valid_var_char(char c);
 char		*handle_normal_str(char *str, int *i);
+
+//strip_quotes
+char		*strip_quotes(char *str);
 
 /*PARSING*/
 

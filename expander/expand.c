@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/24 17:44:31 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/08 17:14:55 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/09 18:10:09 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*cmd_pre_expander(t_data *data, char *str)
 char	**expand(t_data *data, char *str)
 {
 	char	**expanded;
+	int		i;
 
 	str = cmd_pre_expander(data, str);
 	if (!str)
@@ -73,5 +74,11 @@ char	**expand(t_data *data, char *str)
 	free(str);
 	if (!expanded)
 		return (NULL);
+	i = 0;
+	while (expanded[i])
+	{
+		expanded[i] = strip_quotes(expanded[i]);
+		i++;
+	}
 	return (expanded);
 }

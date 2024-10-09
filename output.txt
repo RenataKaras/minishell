@@ -1,2 +1,0 @@
-hello output.txt
-fjfjfj output.txt
