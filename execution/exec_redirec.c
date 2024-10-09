@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:22:40 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 15:55:32 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/08 21:21:57 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	exec_redirection(t_node *node)
 			&& set_append_redir(tmp_io, &tmp_status) != ENO_SUCCESS)
 			return (tmp_status);
 		else if (tmp_io->type == IO_HEREDOC)
-			(dup2(tmp_io->here_doc, STDIN_FILENO), close(tmp_io->here_doc));
+			(dup2(tmp_io->here_doc, 0), close(tmp_io->here_doc));
 		tmp_io = tmp_io->next;
 	}
 	return (ENO_SUCCESS);
