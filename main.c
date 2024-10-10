@@ -209,10 +209,16 @@ static void	start_execution(t_data *data)
 {
 	signal(SIGQUIT, sigquit_handler);
 	set_exec_precedence(data->ast, data);
+	puts("or are we in start_exec?");
 	if (data->heredoc_siginit)
 	{
-		clear_ast(&data->ast, data->token_list);
+		//clear_ast cause segfault here
+		//clear_ast(&data->ast, data->token_list);
+		//here, we need to get rid of the input delimeter of heredoc
+		//so that it does not enter into the execute_node
+		//clear_ast was supposed to do that
 		data->heredoc_siginit = false;
+		return ;
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
 	data->exit_status = execute_node(data->ast, false, data);

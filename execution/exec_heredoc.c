@@ -22,24 +22,24 @@
 //'"' represents the double quote character.
 //'\'' represents the single quote character.
 
-bool	is_delimeter(char *delimiter, char *str)
-{
-	while (*str)
-	{
-		if (*delimiter == '"' || *delimiter == '\'')
-		{
-			delimiter++;
-		}
-		else if (*str == *delimiter)
-		{
-			str++;
-			delimiter++;
-		}
-		else
-			return (false);
-	}
-	return (!*delimiter);
-}
+// bool	is_delimeter(char *delimiter, char *str)
+// {
+// 	while (*str)
+// 	{
+// 		if (*delimiter == '"' || *delimiter == '\'')
+// 		{
+// 			delimiter++;
+// 		}
+// 		else if (*str == *delimiter)
+// 		{
+// 			str++;
+// 			delimiter++;
+// 		}
+// 		else
+// 			return (false);
+// 	}
+// 	return (!*delimiter);
+// }
 
 //input will hold the inputs of heredoc
 //delm_str is a pointer to the delimeter str
@@ -64,13 +64,8 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 		input = readline("heredoc> ");
 		if (!input)
 			break ;
-		printf("see value : %s\n", delm_str);
 		if (ft_strncmp(input, delm_str, ft_strlen(delm_str)) == 0)
-		{
-			puts("in here");
 			break ;
-		}
-		puts ("what");
 		if (!*delm_str)
 			heredoc_expander(input, pipefd[1], data);
 		else
@@ -79,7 +74,6 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 			ft_putchar_fd('\n', pipefd[1]);
 		}
 	}
-	close(pipefd[1]);
 	clean_minishell(data);
-	exit(0);
+	exit (0);
 }

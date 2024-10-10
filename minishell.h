@@ -276,7 +276,7 @@ void		set_exec_precedence(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
 int			exec_redirection(t_node *node);
 int			execute_node(t_node *tree, bool piped, t_data *data);
-int			msg_err(t_err error);
+int			display_err(t_err error);
 t_err		check_write_perm(char *file);
 t_err		check_read_perm(char *file);
 t_err		check_exec_perm(char *file, bool cmd);

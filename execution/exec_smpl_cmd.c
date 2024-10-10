@@ -78,7 +78,7 @@ static int	exec_child(t_node *node, t_data *data)
 		path_status = get_path((node->expanded_args)[0], data);
 		if (path_status.error.num != ENO_SUCCESS)
 		{
-			tmp_status = msg_err(path_status.error);
+			tmp_status = display_err(path_status.error);
 			(clean_minishell(data), exit(tmp_status));
 		}
 		if (execve(path_status.path, node->expanded_args, data->envp) == -1)
