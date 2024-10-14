@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/09 16:23:50 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/09 19:01:10 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ bool	is_delimeter(char *delimiter, char *str)
 {
 	while (*str)
 	{
-		if (*delimiter == '"' || *delimiter == '\'')
-		{
-			delimiter++;
-		}
-		else if (*str == *delimiter)
+		// if (*delimiter == '"' || *delimiter == '\'')
+		// {
+		// 	delimiter++;
+		// 	continue ;
+		// }
+		if (*str == *delimiter)
 		{
 			str++;
 			delimiter++;
@@ -38,6 +39,8 @@ bool	is_delimeter(char *delimiter, char *str)
 		else
 			return (false);
 	}
+	// while (*delimiter == '"' || *delimiter == '\'')
+	// 	delimiter++;
 	return (!*delimiter);
 }
 
@@ -56,21 +59,23 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 	char	*delm_str;
 
 	//signal(SIGINT, heredoc_sigint_handler);
+	(void) pipefd;
+	(void) data;
 	delm_str = io->value;
-	while (*delm_str && *delm_str == '"' && *delm_str == '\'')
-		delm_str++;
+	// while (*delm_str && *delm_str == '"' && *delm_str == '\'')
+	// 	delm_str++;
 	while (1)
 	{
 		input = readline("heredoc> ");
 		if (!input)
 			break ;
-		printf("see value : %s\n", delm_str);
-		if (ft_strncmp(input, delm_str, ft_strlen(delm_str)) == 0)
+		//printf("see delm : %s\n", delm_str);
+		//printf("see input : %s\n", input);
+		if (strcmp(delm_str, input) == 0)
 		{
-			puts("in here");
+			free (input);
 			break ;
 		}
-		puts ("what");
 		if (!*delm_str)
 			heredoc_expander(input, pipefd[1], data);
 		else
@@ -79,7 +84,7 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 			ft_putchar_fd('\n', pipefd[1]);
 		}
 	}
-	close(pipefd[1]);
 	clean_minishell(data);
+	puts("before exiting exe_heredoc");
 	exit(0);
 }
