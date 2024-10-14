@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/17 18:35:52 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/01 15:25:27 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 14:45:51 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 void	sigquit_handler(int num)
 {
 	(void)num;
-	//g_signal_number = num;
-	ft_putstr_fd("Quit (core dumped) :3\n", 1);
+	ft_putstr_fd("Quit (core dumped)\n", 1);
 }
 
 static void	sigint_handler(int num)
@@ -25,7 +24,7 @@ static void	sigint_handler(int num)
 		ft_putstr_fd("\n", 1);         // Print a newline when Ctrl+C is pressed.
     	rl_replace_line("", 0);        // Clear the current input line.
     	rl_on_new_line();              // Move to a new line (where the prompt goes).
-    	rl_redisplay(); 				//redisplay prompt
+    	//zrl_redisplay(); 				//redisplay prompt
 		(void) num;
 		//g_signal_number = SIGINT;
 }

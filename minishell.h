@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/14 11:50:18 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 12:11:19 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,15 @@ char		*strip_quotes(char *str);
 
 //parser_cleaner
 void		clear_ast(t_node **ast, t_token *token_list);
+void		clear_ast_nodes(t_node **left, t_node **right, t_token *token_list);
+void		clear_cmd_node(t_node *node);
+void		clear_io_list(t_io_node **lst);
+void		recursively_clear_ast(t_node *node);
+
+//parser_helpers
+bool		get_io_list(t_io_node **io_list, t_token *token_list);
+t_node		*get_simple_cmd(t_token *token_list);
+bool		join_args(char **args, t_token **token_list);
 
 //parser_lists
 void		append_io_node(t_io_node **lst, t_io_node *new);
@@ -223,6 +232,10 @@ bool		is_redirection(t_token_type type);
 
 //parser
 t_node		*combine(t_node *left, t_node *right);
+t_node		*expression(int min_prec, t_token **token_list);
+t_node		*handle_term_and_token(t_token **token_list);
+t_node		*parse(t_token *token_list);
+t_node		*term(t_token *token_list);
 
 
 //token_adder

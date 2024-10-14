@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/27 15:51:48 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/13 17:42:17 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 14:48:31 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_pwd(void)
 	char	*cwd;
 
 	cwd = NULL;
-	cwd = getcwd(cwd, 0);//need to free after use
+	cwd = getcwd(cwd, 0);
 	if (!cwd)
 		return (1);
 	ft_putstr_fd(cwd, 1);

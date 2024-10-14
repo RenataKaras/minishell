@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/08 20:00:13 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 12:12:55 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ static void	start_execution(t_data *data)
 {
 	signal(SIGQUIT, sigquit_handler);
 	set_exec_precedence(data->ast, data);
-	puts("or are we in start_exec?");
 	if (data->heredoc_siginit)
 	{
 		//clear_ast cause segfault here
