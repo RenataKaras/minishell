@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/09 18:06:54 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/14 15:26:05 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <sys/ttydefaults.h>
 # include <sys/wait.h>
 
+# define PARENT 1
+# define CHILD 2
+# define HEREDOC 3
 // Global variable to hold the signal number
 //int  g_signal_number;
 
@@ -266,9 +269,13 @@ void		error_msg(char *msg);
 
 //signal handling
 
-void		init_signals(t_data *data);
-void		sigquit_handler(int num);
-void		process_sigint(t_data *data);
+void		child_sigq_handler(int signum);
+void		handle_signals(int process);
+void		heredoc_sigint_handler(int signum);
+
+// void		init_signals(t_data *data);
+// void		sigquit_handler(int num);
+// void		process_sigint(t_data *data);
 
 //execution
 

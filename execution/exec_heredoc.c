@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/09 16:23:50 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 15:15:05 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 	char	*input;
 	char	*delm_str;
 
+	signal_handler(HEREDOC);
 	//signal(SIGINT, heredoc_sigint_handler);
 	delm_str = io->value;
 	while (*delm_str && *delm_str == '"' && *delm_str == '\'')
