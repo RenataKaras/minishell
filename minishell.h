@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/14 12:11:19 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 15:53:45 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 # include <sys/ttydefaults.h>
 # include <sys/wait.h>
 
-// Global variable to hold the signal number
-//int  g_signal_number;
+# define PARENT 1
+# define CHILD 2
+# define HEREDOC 3
+
 
 /*
  * Enumeration, or enum, is a user-defined data type in C/other languages 
@@ -265,9 +267,13 @@ void		error_msg(char *msg);
 
 //signal handling
 
-void		init_signals(t_data *data);
-void		sigquit_handler(int num);
-void		process_sigint(t_data *data);
+void		child_sigq_handler(int signum);
+void		handle_signals(int process);
+void		heredoc_sigint_handler(int signum);
+
+// void		init_signals(t_data *data);
+// void		sigquit_handler(int num);
+// void		process_sigint(t_data *data);
 
 //execution
 

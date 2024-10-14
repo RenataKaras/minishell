@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/09 18:51:15 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 15:51:16 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 static bool	child_exit_normal(int pipefd[2], int *childpid, t_data *data)
 {
 	waitpid(*childpid, childpid, 0);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, child_sigq_handler);
 	data->sigint_child = false;
 	close (pipefd[1]);
 	if (WIFEXITED(*childpid) && WEXITSTATUS(*childpid) == SIGINT)
