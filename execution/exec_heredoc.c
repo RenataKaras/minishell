@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/09 19:01:10 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 11:52:10 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,24 @@
 //'"' represents the double quote character.
 //'\'' represents the single quote character.
 
-bool	is_delimeter(char *delimiter, char *str)
-{
-	while (*str)
-	{
-		// if (*delimiter == '"' || *delimiter == '\'')
-		// {
-		// 	delimiter++;
-		// 	continue ;
-		// }
-		if (*str == *delimiter)
-		{
-			str++;
-			delimiter++;
-		}
-		else
-			return (false);
-	}
-	// while (*delimiter == '"' || *delimiter == '\'')
-	// 	delimiter++;
-	return (!*delimiter);
-}
+// bool	is_delimeter(char *delimiter, char *str)
+// {
+// 	while (*str)
+// 	{
+// 		if (*delimiter == '"' || *delimiter == '\'')
+// 		{
+// 			delimiter++;
+// 		}
+// 		else if (*str == *delimiter)
+// 		{
+// 			str++;
+// 			delimiter++;
+// 		}
+// 		else
+// 			return (false);
+// 	}
+// 	return (!*delimiter);
+// }
 
 //input will hold the inputs of heredoc
 //delm_str is a pointer to the delimeter str
@@ -69,13 +66,8 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 		input = readline("heredoc> ");
 		if (!input)
 			break ;
-		//printf("see delm : %s\n", delm_str);
-		//printf("see input : %s\n", input);
-		if (strcmp(delm_str, input) == 0)
-		{
-			free (input);
+		if (ft_strncmp(input, delm_str, ft_strlen(delm_str)) == 0)
 			break ;
-		}
 		if (!*delm_str)
 			heredoc_expander(input, pipefd[1], data);
 		else
@@ -85,6 +77,5 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 		}
 	}
 	clean_minishell(data);
-	puts("before exiting exe_heredoc");
-	exit(0);
+	exit (0);
 }

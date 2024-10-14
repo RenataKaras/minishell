@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/08 20:00:13 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 11:50:18 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,19 +201,13 @@ char		*handle_dquotes(t_data *data, int *i, char *str);
 bool		is_valid_var_char(char c);
 char		*handle_normal_str(char *str, int *i);
 
+//strip_quotes
+char		*strip_quotes(char *str);
+
 /*PARSING*/
 
 //parser_cleaner
 void		clear_ast(t_node **ast, t_token *token_list);
-void		clear_ast_nodes(t_node **left, t_node **right, t_token *token_list);
-void		clear_cmd_node(t_node *node);
-void		clear_io_list(t_io_node **lst);
-void		recursively_clear_ast(t_node *node);
-
-//parser_helpers
-bool		get_io_list(t_io_node **io_list, t_token *token_list);
-t_node		*get_simple_cmd(t_token *token_list);
-bool		join_args(char **args, t_token **token_list);
 
 //parser_lists
 void		append_io_node(t_io_node **lst, t_io_node *new);
@@ -229,12 +223,7 @@ bool		is_redirection(t_token_type type);
 
 //parser
 t_node		*combine(t_node *left, t_node *right);
-t_node		*expression(int min_prec, t_token **token_list);
-t_node		*handle_term_and_token(t_token **token_list);
-t_node		*parse(t_token *token_list);
-t_node		*term(t_token *token_list);
 
-/*TOKENIZING*/
 
 //token_adder
 int			add_identifier(char **line_ptr, t_token **token_list);
@@ -273,7 +262,7 @@ void		set_exec_precedence(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
 int			exec_redirection(t_node *node);
 int			execute_node(t_node *tree, bool piped, t_data *data);
-int			msg_err(t_err error);
+int			display_err(t_err error);
 t_err		check_write_perm(char *file);
 t_err		check_read_perm(char *file);
 t_err		check_exec_perm(char *file, bool cmd);

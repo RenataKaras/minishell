@@ -31,7 +31,7 @@ int	set_output_redir(t_io_node *io_list, int *exit_status)
 
 	if (!io_list->expanded_value || io_list->expanded_value[1])
 	{
-		*exit_status = msg_err(
+		*exit_status = display_err(
 				(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
 		return (*exit_status);
 	}
@@ -39,7 +39,7 @@ int	set_output_redir(t_io_node *io_list, int *exit_status)
 	if (fd == -1)
 	{
 		*exit_status
-			= msg_err(check_write_perm(io_list->expanded_value[0]));
+			= display_err(check_write_perm(io_list->expanded_value[0]));
 		return (*exit_status);
 	}
 	dup2(fd, STDOUT_FILENO);
@@ -54,7 +54,7 @@ int	set_input_redir(t_io_node *io_list, int *exit_status)
 
 	if (!io_list->expanded_value || io_list->expanded_value[1])
 	{
-		*exit_status = msg_err(
+		*exit_status = display_err(
 				(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
 		return (*exit_status);
 	}
@@ -62,7 +62,7 @@ int	set_input_redir(t_io_node *io_list, int *exit_status)
 	if (fd == -1)
 	{
 		*exit_status
-			= msg_err(check_read_perm(io_list->expanded_value[0]));
+			= display_err(check_read_perm(io_list->expanded_value[0]));
 		return (*exit_status);
 	}
 	dup2(fd, STDIN_FILENO);
@@ -77,7 +77,7 @@ int	set_append_redir(t_io_node *io_list, int *exit_status)
 
 	if (!io_list->expanded_value || io_list->expanded_value[1])
 	{
-		*exit_status = msg_err(
+		*exit_status = display_err(
 				(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
 		return (*exit_status);
 	}
@@ -85,7 +85,7 @@ int	set_append_redir(t_io_node *io_list, int *exit_status)
 	if (fd == -1)
 	{
 		*exit_status
-			= msg_err(check_write_perm(io_list->expanded_value[0]));
+			= display_err(check_write_perm(io_list->expanded_value[0]));
 		return (*exit_status);
 	}
 	dup2(fd, STDOUT_FILENO);

@@ -6,7 +6,7 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/10/09 19:02:50 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/10/14 11:49:55 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SOURCE = main.c \
 		expander/expand.c \
 		expander/expand_helpers.c \
 		expander/expander_split.c \
+		expander/strip_quotes.c \
 		execution/set_exec_precedence.c \
 		execution/exec_node.c \
 		execution/exec_heredoc.c \

@@ -76,6 +76,7 @@ static void	setup_io_and_heredoc(t_data *data, t_node *node)
 			child_pid = (signal(SIGQUIT, SIG_IGN), fork());
 			if (child_pid == 0)
 				execute_heredoc(io, pipefd, data);
+			puts("are we checking normal exit for child?");
 			if (child_exit_normal(pipefd, &child_pid, data))
 				return ;
 			io->here_doc = pipefd[0];

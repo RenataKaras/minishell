@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	msg_err(t_err error)
+int	display_err(t_err error)
 {
 	if (error.msg == ERRMSG_CMD_NOT_FOUND)
 		return (ft_putstr_fd("minishelll: ", 2), ft_putstr_fd(error.source, 2),
