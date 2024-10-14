@@ -6,40 +6,30 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/14 15:53:58 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 16:47:49 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// static void	heredoc_sigint_handler(int signum)
-// {
-// 	(void)signum;
-// 	clean_minishell(data);//need to put it outside handler and send data
-// 	exit(SIGINT);//also this cause otherwise program exits before exiting
-// }
-
-//'"' represents the double quote character.
-//'\'' represents the single quote character.
-
-// bool	is_delimeter(char *delimiter, char *str)
-// {
-// 	while (*str)
-// 	{
-// 		if (*delimiter == '"' || *delimiter == '\'')
-// 		{
-// 			delimiter++;
-// 		}
-// 		else if (*str == *delimiter)
-// 		{
-// 			str++;
-// 			delimiter++;
-// 		}
-// 		else
-// 			return (false);
-// 	}
-// 	return (!*delimiter);
-// }
+bool	is_delimeter(char *delimiter, char *str)
+{
+	while (*str)
+	{
+		if (*delimiter == '"' || *delimiter == '\'')
+		{
+			delimiter++;
+		}
+		else if (*str == *delimiter)
+		{
+			str++;
+			delimiter++;
+		}
+		else
+			return (false);
+	}
+	return (!*delimiter);
+}
 
 //input will hold the inputs of heredoc
 //delm_str is a pointer to the delimeter str
@@ -55,19 +45,18 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 	char	*input;
 	char	*delm_str;
 
-	signal_handler(HEREDOC);
-	//signal(SIGINT, heredoc_sigint_handler);
+	handle_signals(HEREDOC);
 	(void) pipefd;
 	(void) data;
 	delm_str = io->value;
 	// while (*delm_str && *delm_str == '"' && *delm_str == '\'')
-	// 	delm_str++;
+	// 	delm_str++; fnd if we can leave it
 	while (1)
 	{
-		input = readline("heredoc> ");
+		input = readline("> ");
 		if (!input)
 			break ;
-		if (ft_strncmp(input, delm_str, ft_strlen(delm_str)) == 0)
+		if (is_delimeter(io->value, input))
 			break ;
 		if (!*delm_str)
 			heredoc_expander(input, pipefd[1], data);
