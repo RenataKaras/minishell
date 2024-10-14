@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/14 16:38:55 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 17:57:05 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,6 @@ static void	init_minishell(t_data *data, char **envp)
 
 static void	start_execution(t_data *data)
 {
-	
 	signal(SIGQUIT, child_sigq_handler);
 	set_exec_precedence(data->ast, data);
 	if (data->heredoc_siginit)

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/14 17:33:55 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 17:55:02 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,12 @@ static void	setup_io_and_heredoc(t_data *data, t_node *node)
 	{
 		if (io->type == IO_HEREDOC)
 		{
-			pipe(pipefd);
+			if (pipe(pipefd) == -1)
+				exit(EXIT_FAILURE);
 			data->heredoc_siginit = true;
 			child_pid = (signal(SIGQUIT, SIG_IGN), fork());
+			if (child_pid == -1)
+				exit(EXIT_FAILURE);
 			if (child_pid == 0)
 				execute_heredoc(io, pipefd, data);
 			if (child_exit_normal(pipefd, &child_pid, data))

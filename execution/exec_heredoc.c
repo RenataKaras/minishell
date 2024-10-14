@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/14 16:47:49 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 17:39:33 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 	(void) data;
 	delm_str = io->value;
 	// while (*delm_str && *delm_str == '"' && *delm_str == '\'')
-	// 	delm_str++; fnd if we can leave it
+	// 	delm_str++;
 	while (1)
 	{
-		input = readline("> ");
+		input = readline("heredoc> ");
 		if (!input)
 			break ;
 		if (is_delimeter(io->value, input))

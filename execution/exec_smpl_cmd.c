@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/14 16:12:43 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/14 17:55:37 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static int	exec_child(t_node *node, t_data *data)
 
 	data->sigint_child = true;
 	fork_pid = fork();
+	if (fork_pid == -1)
+		exit(EXIT_FAILURE);
 	handle_signals(CHILD);
 	if (!fork_pid)
 	{
