@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/15 16:33:47 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/15 16:39:10 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,7 @@ static void	setup_io_and_heredoc(t_data *data, t_node *node)
 	while (io)
 	{
 		if (io->type == IO_HEREDOC)
-		{
 			pipe_fork_heredoc(data, io);
-		}
 		else
 			io->expanded_value = expand(data, io->value);
 		io = io->next;

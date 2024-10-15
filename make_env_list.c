@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env_list.c                                         :+:    :+:            */
+/*   make_env_list.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:46:23 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/16 14:52:35 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/15 16:47:06 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,10 @@ char	*copy_key(char *str)
 	return (ft_strdup(str));
 }
 
-//what happens if substring fails???????
-//if = is found, make substr without the =
-//if = is not found, return the string
-
 char	*copy_value(char *str)
 {
 	size_t	i;
+	char	*substr;
 
 	i = 0;
 	while (str[i])
@@ -40,8 +37,10 @@ char	*copy_value(char *str)
 		if (str[i] == '=')
 		{
 			i++;
-			return (free_or_add_list(
-					ft_substr(str, i, ft_strlen(str) - i), false));
+			substr = ft_substr(str, i, ft_strlen(str) - i);
+			if (!substr)
+				return (NULL);
+			return (free_or_add_list(substr, false));
 		}
 		i++;
 	}

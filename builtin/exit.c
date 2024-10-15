@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 14:51:58 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 15:58:14 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/15 16:40:47 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static int	exit_atoi(char *str, t_data *data)
 		result = (result * 10) + (str[i] - '0');
 		if (result > LONG_MAX)
 		{
-			exit_s = display_err((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
+			exit_s = display_err(
+					(t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
 			(clean_minishell(data), exit(exit_s));
 		}
 		i++;
