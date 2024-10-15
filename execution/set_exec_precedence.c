@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/14 17:55:02 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/15 15:13:25 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ static void	setup_io_and_heredoc(t_data *data, t_node *node)
 	t_io_node	*io;
 	int			pipefd[2];
 	int			child_pid;
+	int			status;
 
+	status = 0;
 	if (node->args)
 		node->expanded_args = expand(data, node->args);
 	io = node->io_list;
@@ -79,6 +81,12 @@ static void	setup_io_and_heredoc(t_data *data, t_node *node)
 				exit(EXIT_FAILURE);
 			if (child_pid == 0)
 				execute_heredoc(io, pipefd, data);
+			else
+			{
+				signal(SIGINT, heredoc_sigint_handler);
+				signal(SIGQUIT, SIG_IGN);
+				waitpid(child_pid, &status, 0);
+			}
 			if (child_exit_normal(pipefd, &child_pid, data))
 				return ;
 			io->here_doc = pipefd[0];

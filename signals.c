@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/17 18:35:52 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/14 17:28:33 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/15 15:02:10 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	heredoc_sigint_handler(int signum)
 		rl_on_new_line();
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_replace_line("", 0);
-		exit(SIGINT);
 	}
 }
 
