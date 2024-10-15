@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/15 15:13:25 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/15 16:33:47 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,7 @@
 // Check if the child process exited normally and was terminated by SIGINT
 //WIFEXITED checks if exited & WEXITSTATUS checks status
 
-static bool	child_exit_normal(int pipefd[2], int *childpid, t_data *data)
-{
-	waitpid(*childpid, childpid, 0);
-	signal(SIGQUIT, child_sigq_handler);
-	data->sigint_child = false;
-	close (pipefd[1]);
-	if (WIFEXITED(*childpid) && WEXITSTATUS(*childpid) == SIGINT)
-		return (true);
-	return (false);
-}
 
-//expansion refers to the process of interpreting and replacing certain chars
-//with their corresponding values.
 //when heredoc is found, we start ignoring SIGQUIT by SIG_IGN coz
 //bash does not react to SIGQUIT inside heredoc
 //signal(SIGQUIT, SIG_IGN) might not be necessary, test later
@@ -57,45 +45,8 @@ static bool	child_exit_normal(int pipefd[2], int *childpid, t_data *data)
 //If the fork() fails (which would give a negative value to child_pid), 
 //the execute_heredoc function will not be called,
 //Non-heredoc I/O are expanded and stored
-
-static void	setup_io_and_heredoc(t_data *data, t_node *node)
-{
-	t_io_node	*io;
-	int			pipefd[2];
-	int			child_pid;
-	int			status;
-
-	status = 0;
-	if (node->args)
-		node->expanded_args = expand(data, node->args);
-	io = node->io_list;
-	while (io)
-	{
-		if (io->type == IO_HEREDOC)
-		{
-			if (pipe(pipefd) == -1)
-				exit(EXIT_FAILURE);
-			data->heredoc_siginit = true;
-			child_pid = (signal(SIGQUIT, SIG_IGN), fork());
-			if (child_pid == -1)
-				exit(EXIT_FAILURE);
-			if (child_pid == 0)
-				execute_heredoc(io, pipefd, data);
-			else
-			{
-				signal(SIGINT, heredoc_sigint_handler);
-				signal(SIGQUIT, SIG_IGN);
-				waitpid(child_pid, &status, 0);
-			}
-			if (child_exit_normal(pipefd, &child_pid, data))
-				return ;
-			io->here_doc = pipefd[0];
-		}
-		else
-			io->expanded_value = expand(data, io->value);
-		io = io->next;
-	}
-}
+//parent process has a defined handler for SIGINT,
+// you control how the terminal reacts when the signal is received. 
 
 //The left subtree represents the command before the pipe
 //it must be processed first to establish the correct I/O flow.
@@ -124,6 +75,61 @@ static void	setup_io_and_heredoc(t_data *data, t_node *node)
 //if a heredoc is encountered in the left subtree, 
 //the right command will not execute until the heredoc is processed by setup_io
 
+static bool	child_exit_normal(int pipefd[2], int *childpid, t_data *data)
+{
+	waitpid(*childpid, childpid, 0);
+	signal(SIGQUIT, child_sigq_handler);
+	data->sigint_child = false;
+	close (pipefd[1]);
+	if (WIFEXITED(*childpid) && WEXITSTATUS(*childpid) == SIGINT)
+		return (true);
+	return (false);
+}
+
+static void	pipe_fork_heredoc(t_data *data, t_io_node *io)
+{
+	int			pipefd[2];
+	int			child_pid;
+	int			status;
+
+	status = 0;
+	if (pipe(pipefd) == -1)
+		exit(EXIT_FAILURE);
+	data->heredoc_siginit = true;
+	child_pid = (signal(SIGQUIT, SIG_IGN), fork());
+	if (child_pid == -1)
+		exit(EXIT_FAILURE);
+	if (child_pid == 0)
+		execute_heredoc(io, pipefd, data);
+	else
+	{
+		signal(SIGINT, heredoc_sigint_handler);
+		signal(SIGQUIT, SIG_IGN);
+		waitpid(child_pid, &status, 0);
+	}
+	if (child_exit_normal(pipefd, &child_pid, data))
+		return ;
+	io->here_doc = pipefd[0];
+}
+
+static void	setup_io_and_heredoc(t_data *data, t_node *node)
+{
+	t_io_node	*io;
+
+	if (node->args)
+		node->expanded_args = expand(data, node->args);
+	io = node->io_list;
+	while (io)
+	{
+		if (io->type == IO_HEREDOC)
+		{
+			pipe_fork_heredoc(data, io);
+		}
+		else
+			io->expanded_value = expand(data, io->value);
+		io = io->next;
+	}
+}
 
 void	set_exec_precedence(t_node *node, t_data *data)
 {
