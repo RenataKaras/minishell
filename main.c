@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/14 17:57:05 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/16 13:12:45 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ static void	init_minishell(t_data *data, char **envp)
 static void	start_execution(t_data *data)
 {
 	signal(SIGQUIT, child_sigq_handler);
+	puts("in start_exec");
 	set_exec_precedence(data->ast, data);
 	if (data->heredoc_siginit)
 	{
@@ -231,7 +232,7 @@ void	*maintain_prompt(t_data *data)
 		handle_signals(PARENT);
 		data->cmd_line = readline("minishell> ");
 		if (!data->cmd_line)
-			return (error_msg("exit\n"), NULL);
+			(ft_putstr_fd("exit\n", 1), exit(data->exit_status));
 		if (data->cmd_line[0])
 			add_history(data->cmd_line);
 		data->token_list = tokenize(data->cmd_line);
@@ -253,7 +254,6 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || argv[1])
 		return (error_msg("Wrong number of arguments"), EXIT_FAILURE);
-
 	init_minishell(&data, envp);
 	maintain_prompt(&data);
 	free_or_add_list(NULL, true);
