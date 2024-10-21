@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 14:51:58 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/15 16:40:47 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/21 14:55:42 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_exit(char **args, t_data *data)
 			exit_status = display_err(
 					(t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS, NULL});
 			(clean_minishell(data), exit(exit_status));
+			return ;
 		}
 		else
 			exit_status = exit_atoi(args[1], data);
