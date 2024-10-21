@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 14:51:58 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/21 14:55:42 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/21 15:21:03 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_exit(char **args, t_data *data)
 {
 	int	exit_status;
 
+	printf("exit\n");
 	exit_status = data->exit_status;
 	if (args[1])
 	{
