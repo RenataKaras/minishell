@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/14 15:53:45 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/22 12:32:22 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ typedef struct s_data
 }	t_data;
 
 //builtin
-
 int			ft_env(t_data *data);
 int			ft_pwd(void);
 int			ft_echo(char **command);
@@ -169,7 +168,6 @@ int			check_key_format(char *str);
 void		ft_exit(char **args, t_data *data);
 
 //envp
-
 void		make_env_list(t_data *data);
 char		*copy_key(char *str);
 char		*copy_value(char *str);
@@ -216,7 +214,7 @@ void		clear_io_list(t_io_node **lst);
 void		recursively_clear_ast(t_node *node);
 
 //parser_helpers
-bool		get_io_list(t_io_node **io_list, t_token *token_list);
+bool		get_io_list(t_io_node **io_list, t_token **token_list);
 t_node		*get_simple_cmd(t_token *token_list);
 bool		join_args(char **args, t_token **token_list);
 
@@ -238,7 +236,6 @@ t_node		*expression(int min_prec, t_token **token_list);
 t_node		*handle_term_and_token(t_token **token_list);
 t_node		*parse(t_token *token_list);
 t_node		*term(t_token *token_list);
-
 
 //token_adder
 int			add_identifier(char **line_ptr, t_token **token_list);
@@ -266,7 +263,6 @@ bool		skip_quotes(char *line, int *i);
 void		error_msg(char *msg);
 
 //signal handling
-
 void		child_sigq_handler(int signum);
 void		handle_signals(int process);
 void		heredoc_sigint_handler(int signum);
@@ -276,7 +272,6 @@ void		heredoc_sigint_handler(int signum);
 // void		process_sigint(t_data *data);
 
 //execution
-
 void		set_exec_precedence(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
 int			exec_redirection(t_node *node);

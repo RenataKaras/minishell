@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 16:29:35 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/18 16:35:52 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/22 12:03:07 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ char	*ft_strjoin_with(char const *s1, char const *s2, char sep)
 
 void	get_next_token(t_token **token_list)
 {
-	*token_list = (*token_list)->next;
+	if (token_list && *token_list)
+		*token_list = (*token_list)->next;
+	else
+		return ;
 }
 
 bool	is_redirection(t_token_type type)
