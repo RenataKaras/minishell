@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 14:46:05 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/09/18 18:53:03 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/22 16:46:28 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_node	*expression(int min_prec, t_token **token_list)
 	while (*token_list && (*token_list)->type == T_PIPE && 0 >= min_prec)
 	{
 		get_next_token(token_list);
-		if (!token_list)
+		if (!token_list || !*token_list)
 			return (error_msg ("Syntax error: no command after '|'"),
 				NULL);
 		next_prec = 0 + 1;
