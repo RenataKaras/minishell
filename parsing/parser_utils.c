@@ -6,11 +6,18 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 16:29:35 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/22 12:03:07 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/23 14:00:17 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	handle_parse_error(t_data *data)
+{
+	data->exit_status = 258;
+	clear_ast(&data->ast, data->token_list);
+	data->parse_error = false;
+}
 
 char	*ft_strjoin_with(char const *s1, char const *s2, char sep)
 {

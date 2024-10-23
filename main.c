@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/22 12:30:53 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/23 14:07:32 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,12 @@ void	*maintain_prompt(t_data *data)
 		data->token_list = tokenize(data->cmd_line);
 		if (!data->token_list)
 			continue ;
-		data->ast = parse(data->token_list);
+		data->ast = parse(data->token_list, data);
+		if (data->parse_error == true)
+		{
+			handle_parse_error(data);
+			continue ;
+		}
 		// print_env_list (token_list);
 		// print_ast(data->ast, 0);
 		start_execution(data);
