@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/22 12:32:22 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/23 13:54:02 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ typedef struct s_data
 	bool			sigint_child;
 	struct termios	original_terminal;
 	int				exit_status;
-
+	bool			parse_error;
 }	t_data;
 
 //builtin
@@ -214,9 +214,10 @@ void		clear_io_list(t_io_node **lst);
 void		recursively_clear_ast(t_node *node);
 
 //parser_helpers
-bool		get_io_list(t_io_node **io_list, t_token **token_list);
-t_node		*get_simple_cmd(t_token *token_list);
-bool		join_args(char **args, t_token **token_list);
+bool		get_io_list(t_io_node **io_list, t_token **token_list,
+				t_data **data);
+t_node		*get_simple_cmd(t_token *token_list, t_data **data);
+bool		join_args(char **args, t_token **token_list, t_data **data);
 
 //parser_lists
 void		append_io_node(t_io_node **lst, t_io_node *new);
@@ -229,13 +230,14 @@ char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
 void		free_char2(char **str);
 void		get_next_token(t_token **token_list);
 bool		is_redirection(t_token_type type);
+void		handle_parse_error(t_data *data);
 
 //parser
-t_node		*combine(t_node *left, t_node *right);
-t_node		*expression(int min_prec, t_token **token_list);
-t_node		*handle_term_and_token(t_token **token_list);
-t_node		*parse(t_token *token_list);
-t_node		*term(t_token *token_list);
+t_node		*combine(t_node *left, t_node *right, t_data **data);
+t_node		*expression(int min_prec, t_token **token_list, t_data **data);
+t_node		*handle_term_and_token(t_token **token_list, t_data **data);
+t_node		*parse(t_token *token_list, t_data *data);
+t_node		*term(t_token *token_list, t_data **data);
 
 //token_adder
 int			add_identifier(char **line_ptr, t_token **token_list);
