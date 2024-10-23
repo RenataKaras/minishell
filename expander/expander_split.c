@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/25 16:37:13 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/03 13:51:23 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/23 17:48:37 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	skip_word(char *str, int *i)
 			(*i)++;
 			while (str[*i] && str[*i] != quotes)
 				(*i)++;
-			(*i)++;
+			if (str[*i] == quotes)
+				(*i)++;
 		}
 	}
 }
@@ -36,6 +37,7 @@ static char	**allocator(char *str, char **strs)
 	int	start;
 	int	i;
 	int	j;
+	int	size;
 
 	i = 0;
 	j = 0;
@@ -45,7 +47,9 @@ static char	**allocator(char *str, char **strs)
 		{
 			start = i;
 			skip_word(str, &i);
-			strs[j] = ft_calloc(i - start + 1, sizeof(char));
+			size = i - start + 1;
+			if (size > 0)
+				strs[j] = ft_calloc(size, sizeof(char));
 			if (!strs[j])
 				return (NULL);
 			j++;
@@ -64,16 +68,16 @@ static void	words_filler(char *str, char **strs, int *i, int j)
 	k = 0;
 	while (str[*i] && str[*i] != ' ')
 	{
-
 		if (str[*i] != '\'' && str[*i] != '"')
 			strs[j][k++] = str[(*i)++];
 		else
 		{
 			quotes = str[(*i)++];
 			strs[j][k++] = quotes;
-			while (str[*i] != quotes)
+			while (str[*i] && str[*i] != quotes)
 				strs[j][k++] = str[(*i)++];
-			strs[j][k++] = str[(*i)++];
+			if (str[*i] == quotes)
+				strs[j][k++] = str[(*i)++];
 		}
 	}
 }

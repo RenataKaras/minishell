@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 17:36:14 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/09 18:10:49 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/23 16:49:18 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,16 @@ static int	unquoted_strlen(char *str)
 			else if (str[i] == quotes)
 				quotes = ((i++) && 0); //this is the same as quotes = 0, i++
 			else
+				// len++;
 				len = len + (i++ || 1); //this is the same as len++, i++
 		}
 		else
+			// len++;
 			len = len + (i++ || 1);
+		// i++;
 	}
+	if (quotes)
+		len++;
 	return (len);
 }
 
@@ -44,13 +49,19 @@ static void	unquote(char *str, int *i, char *result, int *j)
 
 	quotes = str[(*i)];
 	(*i)++;
-	while (str[*i] != quotes)
+	while (str[*i] && str[*i] != quotes)
 	{
 		result[*j] = str[*i];
 		(*j)++;
 		(*i)++;
 	}
-	(*i)++;
+	if (str[*i] == quotes)
+		(*i)++;
+	else
+	{
+		result[*j] = quotes;
+		(*j)++;
+	}
 }
 
 char	*strip_quotes(char *str)
