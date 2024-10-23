@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/22 12:30:53 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/23 11:57:36 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@
 // 			printf("Unknown\n");
 // 			break;
 // 	}
+// }
 
 
 // 	// Print node's args
@@ -206,15 +207,7 @@ static void	start_execution(t_data *data)
 	signal(SIGQUIT, child_sigq_handler);
 	set_exec_precedence(data->ast, data);
 	if (data->heredoc_siginit)
-	{
-		//clear_ast cause segfault here
-		//clear_ast(&data->ast, data->token_list);
-		//here, we need to get rid of the input delimeter of heredoc
-		//so that it does not enter into the execute_node
-		//clear_ast was supposed to do that
 		data->heredoc_siginit = false;
-		return ;
-	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
 	data->exit_status = execute_node(data->ast, false, data);
 	clear_ast(&data->ast, data->token_list);
