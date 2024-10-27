@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/23 16:57:19 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/27 12:54:30 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@
 // 	for (int i = 0; i < depth; i++)
 // 		printf("  ");  // Two spaces for each level of depth
 
-// 	// Print node type
+// 	//Print node type
 // 	printf("Node Type: ");
 // 	switch (node->type)
 // 	{
