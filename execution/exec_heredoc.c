@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/23 11:28:00 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/28 14:08:54 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	is_delimeter(char *delimiter, char *str)
 		if (*delimiter == '"' || *delimiter == '\'')
 		{
 			delimiter++;
+			continue ;
 		}
 		else if (*str == *delimiter)
 		{
@@ -28,6 +29,8 @@ bool	is_delimeter(char *delimiter, char *str)
 		else
 			return (false);
 	}
+	while (*delimiter == '"' || *delimiter == '\'')
+		delimiter++;
 	return (!*delimiter);
 }
 
@@ -35,9 +38,9 @@ bool	is_delimeter(char *delimiter, char *str)
 //delm_str is a pointer to the delimeter str
 //skip single and double quote chars within the delimeter
 //in an infinite loop, use readline to wait for input
-//if the input input matches value i.e. delimeter, we found delimeter, stop input
-//if not found print the input to read or write end of pipe
-
+//if the input input matches value i.e. delimeter,we found delimeter,stop input
+//if not found write the input to write end of pipe
+//it will be stored in the read end of pipe
 //test if delm_str work instead of value
 
 void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
@@ -47,8 +50,6 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 
 	handle_signals(HEREDOC);
 	delm_str = io->value;
-	while (*delm_str && *delm_str == '"' && *delm_str == '\'')
-		delm_str++;
 	while (1)
 	{
 		input = readline("heredoc> ");
