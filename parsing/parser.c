@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 14:46:05 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/23 14:08:05 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/28 18:40:56 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ t_node	*handle_term_and_token(t_token **token_list, t_data **data)
 	if (!left)
 		return (NULL);
 	get_next_token(token_list);
-	while (*token_list && (*token_list)->type == T_IDENTIFIER)
+	while (*token_list && ((*token_list)->type == T_IDENTIFIER
+			|| is_redirection((*token_list)->type) == true))
 		get_next_token(token_list);
 	return (left);
 }
