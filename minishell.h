@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/23 17:47:42 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/28 15:04:22 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,7 @@ void		heredoc_expander(char *str, int fd, t_data *data);
 
 //debugging
 
+void print_env(t_envls *env);
 //void print_io_list(t_io_node *io_list);
 
 #endif

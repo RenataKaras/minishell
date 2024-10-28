@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/23 17:47:28 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/28 15:04:00 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,14 @@
 //Execute the command node and store exit status
 //Clear AST and token list after execution
 
-//volatile sig_atomic_t g_signal_number;
+void print_env(t_envls *env) 
+{
+    while (env) 
+	{
+        printf("Key: %s, Value: %s\n", env->key, env->value);
+        env = env->next;
+    }
+}
 
 void	error_msg(char *msg)
 {

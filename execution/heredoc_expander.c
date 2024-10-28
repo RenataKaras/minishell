@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 13:39:03 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/23 11:32:59 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/28 15:25:07 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ static int	write_env_value(char *name, size_t i, int write_fd, t_data *data)
 		i++;
 	if (i != start)
 	{
-		tmp = free_or_add_list(ft_substr(name, start, i), false);
+		tmp = free_or_add_list(ft_substr(name, start, i - start), false);
+		printf("before calling get_value%s \n", tmp);
 		tmp = get_envlst_val(tmp, data->env);
+		printf("this is the return of tmp:%s\n", tmp);
 		if (tmp)
 			ft_putstr_fd(tmp, write_fd);
 	}

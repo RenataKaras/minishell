@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/28 14:08:54 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/28 15:25:21 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ bool	is_delimeter(char *delimiter, char *str)
 	return (!*delimiter);
 }
 
+//For unquoted delimiters (EOF), the variables in input are expanded.
+//$USER=rshaheen
+//For quoted delimiters ("EOF"), the input is printed as-is.
+//$USER=$USER
+
 //input will hold the inputs of heredoc
 //delm_str is a pointer to the delimeter str
 //skip single and double quote chars within the delimeter
@@ -57,14 +62,15 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 			break ;
 		if (is_delimeter(io->value, input))
 			break ;
-		if (!*delm_str)
-			heredoc_expander(input, pipefd[1], data);
-		else
+		if (*delm_str == '"' || *delm_str == '\'')
 		{
 			ft_putstr_fd(input, pipefd[1]);
 			ft_putchar_fd('\n', pipefd[1]);
 		}
+		else
+			heredoc_expander(input, pipefd[1], data);
 	}
 	clean_minishell(data);
 	exit (0);
 }
+

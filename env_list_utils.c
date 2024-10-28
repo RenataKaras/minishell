@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/16 15:51:57 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/28 15:03:28 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_path	get_env_path(char *path, char *cmd)
 	free_array(splitted_path, i);
 	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_CMD_NOT_FOUND, cmd}, NULL});
 }
-
 
 char	*get_envlst_val(char *key, t_envls *env)
 {
