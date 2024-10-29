@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/23 17:21:40 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 13:12:44 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ int	execute_node(t_node *tree, bool piped, t_data *data)
 	if (!tree)
 		return (1);
 	if (tree->type == N_PIPE)
+	{
 		return (fork_for_pipe(data, tree));
+	}
 	else
 		return (exec_simple_cmd(data, piped, tree));
 	return (ENO_GENERAL);

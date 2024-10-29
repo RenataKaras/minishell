@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/23 17:45:12 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 13:12:55 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,32 +85,6 @@ static bool	child_exit_normal(int pipefd[2], int *childpid, t_data *data)
 		return (true);
 	return (false);
 }
-
-// static void	pipe_fork_heredoc(t_data *data, t_io_node *io)
-// {
-// 	int			pipefd[2];
-// 	int			child_pid;
-// 	int			status;
-
-// 	status = 0;
-// 	if (pipe(pipefd) == -1)
-// 		exit(EXIT_FAILURE);
-// 	data->heredoc_siginit = true;
-// 	child_pid = (signal(SIGQUIT, SIG_IGN), fork());
-// 	if (child_pid == -1)
-// 		exit(EXIT_FAILURE);
-// 	if (child_pid == 0)
-// 		execute_heredoc(io, pipefd, data);
-// 	else
-// 	{
-// 		signal(SIGINT, heredoc_sigint_handler);
-// 		signal(SIGQUIT, SIG_IGN);
-// 		waitpid(child_pid, &status, 0);
-// 	}
-// 	if (child_exit_normal(pipefd, &child_pid, data))
-// 		return ;
-// 	io->here_doc = pipefd[0];
-// }
 
 static void	setup_io_and_heredoc(t_data *data, t_node *node)
 {
