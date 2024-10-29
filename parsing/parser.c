@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 14:46:05 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/28 18:40:56 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/29 16:07:15 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ t_node	*expression(int min_prec, t_token **token_list, t_data **data)
 	{
 		get_next_token(token_list);
 		if (!token_list || !*token_list)
-			return ((*data)->parse_error = false,
-				error_msg("Syntax error: no command after '|'"), NULL);
+			return ((*data)->parse_error = true,
+				error_msg("Syntax error: no command after '|'"), left);
 		next_prec = 0 + 1;
 		right = expression(next_prec, token_list, data);
 		if (!right)

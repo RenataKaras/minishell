@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/28 18:43:35 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/29 16:11:04 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@
 
 // void	print_ast(t_node *node, int depth)
 // {
+// 	// puts("inside of print_ast");
 // 	if (!node)
 // 		return;
 
@@ -229,8 +230,8 @@ void	*maintain_prompt(t_data *data)
 			handle_parse_error(data);
 			continue ;
 		}
-		// print_env_list (token_list);
 		// print_ast(data->ast, 0);
+		// print_env_list (token_list);
 		start_execution(data);
 	}
 }
