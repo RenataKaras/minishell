@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/29 18:02:17 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 18:03:35 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,13 +241,8 @@ void	*maintain_prompt(t_data *data)
 			handle_parse_error(data);
 			continue ;
 		}
-<<<<<<< HEAD
-		// print_env_list (token_list);
-		//print_ast(data->ast, 0);
-=======
 		// print_ast(data->ast, 0);
 		// print_env_list (token_list);
->>>>>>> main
 		start_execution(data);
 	}
 }
