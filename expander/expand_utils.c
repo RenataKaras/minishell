@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/24 17:55:17 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/08 17:06:10 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/23 14:48:24 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*handle_squotes(char *str, int *i)
 
 	start = *i;
 	(*i)++;
-	while (str[*i] != '\'')
+	while (str[*i] && str[*i] != '\'')
 		(*i)++;
 	(*i)++;
 	return (ft_substr(str, start, *i - start));

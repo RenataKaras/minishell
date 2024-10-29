@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/29 13:12:08 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 13:15:53 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@
 // 			printf("Unknown\n");
 // 			break;
 // 	}
-
 // 	// Print node's args
 // 	if (node->args)
 // 	{
