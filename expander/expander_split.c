@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/25 16:37:13 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/23 17:48:37 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/29 17:20:09 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	words_filler(char *str, char **strs, int *i, int j)
 		}
 	}
 }
-
 
 static char	**filler(char *str, char **strs)
 {

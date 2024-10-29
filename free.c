@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/28 17:19:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/29 17:55:35 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 18:02:09 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_array(char **array, int i)
 {
-
 	if (!array)
 		return ;
 	while (i > 0)
@@ -39,7 +38,6 @@ static void	clear_envlst(t_data *data)
 	}
 	data->env = NULL;
 }
-
 
 static void	free_pointer(void *ptr)
 {
@@ -76,4 +74,3 @@ void	clean_minishell(t_data *data)
 	close(data->stdin);
 	close(data->stdout);
 }
-

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/28 15:04:22 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 18:02:23 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define PARENT 1
 # define CHILD 2
 # define HEREDOC 3
-
 
 /*
  * Enumeration, or enum, is a user-defined data type in C/other languages 

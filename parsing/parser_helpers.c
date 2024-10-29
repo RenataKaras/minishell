@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/30 18:29:01 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/23 13:45:02 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/29 16:09:27 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	get_io_list(t_io_node **io_list, t_token **token_list, t_data **data)
 	{
 		redir_type = (*token_list)->type;
 		get_next_token(token_list);
-		if (!token_list && !*token_list)
+		if (!token_list || !*token_list)
 			return ((*data)->parse_error = true,
 				error_msg("Syntax error: redirection"), false);
 		if ((*token_list)->type != T_IDENTIFIER)

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/17 18:35:52 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/29 13:13:35 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 18:02:29 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 
 static void	parent_sigint_handler(int signum)
 {
-		ft_putstr_fd("\n", 1);
-    	rl_replace_line("", 0);
-    	rl_on_new_line();
-    	rl_redisplay();
-		(void) signum;
+	ft_putstr_fd("\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	(void) signum;
 }
 
 static void	child_sigint_handler(int signum)

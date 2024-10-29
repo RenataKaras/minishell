@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/29 17:40:13 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 18:02:17 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@
 
 // void	print_ast(t_node *node, int depth)
 // {
+// 	// puts("inside of print_ast");
 // 	if (!node)
 // 		return;
 
@@ -151,7 +152,6 @@
 // it saves the current stdin so it can be restored later if needed.
 // TCGETATTR: It retrieves the terminal settings using tcgetattr 
 //and stores them in data->original_terminal.
-
 
 //signal is a standard C function defined in <signal.h>
 //Prototype: void (*signal(int sig, void (*handler)(int)))(int);
@@ -241,8 +241,13 @@ void	*maintain_prompt(t_data *data)
 			handle_parse_error(data);
 			continue ;
 		}
+<<<<<<< HEAD
 		// print_env_list (token_list);
 		//print_ast(data->ast, 0);
+=======
+		// print_ast(data->ast, 0);
+		// print_env_list (token_list);
+>>>>>>> main
 		start_execution(data);
 	}
 }
@@ -253,7 +258,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-
 	if (argc != 1 || argv[1])
 		return (error_msg("Wrong number of arguments"), EXIT_FAILURE);
 	init_minishell(&data, envp);
