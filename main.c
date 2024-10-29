@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/29 16:11:04 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/29 17:18:09 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@
 // TCGETATTR: It retrieves the terminal settings using tcgetattr 
 //and stores them in data->original_terminal.
 
-
 //signal is a standard C function defined in <signal.h>
 //Prototype: void (*signal(int sig, void (*handler)(int)))(int);
 // when specified signal is received, like SIGINT (Ctrl+C) or SIGQUIT (Ctrl+\)
@@ -242,7 +241,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-
 	if (argc != 1 || argv[1])
 		return (error_msg("Wrong number of arguments"), EXIT_FAILURE);
 	init_minishell(&data, envp);

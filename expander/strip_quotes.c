@@ -6,7 +6,7 @@
 /*   By: rkaras <rkaras@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 17:36:14 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/23 16:49:18 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/29 17:21:15 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,14 @@ static int	unquoted_strlen(char *str)
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			if (!quotes)
-				quotes = str[i++]; //stores the quote position and THEN increments the i
+				quotes = str[i++];
 			else if (str[i] == quotes)
-				quotes = ((i++) && 0); //this is the same as quotes = 0, i++
+				quotes = ((i++) && 0);
 			else
-				// len++;
-				len = len + (i++ || 1); //this is the same as len++, i++
+				len = len + (i++ || 1);
 		}
 		else
-			// len++;
 			len = len + (i++ || 1);
-		// i++;
 	}
 	if (quotes)
 		len++;
