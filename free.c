@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/28 17:19:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 13:14:17 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 17:55:35 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ void	clean_minishell(t_data *data)
 	clear_envlst(data);
 	rl_clear_history();
 	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
+	close(data->stdin);
+	close(data->stdout);
 }
 

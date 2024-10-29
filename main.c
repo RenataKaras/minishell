@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/29 13:15:53 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/29 17:40:13 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,12 @@ void	*maintain_prompt(t_data *data)
 		handle_signals(PARENT);
 		data->cmd_line = readline("minishell> ");
 		if (!data->cmd_line)
-			(ft_putstr_fd("exit\n", 1), exit(data->exit_status));
+		{
+			ft_putstr_fd("exit\n", 1),
+			close(data->stdin);
+			close(data->stdout);
+			exit(data->exit_status);
+		}
 		if (data->cmd_line[0])
 			add_history(data->cmd_line);
 		data->token_list = tokenize(data->cmd_line);
@@ -254,5 +259,6 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(&data, envp);
 	maintain_prompt(&data);
 	free_or_add_list(NULL, true);
-	return (clean_minishell(&data), data.exit_status);
+	clean_minishell(&data);
+	return (data.exit_status);
 }
