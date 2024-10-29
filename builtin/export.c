@@ -26,13 +26,12 @@
 * it skips the double quote and adds a backslash before $
 * test here
 */
-static void	print_export_list(void)
+static void	print_export_list(t_data *data)
 {
 	t_envls	*list;
 	size_t	i;
-	t_data	minishell;
 
-	list = minishell.env;
+	list = data->env;
 	while (list)
 	{
 		if (list->value != NULL && (ft_strcmp(list->key, "_") != 0))
@@ -85,7 +84,7 @@ int	ft_export(char **command, t_data *minishell)
 	exit_status = 0;
 	i = 1;
 	if (!command[i])
-		return (print_export_list(), 0);
+		return (print_export_list(minishell), 0);
 	while (command[i])
 	{
 		if (check_key_format(command[i]) == 0)

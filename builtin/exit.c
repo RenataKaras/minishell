@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 14:51:58 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 15:58:14 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/21 15:21:03 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	exit_atoi(char *str, t_data *data)
 	update_sign_and_index(str, &i, &sign);
 	if (!is_number(str + i))
 	{
-		exit_s = msg_err((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
+		exit_s = display_err((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
 		(clean_minishell(data), exit(exit_s));
 	}
 	result = 0;
@@ -59,7 +59,8 @@ static int	exit_atoi(char *str, t_data *data)
 		result = (result * 10) + (str[i] - '0');
 		if (result > LONG_MAX)
 		{
-			exit_s = msg_err((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
+			exit_s = display_err(
+					(t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
 			(clean_minishell(data), exit(exit_s));
 		}
 		i++;
@@ -72,14 +73,16 @@ void	ft_exit(char **args, t_data *data)
 {
 	int	exit_status;
 
+	printf("exit\n");
 	exit_status = data->exit_status;
 	if (args[1])
 	{
 		if (args[2] && is_number(args[1]))
 		{
-			exit_status = msg_err(
+			exit_status = display_err(
 					(t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS, NULL});
 			(clean_minishell(data), exit(exit_status));
+			return ;
 		}
 		else
 			exit_status = exit_atoi(args[1], data);

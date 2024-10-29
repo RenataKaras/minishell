@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/08 19:06:02 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/23 16:37:59 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ static int	exec_child(t_node *node, t_data *data)
 
 	data->sigint_child = true;
 	fork_pid = fork();
+	if (fork_pid == -1)
+		exit(EXIT_FAILURE);
+	handle_signals(CHILD);
 	if (!fork_pid)
 	{
 		tmp_status = exec_redirection(node);
@@ -78,7 +81,7 @@ static int	exec_child(t_node *node, t_data *data)
 		path_status = get_path((node->expanded_args)[0], data);
 		if (path_status.error.num != ENO_SUCCESS)
 		{
-			tmp_status = msg_err(path_status.error);
+			tmp_status = display_err(path_status.error);
 			(clean_minishell(data), exit(tmp_status));
 		}
 		if (execve(path_status.path, node->expanded_args, data->envp) == -1)
@@ -102,6 +105,54 @@ static int	exec_child(t_node *node, t_data *data)
 //If redirection fails, ENO_GENERAL is returned right away, 
 //and the builtin is not executed.
 //if not a builtin, we execute_child??
+// void print_node(t_node *node)
+// {
+//     int i = 0;
+
+//     // Print node type
+//     printf("Node Type(in exec): %d\n", node->type);  // Assuming t_node_type is an integer
+
+//     // Print args
+//     if (node->args)
+//         printf("Args: %s\n", node->args);
+//     else
+//         printf("Args: NULL\n");
+
+//     // Print expanded_args (array of strings)
+//     if (node->expanded_args)
+//     {
+//         printf("Expanded Args(exec):\n");
+//         while (node->expanded_args[i])
+//         {
+//             printf("Arg[%d]: %s\n", i, node->expanded_args[i]);
+//             i++;
+//         }
+//     }
+//     else
+//         printf("No expanded args.\n");
+
+//     // Print IO list if it exists
+//     if (node->io_list)
+//     {
+//         puts("Printing IO list from node:");
+//         print_io_list(node->io_list);// Assuming you have a print_io_list function
+//     }
+//     else
+//     {
+//         puts("Node IO list is empty.");
+//     }
+
+//     // Check and print left and right nodes (if they exist)
+//     if (node->left)
+//         puts("Node has a left child.");
+//     else
+//         puts("No left child.");
+
+//     if (node->right)
+//         puts("Node has a right child.");
+//     else
+//         puts("No right child.");
+// }
 
 
 int	exec_simple_cmd(t_data *data, bool piped, t_node *node)

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/27 15:54:33 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/09 17:24:28 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/17 18:02:27 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //checks for -n flag
 //returns 0 if -n is not found
-//returns 1 if -n is found
+//returns 1 ONLY if -n is found
 
 static int	skip_newline(char *s)
 {
@@ -24,6 +24,8 @@ static int	skip_newline(char *s)
 	if (s[0] != '-')
 		return (0);
 	i++;
+	if (s[1] == '\0')
+		return (0);
 	while (s[i])
 	{
 		if (s[i] != 'n')
@@ -32,24 +34,28 @@ static int	skip_newline(char *s)
 	}
 	return (1);
 }
+//i = 1 cause begin at command #2 to check for flag and NULL
+//enter in while loop in both -n and not -n cases
+//check if there is more texts coming up
+//print a space
 
 int	ft_echo(char **command)
 {
 	int	i;
 	int	skip_newline_flag;
 
-	i = 1;//begin at command #2 to check for flag and NULL
+	i = 1;
 	skip_newline_flag = 0;
 	while (command[i] != NULL && skip_newline(command[i]) == 1)
 	{
 		skip_newline_flag = 1;
 		i++;
 	}
-	while (command[i])//enter here in both -n and not -n cases
+	while (command[i])
 	{
 		ft_putstr_fd(command[i], 1);
-		if (command[i + 1])//check if there is more texts coming up
-			ft_putstr_fd(" ", 1);//print a space
+		if (command[i + 1])
+			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	if (skip_newline_flag == 0)

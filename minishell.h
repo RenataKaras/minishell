@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/09 18:06:54 by rkaras        ########   odam.nl         */
+/*   Updated: 2024/10/23 17:47:42 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 # include <sys/ttydefaults.h>
 # include <sys/wait.h>
 
-// Global variable to hold the signal number
-//int  g_signal_number;
+# define PARENT 1
+# define CHILD 2
+# define HEREDOC 3
+
 
 /*
  * Enumeration, or enum, is a user-defined data type in C/other languages 
@@ -152,11 +154,10 @@ typedef struct s_data
 	bool			sigint_child;
 	struct termios	original_terminal;
 	int				exit_status;
-
+	bool			parse_error;
 }	t_data;
 
 //builtin
-
 int			ft_env(t_data *data);
 int			ft_pwd(void);
 int			ft_echo(char **command);
@@ -167,7 +168,6 @@ int			check_key_format(char *str);
 void		ft_exit(char **args, t_data *data);
 
 //envp
-
 void		make_env_list(t_data *data);
 char		*copy_key(char *str);
 char		*copy_value(char *str);
@@ -214,9 +214,10 @@ void		clear_io_list(t_io_node **lst);
 void		recursively_clear_ast(t_node *node);
 
 //parser_helpers
-bool		get_io_list(t_io_node **io_list, t_token *token_list);
-t_node		*get_simple_cmd(t_token *token_list);
-bool		join_args(char **args, t_token **token_list);
+bool		get_io_list(t_io_node **io_list, t_token **token_list,
+				t_data **data);
+t_node		*get_simple_cmd(t_token *token_list, t_data **data);
+bool		join_args(char **args, t_token **token_list, t_data **data);
 
 //parser_lists
 void		append_io_node(t_io_node **lst, t_io_node *new);
@@ -229,15 +230,14 @@ char		*ft_strjoin_with(char const *s1, char const *s2, char sep);
 void		free_char2(char **str);
 void		get_next_token(t_token **token_list);
 bool		is_redirection(t_token_type type);
+void		handle_parse_error(t_data *data);
 
 //parser
-t_node		*combine(t_node *left, t_node *right);
-t_node		*expression(int min_prec, t_token **token_list);
-t_node		*handle_term_and_token(t_token **token_list);
-t_node		*parse(t_token *token_list);
-t_node		*term(t_token *token_list);
-
-/*TOKENIZING*/
+t_node		*combine(t_node *left, t_node *right, t_data **data);
+t_node		*expression(int min_prec, t_token **token_list, t_data **data);
+t_node		*handle_term_and_token(t_token **token_list, t_data **data);
+t_node		*parse(t_token *token_list, t_data *data);
+t_node		*term(t_token *token_list, t_data **data);
 
 //token_adder
 int			add_identifier(char **line_ptr, t_token **token_list);
@@ -265,18 +265,20 @@ bool		skip_quotes(char *line, int *i);
 void		error_msg(char *msg);
 
 //signal handling
+void		child_sigq_handler(int signum);
+void		handle_signals(int process);
+void		heredoc_sigint_handler(int signum);
 
-void		init_signals(t_data *data);
-void		sigquit_handler(int num);
-void		process_sigint(t_data *data);
+// void		init_signals(t_data *data);
+// void		sigquit_handler(int num);
+// void		process_sigint(t_data *data);
 
 //execution
-
 void		set_exec_precedence(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
 int			exec_redirection(t_node *node);
 int			execute_node(t_node *tree, bool piped, t_data *data);
-int			msg_err(t_err error);
+int			display_err(t_err error);
 t_err		check_write_perm(char *file);
 t_err		check_read_perm(char *file);
 t_err		check_exec_perm(char *file, bool cmd);
@@ -284,5 +286,9 @@ int			exec_builtin(char **command, t_data *data);
 int			get_exit_status(int status);
 int			exec_simple_cmd(t_data *data, bool piped, t_node *node);
 void		heredoc_expander(char *str, int fd, t_data *data);
+
+//debugging
+
+//void print_io_list(t_io_node *io_list);
 
 #endif

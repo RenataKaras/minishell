@@ -6,12 +6,13 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 13:39:03 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/07 16:49:51 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/23 11:32:59 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+//write env value
 //skip the index of $ and store the start position of the string there
 //if we got a ? after $, we will write the exit status
 //go to the end of the name until it ends by

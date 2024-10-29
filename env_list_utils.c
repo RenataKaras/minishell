@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/03 13:12:13 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/16 15:51:57 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,14 @@ void	update_val(t_data *min, char *key, char *value, bool make)
 {
 	t_envls	*envlst;
 
+	if (!key)
+		return ;
 	envlst = min->env;
 	while (envlst)
 	{
 		if (ft_strcmp(key, envlst->key) == 0)
 		{
-			if (value)
+			if (value && ft_strlen(value) > 0)
 				envlst->value = free_or_add_list(ft_strdup(value), false);
 			return ;
 		}

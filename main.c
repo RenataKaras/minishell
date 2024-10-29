@@ -6,15 +6,11 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 17:53:47 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/08 20:00:13 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/28 18:43:35 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static void	start_execution(void)
-// {
-// }
 
 // void print_env_list(t_envls *list)
 // {
@@ -89,7 +85,7 @@
 // 	for (int i = 0; i < depth; i++)
 // 		printf("  ");  // Two spaces for each level of depth
 
-// 	// Print node type
+// 	//Print node type
 // 	printf("Node Type: ");
 // 	switch (node->type)
 // 	{
@@ -103,8 +99,6 @@
 // 			printf("Unknown\n");
 // 			break;
 // 	}
-// }
-
 // 	// Print node's args
 // 	if (node->args)
 // 	{
@@ -207,13 +201,10 @@ static void	init_minishell(t_data *data, char **envp)
 
 static void	start_execution(t_data *data)
 {
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, child_sigq_handler);
 	set_exec_precedence(data->ast, data);
 	if (data->heredoc_siginit)
-	{
-		clear_ast(&data->ast, data->token_list);
 		data->heredoc_siginit = false;
-	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &data->original_terminal);
 	data->exit_status = execute_node(data->ast, false, data);
 	clear_ast(&data->ast, data->token_list);
@@ -223,18 +214,23 @@ void	*maintain_prompt(t_data *data)
 {
 	while (1)
 	{
-		init_signals(data);//fix it later
+		handle_signals(PARENT);
 		data->cmd_line = readline("minishell> ");
 		if (!data->cmd_line)
-			return (error_msg("exit\n"), NULL);
+			(ft_putstr_fd("exit\n", 1), exit(data->exit_status));
 		if (data->cmd_line[0])
 			add_history(data->cmd_line);
 		data->token_list = tokenize(data->cmd_line);
 		if (!data->token_list)
 			continue ;
-		data->ast = parse(data->token_list);
+		data->ast = parse(data->token_list, data);
+		if (data->parse_error == true)
+		{
+			handle_parse_error(data);
+			continue ;
+		}
 		// print_env_list (token_list);
-		//print_ast(data->ast, 0);
+		// print_ast(data->ast, 0);
 		start_execution(data);
 	}
 }
@@ -248,7 +244,6 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || argv[1])
 		return (error_msg("Wrong number of arguments"), EXIT_FAILURE);
-
 	init_minishell(&data, envp);
 	maintain_prompt(&data);
 	free_or_add_list(NULL, true);
