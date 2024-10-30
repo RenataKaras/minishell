@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/27 15:51:48 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/14 14:48:31 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 15:00:11 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	ft_pwd(void)
 		return (1);
 	ft_putstr_fd(cwd, 1);
 	ft_putstr_fd("\n", 1);
+	free(cwd);
 	return (0);
 }
