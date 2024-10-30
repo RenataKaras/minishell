@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 17:58:03 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/30 12:08:52 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:54:02 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ static int	change_pwd(t_data *minishell)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (1);
-	return (update_val(minishell, "PWD", cwd, false), 0);
+	update_val(minishell, "PWD", cwd, false);
+	free (cwd);
+	return (0);
 }
 
 int	ft_cd(char *dir_name, t_data *minishell)
