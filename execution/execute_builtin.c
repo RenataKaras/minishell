@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/26 18:37:27 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/21 14:55:17 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:19:32 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,3 @@ int	exec_builtin(char **command, t_data *minishell)
 	ft_exit(command, minishell);
 	return (ENO_GENERAL);
 }
-

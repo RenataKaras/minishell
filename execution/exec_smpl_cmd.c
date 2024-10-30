@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:07:35 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/30 13:59:15 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:22:40 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ static int	exec_child(t_node *node, t_data *data)
 	return (get_exit_status(tmp_status));
 }
 
-
-
 //if no expanded args, it means redirection?
 //first we execute rediections and reset std cause redirections change 
 //stdin/stdout to files/pipes. reset to the original for future commands
@@ -105,55 +103,6 @@ static int	exec_child(t_node *node, t_data *data)
 //If redirection fails, ENO_GENERAL is returned right away, 
 //and the builtin is not executed.
 //if not a builtin, we execute_child??
-// void print_node(t_node *node)
-// {
-//     int i = 0;
-
-//     // Print node type
-//     printf("Node Type(in exec): %d\n", node->type);  // Assuming t_node_type is an integer
-
-//     // Print args
-//     if (node->args)
-//         printf("Args: %s\n", node->args);
-//     else
-//         printf("Args: NULL\n");
-
-//     // Print expanded_args (array of strings)
-//     if (node->expanded_args)
-//     {
-//         printf("Expanded Args(exec):\n");
-//         while (node->expanded_args[i])
-//         {
-//             printf("Arg[%d]: %s\n", i, node->expanded_args[i]);
-//             i++;
-//         }
-//     }
-//     else
-//         printf("No expanded args.\n");
-
-//     // Print IO list if it exists
-//     if (node->io_list)
-//     {
-//         puts("Printing IO list from node:");
-//         print_io_list(node->io_list);// Assuming you have a print_io_list function
-//     }
-//     else
-//     {
-//         puts("Node IO list is empty.");
-//     }
-
-//     // Check and print left and right nodes (if they exist)
-//     if (node->left)
-//         puts("Node has a left child.");
-//     else
-//         puts("No left child.");
-
-//     if (node->right)
-//         puts("Node has a right child.");
-//     else
-//         puts("No right child.");
-// }
-
 
 int	exec_simple_cmd(t_data *data, bool piped, t_node *node)
 {

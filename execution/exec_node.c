@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/30 13:10:08 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/30 13:40:50 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:20:13 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static int	fork_for_pipe(t_data *data, t_node *tree)
 
 int	execute_node(t_node *tree, bool piped, t_data *data)
 {
-
 	if (!tree)
 		return (1);
 	if (tree->type == N_PIPE)
