@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 17:47:05 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/29 18:01:59 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 11:37:34 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	update_val(t_data *min, char *key, char *value, bool make)
 	if (make)
 		append_new_node(create_new_node(key, value), min);
 }
-
+//what happens if create_new_node returns null????
 /*
  * On the very first call of this function from make_env_list:
  * `g_minishell.env` will be NULL source it hasn't been initialized yet.

@@ -25,9 +25,3 @@ int	ft_env(t_data *minishell)
 	}
 	return (ENO_SUCCESS);
 }
-
-//The ft_env function works with the list that is obtained from 
-// the g_minishell.env. 
-//This is part of the global g_minishell struct, 
-//which contains the environment variables for minishell.
-

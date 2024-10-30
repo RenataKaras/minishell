@@ -1,0 +1,7 @@
+main.c
+main.o
+make_env_list.c
+make_env_list.o
+minishell
+minishell_eval.pdf
+minishell.h

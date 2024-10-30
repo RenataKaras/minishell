@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:22:40 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/23 17:35:14 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 13:13:15 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	set_output_redir(t_io_node *io_list, int *exit_status)
 
 	if (!io_list->expanded_value || io_list->expanded_value[1])
 	{
-		*exit_status = display_err(
+		*exit_status = show_err(
 				(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
 		return (*exit_status);
 	}
@@ -39,7 +39,7 @@ int	set_output_redir(t_io_node *io_list, int *exit_status)
 	if (fd == -1)
 	{
 		*exit_status
-			= display_err(check_write_perm(io_list->expanded_value[0]));
+			= show_err(check_write_perm(io_list->expanded_value[0]));
 		return (*exit_status);
 	}
 	dup2(fd, STDOUT_FILENO);
@@ -54,7 +54,7 @@ int	set_input_redir(t_io_node *io_list, int *exit_status)
 
 	if (!io_list->expanded_value || io_list->expanded_value[1])
 	{
-		*exit_status = display_err(
+		*exit_status = show_err(
 				(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
 		return (*exit_status);
 	}
@@ -62,7 +62,7 @@ int	set_input_redir(t_io_node *io_list, int *exit_status)
 	if (fd == -1)
 	{
 		*exit_status
-			= display_err(check_read_perm(io_list->expanded_value[0]));
+			= show_err(check_read_perm(io_list->expanded_value[0]));
 		return (*exit_status);
 	}
 	dup2(fd, STDIN_FILENO);
@@ -77,7 +77,7 @@ int	set_append_redir(t_io_node *io_list, int *exit_status)
 
 	if (!io_list->expanded_value || io_list->expanded_value[1])
 	{
-		*exit_status = display_err(
+		*exit_status = show_err(
 				(t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
 		return (*exit_status);
 	}
@@ -85,7 +85,7 @@ int	set_append_redir(t_io_node *io_list, int *exit_status)
 	if (fd == -1)
 	{
 		*exit_status
-			= display_err(check_write_perm(io_list->expanded_value[0]));
+			= show_err(check_write_perm(io_list->expanded_value[0]));
 		return (*exit_status);
 	}
 	dup2(fd, STDOUT_FILENO);

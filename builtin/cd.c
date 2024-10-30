@@ -6,11 +6,24 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 17:58:03 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/09/16 15:22:14 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 12:08:52 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+* cd in bash returns 0 on success and 1 in failure
+* 
+* ft_cd_home:
+* int chdir(const char *dir_name);
+* chdir is a standard C lib function that changes the current working directory
+* of the CALLING process to the directory specified by the PATH provided.
+* returns 0 on success and -1 in failure
+* This function records the PWD in OLDPWD
+* Then it gets the value of HOME and
+* changes the PWD to HOME
+*/
 
 char	*get_env_value(char *key, t_data *minishell)
 {
@@ -25,16 +38,6 @@ char	*get_env_value(char *key, t_data *minishell)
 	}
 	return (NULL);
 }
-/*
-* ft_cd_home changes the current working directory to user's home directory.
-* int chdir(const char *dir_name);
-* chdir is a standard C lib function that changes the current working directory
-* of the CALLING process to the directory specified by the PATH provided.
-* returns 0 on success and -1 in failure
-* This function records the PWD in OLDPWD
-* Then it gets the value of HOME and
-* changes the PWD to HOME
-*/
 
 static int	ft_cd_home(t_data *minishell)
 {

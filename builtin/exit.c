@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 14:51:58 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/29 17:58:05 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 13:18:53 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	exit_atoi(char *str, t_data *data)
 	update_sign_and_index(str, &i, &sign);
 	if (!is_number(str + i))
 	{
-		exit_s = display_err((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
+		exit_s = show_err((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
 		(clean_minishell(data), exit(exit_s));
 	}
 	result = 0;
@@ -59,15 +59,16 @@ static int	exit_atoi(char *str, t_data *data)
 		result = (result * 10) + (str[i] - '0');
 		if (result > LONG_MAX)
 		{
-			exit_s = display_err(
-					(t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
+			exit_s = show_err((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, str});
 			(clean_minishell(data), exit(exit_s));
 		}
 		i++;
 	}
 	return ((result * sign) % 256);
 }
-
+//exit status % 256 because, exit status range 0-255
+//So, if your calculation results in a value outside this range (say, 300), 
+//300 % 256 would result in 44.
 
 void	ft_exit(char **args, t_data *data)
 {
@@ -79,7 +80,7 @@ void	ft_exit(char **args, t_data *data)
 	{
 		if (args[2] && is_number(args[1]))
 		{
-			exit_status = display_err(
+			exit_status = show_err(
 					(t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS, NULL});
 			(clean_minishell(data), exit(exit_status));
 			return ;

@@ -6,13 +6,13 @@
 #    By: rshaheen <rshaheen@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/09 16:12:46 by rkaras        #+#    #+#                  #
-#    Updated: 2024/10/14 11:49:55 by rshaheen      ########   odam.nl          #
+#    Updated: 2024/10/30 13:27:28 by rshaheen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT = ./Libft/libft.a
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 LDFLAGS = -lreadline
 
 SOURCE = main.c \

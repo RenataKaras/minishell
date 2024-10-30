@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/27 15:54:33 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/17 18:02:27 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 12:19:14 by rshaheen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static int	skip_newline(char *s)
 	}
 	return (1);
 }
-//i = 1 cause begin at command #2 to check for flag and NULL
+//i = 1 cause begin at command #2 to check for flag
+//send the command #2 to skip_newline function to be checked
 //enter in while loop in both -n and not -n cases
 //check if there is more texts coming up
 //print a space
