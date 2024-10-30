@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/18 17:52:07 by rkaras        #+#    #+#                 */
-/*   Updated: 2024/10/30 13:13:15 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:17:53 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_token
 }	t_token;
 
 //*A*bstract *S*yntax *T*ree structs
-//Do we need &&
 
 typedef enum e_ast_direction
 {
@@ -177,7 +176,6 @@ t_path		get_env_path(char *path, char *cmd);
 //cleanup
 void		*free_or_add_list(void *ptr, bool clean);
 void		clean_minishell(t_data *data);
-void		print_env_list(t_token *head);
 void		free_array(char **array, int i);
 
 /*EXPANDER*/
@@ -268,10 +266,6 @@ void		child_sigq_handler(int signum);
 void		handle_signals(int process);
 void		heredoc_sigint_handler(int signum);
 
-// void		init_signals(t_data *data);
-// void		sigquit_handler(int num);
-// void		process_sigint(t_data *data);
-
 //execution
 void		set_exec_precedence(t_node *node, t_data *data);
 void		execute_heredoc(t_io_node *io, int pipefd[2], t_data *data);
@@ -285,10 +279,5 @@ int			exec_builtin(char **command, t_data *data);
 int			get_exit_status(int status);
 int			exec_simple_cmd(t_data *data, bool piped, t_node *node);
 void		heredoc_expander(char *str, int fd, t_data *data);
-
-//debugging
-
-void print_env(t_envls *env);
-//void print_io_list(t_io_node *io_list);
 
 #endif

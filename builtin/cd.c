@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 17:58:03 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/30 12:08:52 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:23:32 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,3 @@ int	ft_cd(char *dir_name, t_data *minishell)
 	update_val(minishell, "OLDPWD", get_env_value("PWD", minishell), false);
 	return (change_pwd(minishell));
 }
-

@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/27 20:41:31 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/28 15:25:21 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:23:00 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ void	execute_heredoc(t_io_node *io, int pipefd[2], t_data *data)
 	clean_minishell(data);
 	exit (0);
 }
-

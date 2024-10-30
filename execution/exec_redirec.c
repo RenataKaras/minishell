@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/01 16:22:40 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/30 13:13:15 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:20:53 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,6 @@ int	set_append_redir(t_io_node *io_list, int *exit_status)
 	*exit_status = 0;
 	return (0);
 }
-
-// void print_io_list(t_io_node *io_list)
-// {
-//     t_io_node *current = io_list;
-//     while (current)
-//     {
-//         printf("IO Type: %d\n", current->type);  // Assuming type is an integer enum
-//         if (current->type == IO_HEREDOC)
-//             printf("Here_doc FD: %d\n", current->here_doc);
-//         // Add more fields here if needed, based on the structure of t_io_node
-//         current = current->next;
-//     }
-// }
 
 int	exec_redirection(t_node *node)
 {

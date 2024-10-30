@@ -6,7 +6,7 @@
 /*   By: rshaheen <rshaheen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/20 17:14:01 by rshaheen      #+#    #+#                 */
-/*   Updated: 2024/10/29 13:12:55 by rshaheen      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:19:55 by rkaras        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 // close write end of pipe
 // Check if the child process exited normally and was terminated by SIGINT
 //WIFEXITED checks if exited & WEXITSTATUS checks status
-
 
 //when heredoc is found, we start ignoring SIGQUIT by SIG_IGN coz
 //bash does not react to SIGQUIT inside heredoc
@@ -128,4 +127,3 @@ void	set_exec_precedence(t_node *node, t_data *data)
 	else
 		setup_io_and_heredoc(data, node);
 }
-
